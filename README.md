@@ -33,11 +33,15 @@ brew upgrade mmcp
 
 ### 1. Configure Your Mambu Credentials
 
-The MCP server requires three environment variables to connect to your Mambu instance:
+The MCP server requires environment variables to connect to your Mambu instance:
 
 *   `MAMBU_BASE_URL`: Your Mambu API endpoint (e.g., `https://your-tenant.mambu.com/api`)
-*   `MAMBU_AUTH_USERNAME`: Your Mambu API username
-*   `MAMBU_AUTH_PASSWORD`: Your Mambu API password
+*   `MAMBU_AUTH_API_KEY`: Your Mambu API key (for API Consumer authentication)
+
+The MCP server supports two types of authentication:
+
+1. **API Consumer authentication with an API Key** (recommended): Set the `MAMBU_AUTH_API_KEY` environment variable with your API key.
+2. **Basic authentication**: If `MAMBU_AUTH_API_KEY` is not set, the server will fallback to basic authentication using `MAMBU_AUTH_USERNAME` and `MAMBU_AUTH_PASSWORD` environment variables.
 
 These are configured in your MCP client (see next section).
 
@@ -62,8 +66,7 @@ Add the Mambu MCP server configuration:
       "args": [],
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_USERNAME": "your-username",
-        "MAMBU_AUTH_PASSWORD": "your-password"
+        "MAMBU_AUTH_API_KEY": "your-api-key"
       }
     }
   }
@@ -85,8 +88,7 @@ Add the Mambu MCP server configuration:
       "command": "/opt/homebrew/bin/mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://<DOMAIN>/api",
-        "MAMBU_AUTH_USERNAME": "<USER>",
-        "MAMBU_AUTH_PASSWORD": "<PASSWORD>"
+        "MAMBU_AUTH_API_KEY": "<API_KEY>"
       },
       "sourcePath": "~/.junie/mcp/mcp.json",
       "enabled": "true"
@@ -107,8 +109,7 @@ In VS Code, open Cline settings and add to your MCP servers configuration:
     "command": "mmcp",
     "env": {
       "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-      "MAMBU_AUTH_USERNAME": "your.username",
-      "MAMBU_AUTH_PASSWORD": "your-password"
+      "MAMBU_AUTH_API_KEY": "your-api-key"
     }
   }
 }
@@ -126,8 +127,7 @@ For other MCP-compatible tools, use this general pattern:
       "args": [],
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_USERNAME": "your.username",
-        "MAMBU_AUTH_PASSWORD": "your-password"
+        "MAMBU_AUTH_API_KEY": "your-api-key"
       }
     }
   }
@@ -207,8 +207,7 @@ As an example, you can enable the `clients/create` operation by adding the follo
       "args": [],
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_USERNAME": "your.username",
-        "MAMBU_AUTH_PASSWORD": "your-password",
+        "MAMBU_AUTH_API_KEY": "your-api-key",
         "CLIENTS_CREATE": "true"
       }
     }
