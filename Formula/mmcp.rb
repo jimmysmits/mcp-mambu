@@ -57,12 +57,16 @@ class Mmcp < Formula
     end
   end
 
-  def post_install
-    catalog = share/"mmcp/reference-apis/mambu/catalog.yaml"
-    if catalog.exist?
-      ohai "Running mmcp setup (building search index — this may take a few minutes)..."
-      system bin/"mmcp", "setup", "--catalog", catalog
-    end
-  end
+  def caveats
+    <<~EOS
+      To complete setup, run:
+        mmcp setup --catalog #{share}/mmcp/reference-apis/mambu/catalog.yaml
 
+      This copies the model and catalog to your user directory and builds
+      the search index. It only needs to be run once.
+
+      Then configure your MCP client and start the server with:
+        mmcp
+    EOS
+  end
 end

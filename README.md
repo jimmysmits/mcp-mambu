@@ -22,14 +22,27 @@ MMCP acts as a bridge between AI systems and any REST API documented with OpenAP
 
 ## Installation
 
+Connect to the tap and install MMCP:
+
 ```bash
-brew install mambu-gmbh/mmcp-brew/mmcp
+brew tap mambu-gmbh/mmcp-brew https://github.com/mambu-gmbh/mmcp-brew
+brew install mmcp
 ```
 
 This installs:
 *   The `mmcp` native binary
-*   The [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) ONNX embedding model (~550 MB) into the Homebrew prefix
-*   The Mambu Banking Platform reference API catalog and OpenAPI specs (when included in the release)
+*   The [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) ONNX embedding model (~550 MB)
+*   The Mambu Banking Platform reference API catalog and OpenAPI specs
+
+The install may take a few minutes due to the model download (~550 MB).
+
+After installing, run setup to copy files to your user directory and build the search index:
+
+```bash
+mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml
+```
+
+This only needs to be run once (or again when the catalog changes).
 
 To update to the latest version:
 
@@ -41,15 +54,11 @@ brew upgrade mmcp
 
 ## Quick Start
 
-### 1. Install
+After installation, configure your MCP client with your Mambu credentials.
 
-```bash
-brew install mambu-gmbh/mmcp-brew/mmcp
-```
+The `MAMBU_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
-This downloads the embedding model, the Mambu reference catalog, and automatically builds the search index. The install may take a few minutes due to the model download (~550 MB) and index build.
-
-### 2. Configure your MCP client
+### Configure your MCP client
 
 Configure your AI client to launch `mmcp` with your Mambu credentials as environment variables. The `MAMBU_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
@@ -133,6 +142,30 @@ In VS Code, open Cline settings and add to your MCP servers configuration:
 #### Other MCP Clients
 
 For other MCP-compatible tools (Cursor, Windsurf, etc.), use the same pattern — point them at the `mmcp` binary with your Mambu credentials as environment variables.
+
+
+## Security Considerations
+
+### Credential Storage
+
+Your Mambu credentials are stored in your MCP client's configuration file. Protect this file:
+
+```bash
+# macOS (Claude Desktop)
+chmod 600 ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
+
+### Alternative: Environment Variables via Wrapper Script
+
+For better security, you can use a wrapper script that loads credentials from a secure location:
+
+```bash
+#!/bin/bash
+source ~/.mambu_credentials  # Contains MAMBU_API_KEY and MAMBU_BASE_URL
+exec mmcp "$@"
+```
+
+Then point your MCP client at the wrapper script instead of `mmcp` directly.
 
 
 ## How It Works
