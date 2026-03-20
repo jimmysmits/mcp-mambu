@@ -1,22 +1,22 @@
 class Mmcp < Formula
   desc "MCP Server for OpenAPI — search and invoke any REST API from AI agents"
   homepage "https://github.com/mambu-gmbh/mmcp-brew"
-  version "v0.0.31"
+  version "v0.0.33"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-macos-arm64.tar.gz"
-      sha256 "981f091f554faa595a70b5c109a745edd9f2a5c4ada42703359b9117dac705af"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.33/mmcp-v0.0.33-macos-arm64.tar.gz"
+      sha256 "aefc22f4f99e6ae5166fca76fa55d83d71e7fb34817d8b821d0bce9efeb8eb50"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-linux-amd64.tar.gz"
-      sha256 "041de8640d14e9c50622fff4abde6bdb2c1b5f8a35ee743ca52f8ebd3bf155bc"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.33/mmcp-v0.0.33-linux-amd64.tar.gz"
+      sha256 "7315cae3fdcb6efc255b3f3a30d29ee8fe9cb434fd18afa379a48e4c72d854c2"
     elsif Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-linux-arm64.tar.gz"
-      sha256 "f821a58846e2c1b3879002fbbe42452163cf93d082a88e78ec31c9ccd28206db"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.33/mmcp-v0.0.33-linux-arm64.tar.gz"
+      sha256 "264eaa13ae7af9428e69dab93894a95cc1eae922253ebd2360fad4f7cffa1d1a"
     end
   end
 
