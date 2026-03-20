@@ -1,0 +1,2016 @@
+baseUrl: "${MAMBU_BASE_URL}"
+apis:
+  - id: "accounting_interest_accrual"
+    specLocation: "json/accounting_interestaccrual_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "accounting_interest_accrual/search"
+        description: "Allows search of interest accrual breakdown entries by various criteria."
+        operationId: "search"
+        enabled: ${ACCOUNTING_INTEREST_ACCRUAL_SEARCH:false}
+  - id: "accounting_reports"
+    specLocation: "json/accounting_reports_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "accounting_reports/create"
+        description: "Create  accounting report"
+        operationId: "create"
+        enabled: ${ACCOUNTING_REPORTS_CREATE:false}
+      - label: "accounting_reports/get"
+        description: "Get accounting reports"
+        operationId: "get"
+        enabled: ${ACCOUNTING_REPORTS_GET:true}
+  - id: "api_key_rotation"
+    specLocation: "json/apikey_rotation_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "api_key_rotation/rotate_key"
+        description: "Rotate API key"
+        operationId: "rotateKey"
+        enabled: ${API_KEY_ROTATION_ROTATE_KEY:false}
+  - id: "application_status"
+    specLocation: "json/application_status_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "application_status/get"
+        description: "Allows you to retrieve the state of application data access"
+        operationId: "getApplicationStatus"
+        enabled: ${APPLICATION_STATUS_GET:true}
+  - id: "archive_deposits_transactions_custom_fields"
+    specLocation: "json/archive_deposits_transactions_customfields_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "archive_deposits_transactions_custom_fields/get_by_id"
+        description: "Get archived deposit transaction"
+        operationId: "getById"
+        enabled: ${ARCHIVE_DEPOSITS_TRANSACTIONS_CUSTOM_FIELDS_GET_BY_ID:false}
+      - label: "archive_deposits_transactions_custom_fields/search"
+        description: "Search Archived Deposit Transactions"
+        operationId: "search"
+        enabled: ${ARCHIVE_DEPOSITS_TRANSACTIONS_CUSTOM_FIELDS_SEARCH:false}
+  - id: "background_process"
+    specLocation: "json/backgroundprocess_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "background_process/get_latest_by_type"
+        description: "Get the latest manual or automatic end of day (EOD) process by specifying the type"
+        operationId: "getLatestByType"
+        enabled: ${BACKGROUND_PROCESS_GET_LATEST_BY_TYPE:true}
+      - label: "background_process/update"
+        description: "Cancel manual or automatic end of day (EOD) processes using the encoded key"
+        operationId: "update"
+        enabled: ${BACKGROUND_PROCESS_UPDATE:false}
+  - id: "branches"
+    specLocation: "json/branches_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "branches/list"
+        description: "Get branches"
+        operationId: "getAll"
+        enabled: ${BRANCHES_LIST:true}
+      - label: "branches/create"
+        description: "Create branch"
+        operationId: "create"
+        enabled: ${BRANCHES_CREATE:false}
+      - label: "branches/get_by_id"
+        description: "Get branch"
+        operationId: "getById"
+        enabled: ${BRANCHES_GET_BY_ID:true}
+  - id: "bulks"
+    specLocation: "json/bulks_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "bulks/get_bulk_status"
+        description: "Allow retrieval the status of a bulk process via key"
+        operationId: "getBulkStatus"
+        enabled: ${BULKS_GET_BULK_STATUS:true}
+  - id: "cards"
+    specLocation: "json/cards_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "cards/create_authorization_hold"
+        description: "Create an authorization hold corresponding to a given card."
+        operationId: "createAuthorizationHold"
+        enabled: ${CARDS_CREATE_AUTHORIZATION_HOLD:false}
+      - label: "cards/reverse_authorization_hold"
+        description: "Reverse a card authorization hold."
+        operationId: "reverseAuthorizationHold"
+        enabled: ${CARDS_REVERSE_AUTHORIZATION_HOLD:false}
+      - label: "cards/get_authorization_hold_by_id"
+        description: "Get card authorization hold"
+        operationId: "getAuthorizationHoldById"
+        enabled: ${CARDS_GET_AUTHORIZATION_HOLD_BY_ID:true}
+      - label: "cards/patch_authorization_hold"
+        description: "Partially update an authorization hold"
+        operationId: "patchAuthorizationHold"
+        enabled: ${CARDS_PATCH_AUTHORIZATION_HOLD:false}
+      - label: "cards/decrease_authorization_hold"
+        description: "Decreases the amount of an authorization hold. If the amount is greater or equal to the authorization hold amount, then the authorization hold is reversed."
+        operationId: "decreaseAuthorizationHold"
+        enabled: ${CARDS_DECREASE_AUTHORIZATION_HOLD:false}
+      - label: "cards/increase_authorization_hold"
+        description: "Increase authorization hold amount"
+        operationId: "increaseAuthorizationHold"
+        enabled: ${CARDS_INCREASE_AUTHORIZATION_HOLD:false}
+      - label: "cards/create_bulk_authorization_holds"
+        description: "Create bulk authorization holds corresponding to a given card"
+        operationId: "createBulkAuthorizationHolds"
+        enabled: ${CARDS_CREATE_BULK_AUTHORIZATION_HOLDS:false}
+      - label: "cards/get_account_balances"
+        description: "Get account balances using card tokens"
+        operationId: "getAccountBalances"
+        enabled: ${CARDS_GET_ACCOUNT_BALANCES:true}
+      - label: "cards/create_card_transaction"
+        description: "Create a financial transaction corresponding to a given card"
+        operationId: "createCardTransaction"
+        enabled: ${CARDS_CREATE_CARD_TRANSACTION:false}
+      - label: "cards/get_card_transaction"
+        description: "Get card transaction"
+        operationId: "getCardTransaction"
+        enabled: ${CARDS_GET_CARD_TRANSACTION:true}
+      - label: "cards/reverse_card_transaction"
+        description: "Reverse card transaction"
+        operationId: "reverseCardTransaction"
+        enabled: ${CARDS_REVERSE_CARD_TRANSACTION:false}
+  - id: "centres"
+    specLocation: "json/centres_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "centres/list"
+        description: "Get centres"
+        operationId: "getAll"
+        enabled: ${CENTRES_LIST:true}
+      - label: "centres/get_by_id"
+        description: "Get centre"
+        operationId: "getById"
+        enabled: ${CENTRES_GET_BY_ID:true}
+  - id: "clients_documents"
+    specLocation: "json/clients_documents_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "clients_documents/get_client_document_file_by_id"
+        description: "Download client document"
+        operationId: "getClientDocumentFileById"
+        enabled: ${CLIENTS_DOCUMENTS_GET_CLIENT_DOCUMENT_FILE_BY_ID:true}
+      - label: "clients_documents/get_client_document_by_id"
+        description: "Get client document"
+        operationId: "getClientDocumentById"
+        enabled: ${CLIENTS_DOCUMENTS_GET_CLIENT_DOCUMENT_BY_ID:true}
+      - label: "clients_documents/create_document"
+        description: "Create client document"
+        operationId: "createDocument"
+        enabled: ${CLIENTS_DOCUMENTS_CREATE_DOCUMENT:false}
+      - label: "clients_documents/get_documents_by_client_id"
+        description: "Get all client documents"
+        operationId: "getDocumentsByClientId"
+        enabled: ${CLIENTS_DOCUMENTS_GET_DOCUMENTS_BY_CLIENT_ID:true}
+  - id: "clients"
+    specLocation: "json/clients_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "clients/list"
+        description: "Get clients"
+        operationId: "getAll"
+        enabled: ${CLIENTS_LIST:true}
+      - label: "clients/create"
+        description: "Create client"
+        operationId: "create"
+        enabled: ${CLIENTS_CREATE:false}
+      - label: "clients/delete"
+        description: "Delete client"
+        operationId: "delete"
+        enabled: ${CLIENTS_DELETE:false}
+      - label: "clients/get_by_id"
+        description: "Get client"
+        operationId: "getById"
+        enabled: ${CLIENTS_GET_BY_ID:true}
+      - label: "clients/patch"
+        description: "Partially update client"
+        operationId: "patch"
+        enabled: ${CLIENTS_PATCH:false}
+      - label: "clients/update"
+        description: "Update client"
+        operationId: "update"
+        enabled: ${CLIENTS_UPDATE:false}
+      - label: "clients/get_credit_arrangements_by_client_id_or_key"
+        description: "Credit arrangements list returned."
+        operationId: "getCreditArrangementsByClientIdOrKey"
+        enabled: ${CLIENTS_GET_CREDIT_ARRANGEMENTS_BY_CLIENT_ID_OR_KEY:true}
+      - label: "clients/get_role_by_client_id"
+        description: "Get client role for client"
+        operationId: "getRoleByClientId"
+        enabled: ${CLIENTS_GET_ROLE_BY_CLIENT_ID:true}
+      - label: "clients/search"
+        description: "Search clients"
+        operationId: "search"
+        enabled: ${CLIENTS_SEARCH:false}
+  - id: "comments"
+    specLocation: "json/comments_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "comments/get_comments"
+        description: "Get comments for an entity"
+        operationId: "getComments"
+        enabled: ${COMMENTS_GET_COMMENTS:true}
+      - label: "comments/create_comment"
+        description: "Create a new comment for an entity."
+        operationId: "createComment"
+        enabled: ${COMMENTS_CREATE_COMMENT:false}
+  - id: "communications_messages"
+    specLocation: "json/communications_messages_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "communications_messages/send"
+        description: "Send communication message"
+        operationId: "send"
+        enabled: ${COMMUNICATIONS_MESSAGES_SEND:false}
+      - label: "communications_messages/get_by_encoded_key"
+        description: "Get communication message"
+        operationId: "getByEncodedKey"
+        enabled: ${COMMUNICATIONS_MESSAGES_GET_BY_ENCODED_KEY:true}
+      - label: "communications_messages/resend"
+        description: "Resend failed communication message(s)"
+        operationId: "resend"
+        enabled: ${COMMUNICATIONS_MESSAGES_RESEND:false}
+      - label: "communications_messages/enqueue_by_date"
+        description: "Resend failed communication message(s) asynchronously by date"
+        operationId: "enqueueByDate"
+        enabled: ${COMMUNICATIONS_MESSAGES_ENQUEUE_BY_DATE:false}
+      - label: "communications_messages/enqueue_by_keys"
+        description: "Resend failed communication message(s) asynchronously using keys"
+        operationId: "enqueueByKeys"
+        enabled: ${COMMUNICATIONS_MESSAGES_ENQUEUE_BY_KEYS:false}
+      - label: "communications_messages/search"
+        description: "Searching communication messages"
+        operationId: "search"
+        enabled: ${COMMUNICATIONS_MESSAGES_SEARCH:false}
+      - label: "communications_messages/search_sorted"
+        description: "Searching sorted communication messages"
+        operationId: "search_1"
+        enabled: ${COMMUNICATIONS_MESSAGES_SEARCH_SORTED:false}
+  - id: "configuration_accounting_rules_yaml"
+    specLocation: "json/configuration_accountingrules.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_accounting_rules_yaml/get"
+        description: "Retrieve accounting rules configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_ACCOUNTING_RULES_YAML_GET:true}
+      - label: "configuration_accounting_rules_yaml/update"
+        description: "Update the current accounting rules configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_ACCOUNTING_RULES_YAML_UPDATE:false}
+  - id: "configuration_authorization_holds_yaml"
+    specLocation: "json/configuration_authorizationholds.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_authorization_holds_yaml/get"
+        description: "Get authorization holds configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_AUTHORIZATION_HOLDS_YAML_GET:true}
+      - label: "configuration_authorization_holds_yaml/update"
+        description: "Update authorization holds configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_AUTHORIZATION_HOLDS_YAML_UPDATE:false}
+  - id: "configuration_branches_yaml"
+    specLocation: "json/configuration_branches.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_branches_yaml/get"
+        description: "Get branches configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_BRANCHES_YAML_GET:true}
+      - label: "configuration_branches_yaml/update"
+        description: "Update branch configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_BRANCHES_YAML_UPDATE:false}
+  - id: "configuration_centres_yaml"
+    specLocation: "json/configuration_centres.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_centres_yaml/get"
+        description: "Get centres configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_CENTRES_YAML_GET:true}
+      - label: "configuration_centres_yaml/update"
+        description: "Update centres configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_CENTRES_YAML_UPDATE:false}
+  - id: "configuration_client_roles_yaml"
+    specLocation: "json/configuration_clientroles.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_client_roles_yaml/get"
+        description: "Get client roles configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_CLIENT_ROLES_YAML_GET:true}
+      - label: "configuration_client_roles_yaml/update"
+        description: "Update client roles configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_CLIENT_ROLES_YAML_UPDATE:false}
+  - id: "configuration_currencies_yaml"
+    specLocation: "json/configuration_currencies.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_currencies_yaml/get"
+        description: "Get currencies configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_CURRENCIES_YAML_GET:true}
+      - label: "configuration_currencies_yaml/update"
+        description: "Update currencies configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_CURRENCIES_YAML_UPDATE:false}
+  - id: "configuration_custom_fields"
+    specLocation: "json/configuration_customfields_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_custom_fields/get"
+        description: "Get custom field definitions configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_CUSTOM_FIELDS_GET:true}
+      - label: "configuration_custom_fields/update"
+        description: "Update custom field definitions configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_CUSTOM_FIELDS_UPDATE:false}
+      - label: "configuration_custom_fields/get_template"
+        description: "Get custom field definitions configuration"
+        operationId: "getTemplate"
+        enabled: ${CONFIGURATION_CUSTOM_FIELDS_GET_TEMPLATE:true}
+  - id: "configuration_deposit_products_yaml"
+    specLocation: "json/configuration_depositproducts.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_deposit_products_yaml/get"
+        description: "Get configuration for all deposit products"
+        operationId: "get"
+        enabled: ${CONFIGURATION_DEPOSIT_PRODUCTS_YAML_GET:true}
+      - label: "configuration_deposit_products_yaml/update"
+        description: "Update all deposit products configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_DEPOSIT_PRODUCTS_YAML_UPDATE:false}
+  - id: "configuration_end_of_day_processing_yaml"
+    specLocation: "json/configuration_endofdayprocessing.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_end_of_day_processing_yaml/get"
+        description: "Get end of day processing configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_END_OF_DAY_PROCESSING_YAML_GET:true}
+      - label: "configuration_end_of_day_processing_yaml/update"
+        description: "Update end of day processing configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_END_OF_DAY_PROCESSING_YAML_UPDATE:false}
+  - id: "configuration_group_role_names_yaml"
+    specLocation: "json/configuration_grouprolenames.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_group_role_names_yaml/get"
+        description: "Get group role names configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_GROUP_ROLE_NAMES_YAML_GET:true}
+      - label: "configuration_group_role_names_yaml/update"
+        description: "Update group role names configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_GROUP_ROLE_NAMES_YAML_UPDATE:false}
+  - id: "configuration_holidays_yaml"
+    specLocation: "json/configuration_holidays.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_holidays_yaml/get"
+        description: "Get holidays configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_HOLIDAYS_YAML_GET:true}
+      - label: "configuration_holidays_yaml/update"
+        description: "Update holidays configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_HOLIDAYS_YAML_UPDATE:false}
+  - id: "configuration_id_document_templates_yaml"
+    specLocation: "json/configuration_iddocumenttemplates.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_id_document_templates_yaml/get"
+        description: "Get ID templates configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_ID_DOCUMENT_TEMPLATES_YAML_GET:true}
+      - label: "configuration_id_document_templates_yaml/update"
+        description: "Update ID templates configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_ID_DOCUMENT_TEMPLATES_YAML_UPDATE:false}
+  - id: "configuration_index_rates_yaml"
+    specLocation: "json/configuration_indexrates.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_index_rates_yaml/get"
+        description: "Get index rates configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_INDEX_RATES_YAML_GET:true}
+      - label: "configuration_index_rates_yaml/update"
+        description: "Update index rates configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_INDEX_RATES_YAML_UPDATE:false}
+  - id: "configuration_internal_controls_yaml"
+    specLocation: "json/configuration_internalcontrols.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_internal_controls_yaml/get"
+        description: "Get internal controls configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_INTERNAL_CONTROLS_YAML_GET:true}
+      - label: "configuration_internal_controls_yaml/update"
+        description: "Update internal controls configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_INTERNAL_CONTROLS_YAML_UPDATE:false}
+  - id: "configuration_labels_yaml"
+    specLocation: "json/configuration_labels.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_labels_yaml/get"
+        description: "Get object labels configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_LABELS_YAML_GET:true}
+      - label: "configuration_labels_yaml/update"
+        description: "Update object labels configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_LABELS_YAML_UPDATE:false}
+  - id: "configuration_loan_products_yaml"
+    specLocation: "json/configuration_loanproducts.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_loan_products_yaml/get"
+        description: "Allows you to get or update the loan products configuration."
+        operationId: "get"
+        enabled: ${CONFIGURATION_LOAN_PRODUCTS_YAML_GET:true}
+      - label: "configuration_loan_products_yaml/update"
+        description: "Update loan products configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_LOAN_PRODUCTS_YAML_UPDATE:false}
+  - id: "configuration_loan_risk_levels_yaml"
+    specLocation: "json/configuration_loanrisklevels.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_loan_risk_levels_yaml/get"
+        description: "Get loan risk levels configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_LOAN_RISK_LEVELS_YAML_GET:true}
+      - label: "configuration_loan_risk_levels_yaml/update"
+        description: "Update loan risk levels configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_LOAN_RISK_LEVELS_YAML_UPDATE:false}
+  - id: "configuration_organization"
+    specLocation: "json/configuration_organization_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_organization/get"
+        description: "Get organization details configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_ORGANIZATION_GET:true}
+      - label: "configuration_organization/update"
+        description: "Update organization details configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_ORGANIZATION_UPDATE:false}
+      - label: "configuration_organization/getTemplate"
+        description: "Get organization details configuration template"
+        operationId: "getTemplate"
+        enabled: ${CONFIGURATION_ORGANIZATION_GETTEMPLATE:true}
+  - id: "configuration_transaction_channels_yaml"
+    specLocation: "json/configuration_transactionchannels.yaml_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_transaction_channels_yaml/get"
+        description: "Get transaction channels configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_TRANSACTION_CHANNELS_YAML_GET:true}
+      - label: "configuration_transaction_channels_yaml/update"
+        description: "Update transaction channels configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_TRANSACTION_CHANNELS_YAML_UPDATE:false}
+  - id: "configuration_user_roles"
+    specLocation: "json/configuration_userroles_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "configuration_user_roles/get"
+        description: "Get user roles configuration"
+        operationId: "get"
+        enabled: ${CONFIGURATION_USER_ROLES_GET:true}
+      - label: "configuration_user_roles/update"
+        description: "Update user roles configuration"
+        operationId: "update"
+        enabled: ${CONFIGURATION_USER_ROLES_UPDATE:false}
+      - label: "configuration_user_roles/getTemplate"
+        description: "Get user roles configuration template"
+        operationId: "getTemplate"
+        enabled: ${CONFIGURATION_USER_ROLES_GETTEMPLATE:true}
+  - id: "consumers"
+    specLocation: "json/consumers_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "consumers/list"
+        description: "Get all API consumers"
+        operationId: "getAll"
+        enabled: ${CONSUMERS_LIST:true}
+      - label: "consumers/create"
+        description: "Create API consumer"
+        operationId: "create"
+        enabled: ${CONSUMERS_CREATE:false}
+      - label: "consumers/delete"
+        description: "Delete API consumer"
+        operationId: "delete"
+        enabled: ${CONSUMERS_DELETE:false}
+      - label: "consumers/get_by_id"
+        description: "Get API consumer"
+        operationId: "getById"
+        enabled: ${CONSUMERS_GET_BY_ID:true}
+      - label: "consumers/patch"
+        description: "Partially update API consumer"
+        operationId: "patch"
+        enabled: ${CONSUMERS_PATCH:false}
+      - label: "consumers/update"
+        description: "Update API consumer"
+        operationId: "update"
+        enabled: ${CONSUMERS_UPDATE:false}
+      - label: "consumers/create_api_key_for_consumer"
+        description: "Create API key"
+        operationId: "createApiKeyForConsumer"
+        enabled: ${CONSUMERS_CREATE_API_KEY_FOR_CONSUMER:false}
+      - label: "consumers/delete_api_key_for_consumer"
+        description: "Delete API key"
+        operationId: "deleteApiKeyForConsumer"
+        enabled: ${CONSUMERS_DELETE_API_KEY_FOR_CONSUMER:false}
+      - label: "consumers/get_keys_by_consumer_id"
+        description: "Get API keys"
+        operationId: "getKeysByConsumerId"
+        enabled: ${CONSUMERS_GET_KEYS_BY_CONSUMER_ID:true}
+      - label: "consumers/create_secret_key_for_consumer"
+        description: "Create secret key"
+        operationId: "createSecretKeyForConsumer"
+        enabled: ${CONSUMERS_CREATE_SECRET_KEY_FOR_CONSUMER:false}
+  - id: "credit_arrangements"
+    specLocation: "json/creditarrangements_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "credit_arrangements/list"
+        description: "Get credit arrangements"
+        operationId: "getAll"
+        enabled: ${CREDIT_ARRANGEMENTS_LIST:true}
+      - label: "credit_arrangements/create"
+        description: "Create credit arrangement"
+        operationId: "create"
+        enabled: ${CREDIT_ARRANGEMENTS_CREATE:false}
+      - label: "credit_arrangements/delete"
+        description: "Delete credit arrangement"
+        operationId: "delete"
+        enabled: ${CREDIT_ARRANGEMENTS_DELETE:false}
+      - label: "credit_arrangements/get_by_id"
+        description: "Get credit arrangement"
+        operationId: "getById"
+        enabled: ${CREDIT_ARRANGEMENTS_GET_BY_ID:true}
+      - label: "credit_arrangements/patch"
+        description: "Partially update credit arrangement"
+        operationId: "patch"
+        enabled: ${CREDIT_ARRANGEMENTS_PATCH:false}
+      - label: "credit_arrangements/update"
+        description: "Update credit arrangement"
+        operationId: "update"
+        enabled: ${CREDIT_ARRANGEMENTS_UPDATE:false}
+      - label: "credit_arrangements/list_accounts"
+        description: "Get all loan and deposit accounts linked to credit arrangement"
+        operationId: "getAllAccounts"
+        enabled: ${CREDIT_ARRANGEMENTS_LIST_ACCOUNTS:true}
+      - label: "credit_arrangements/get_schedule"
+        description: "Get credit arrangement schedule"
+        operationId: "getSchedule"
+        enabled: ${CREDIT_ARRANGEMENTS_GET_SCHEDULE:true}
+      - label: "credit_arrangements/add_account"
+        description: "Add account to credit arrangement"
+        operationId: "addAccount"
+        enabled: ${CREDIT_ARRANGEMENTS_ADD_ACCOUNT:false}
+      - label: "credit_arrangements/change_state"
+        description: "Change credit arrangement state"
+        operationId: "changeState"
+        enabled: ${CREDIT_ARRANGEMENTS_CHANGE_STATE:false}
+      - label: "credit_arrangements/remove_account"
+        description: "Remove account from credit arrangement"
+        operationId: "removeAccount"
+        enabled: ${CREDIT_ARRANGEMENTS_REMOVE_ACCOUNT:false}
+      - label: "credit_arrangements/search"
+        description: "Search credit arrangements"
+        operationId: "search"
+        enabled: ${CREDIT_ARRANGEMENTS_SEARCH:false}
+  - id: "crons_early_eod"
+    specLocation: "json/crons_earlyeod_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "crons_early_eod/run_earlier_hourly_and_end_of_day_crons"
+        description: "Trigger hourly and end of day Processing earlier, on the current day"
+        operationId: "runEarlierHourlyAndEndOfDayCrons"
+        enabled: ${CRONS_EARLY_EOD_RUN_EARLIER_HOURLY_AND_END_OF_DAY_CRONS:false}
+  - id: "crons_eod"
+    specLocation: "json/crons_eod_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "crons_eod/run_hourly_and_end_of_day_crons"
+        description: "Trigger hourly and end of day Processing on the previous day"
+        operationId: "runHourlyAndEndOfDayCrons"
+        enabled: ${CRONS_EOD_RUN_HOURLY_AND_END_OF_DAY_CRONS:false}
+  - id: "currencies_accounting_rates"
+    specLocation: "json/currencies_accountingRates_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "currencies_accounting_rates/list"
+        description: "Get accounting rates"
+        operationId: "getAll"
+        enabled: ${CURRENCIES_ACCOUNTING_RATES_LIST:true}
+      - label: "currencies_accounting_rates/create"
+        description: "Create accounting rates"
+        operationId: "create"
+        enabled: ${CURRENCIES_ACCOUNTING_RATES_CREATE:false}
+  - id: "currencies_rates"
+    specLocation: "json/currencies_rates_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "currencies_rates/list"
+        description: "Get exchange rates for a specific currency."
+        operationId: "getAll"
+        enabled: ${CURRENCIES_RATES_LIST:true}
+      - label: "currencies_rates/create"
+        description: "Post exchange rates for a specific currency."
+        operationId: "create"
+        enabled: ${CURRENCIES_RATES_CREATE:false}
+  - id: "currencies"
+    specLocation: "json/currencies_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "currencies/list"
+        description: "Get all currencies"
+        operationId: "getAll"
+        enabled: ${CURRENCIES_LIST:true}
+      - label: "currencies/create"
+        description: "Create currency"
+        operationId: "create"
+        enabled: ${CURRENCIES_CREATE:false}
+      - label: "currencies/delete"
+        description: "Delete currency by code"
+        operationId: "delete"
+        enabled: ${CURRENCIES_DELETE:false}
+      - label: "currencies/get"
+        description: "Get currency by code"
+        operationId: "get"
+        enabled: ${CURRENCIES_GET:true}
+      - label: "currencies/update"
+        description: "Update currency by code"
+        operationId: "update"
+        enabled: ${CURRENCIES_UPDATE:false}
+  - id: "custom_fields"
+    specLocation: "json/customfields_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "custom_fields/get_by_id"
+        description: "Get custom field definition"
+        operationId: "getById"
+        enabled: ${CUSTOM_FIELDS_GET_BY_ID:true}
+  - id: "custom_field_sets"
+    specLocation: "json/customfieldsets_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "custom_field_sets/list"
+        description: "Get custom field sets"
+        operationId: "getAll"
+        enabled: ${CUSTOM_FIELD_SETS_LIST:true}
+      - label: "custom_field_sets/list_by_set_id"
+        description: "Get custom field definitions by custom field set"
+        operationId: "getAllBySetId"
+        enabled: ${CUSTOM_FIELD_SETS_LIST_BY_SET_ID:true}
+  - id: "data_import"
+    specLocation: "json/data_import_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "data_import/data_import"
+        description: "Allows you to import data"
+        operationId: "dataImport"
+        enabled: ${DATA_IMPORT_DATA_IMPORT:false}
+      - label: "data_import/action"
+        description: "Allows you to approve or reject a data import event"
+        operationId: "action"
+        enabled: ${DATA_IMPORT_ACTION:false}
+      - label: "data_import/get_import"
+        description: "Allows you to retrieve a data import response"
+        operationId: "getImport"
+        enabled: ${DATA_IMPORT_GET_IMPORT:true}
+  - id: "database_backup"
+    specLocation: "json/database_backup_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "database_backup/trigger_backup"
+        description: "Trigger database backup"
+        operationId: "triggerBackup"
+        enabled: ${DATABASE_BACKUP_TRIGGER_BACKUP:false}
+      - label: "database_backup/download_backup"
+        description: "Download database backup"
+        operationId: "downloadBackup"
+        enabled: ${DATABASE_BACKUP_DOWNLOAD_BACKUP:false}
+  - id: "deposit_products"
+    specLocation: "json/depositproducts_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "deposit_products/list"
+        description: "Get deposit products"
+        operationId: "getAll"
+        enabled: ${DEPOSIT_PRODUCTS_LIST:true}
+      - label: "deposit_products/create"
+        description: "Create deposit product"
+        operationId: "create"
+        enabled: ${DEPOSIT_PRODUCTS_CREATE:false}
+      - label: "deposit_products/delete"
+        description: "Delete deposit product"
+        operationId: "delete"
+        enabled: ${DEPOSIT_PRODUCTS_DELETE:false}
+      - label: "deposit_products/get_by_id"
+        description: "Get deposit product"
+        operationId: "getById"
+        enabled: ${DEPOSIT_PRODUCTS_GET_BY_ID:true}
+      - label: "deposit_products/patch"
+        description: "Partially update deposit product"
+        operationId: "patch"
+        enabled: ${DEPOSIT_PRODUCTS_PATCH:false}
+      - label: "deposit_products/update"
+        description: "Update deposit product"
+        operationId: "update"
+        enabled: ${DEPOSIT_PRODUCTS_UPDATE:false}
+      - label: "deposit_products/batch_update"
+        description: "Perform a batch update action on the specified deposit product"
+        operationId: "batchUpdate"
+        enabled: ${DEPOSIT_PRODUCTS_BATCH_UPDATE:false}
+  - id: "deposits_balance_summary"
+    specLocation: "json/deposits_balanceSummary_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "deposits_balance_summary/search"
+        description: "Search deposit account balance summary"
+        operationId: "search"
+        enabled: ${DEPOSITS_BALANCE_SUMMARY_SEARCH:false}
+      - label: "deposits_balance_summary/list"
+        description: "Get balance summary for the deposit account"
+        operationId: "getAll"
+        enabled: ${DEPOSITS_BALANCE_SUMMARY_LIST:true}
+  - id: "deposits_download"
+    specLocation: "json/deposits_download_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "deposits_download/search_file_download"
+        description: "Search deposit accounts"
+        operationId: "searchFileDownload"
+        enabled: ${DEPOSITS_DOWNLOAD_SEARCH_FILE_DOWNLOAD:true}
+  - id: "deposits_transactions"
+    specLocation: "json/deposits_transactions_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "deposits_transactions/make_bulk_deposits"
+        description: "Create bulk deposit transactions."
+        operationId: "makeBulkDeposits"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_BULK_DEPOSITS:false}
+      - label: "deposits_transactions/get_by_id"
+        description: "Get deposit transaction"
+        operationId: "getById"
+        enabled: ${DEPOSITS_TRANSACTIONS_GET_BY_ID:true}
+      - label: "deposits_transactions/edit_transaction_details"
+        description: "Edit custom information or notes for deposit transaction"
+        operationId: "editTransactionDetails"
+        enabled: ${DEPOSITS_TRANSACTIONS_EDIT_TRANSACTION_DETAILS:false}
+      - label: "deposits_transactions/get_deposit_transaction_document"
+        description: "Get deposit transaction document"
+        operationId: "getDepositTransactionDocument"
+        enabled: ${DEPOSITS_TRANSACTIONS_GET_DEPOSIT_TRANSACTION_DOCUMENT:true}
+      - label: "deposits_transactions/adjust"
+        description: "Adjust a deposit transaction, which may bulk adjust multiple transactions"
+        operationId: "adjust"
+        enabled: ${DEPOSITS_TRANSACTIONS_ADJUST:false}
+      - label: "deposits_transactions/search"
+        description: "Search deposit transactions for deposit accounts by various criteria"
+        operationId: "search"
+        enabled: ${DEPOSITS_TRANSACTIONS_SEARCH:false}
+      - label: "deposits_transactions/make_deposit"
+        description: "Create deposit transaction"
+        operationId: "makeDeposit"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_DEPOSIT:false}
+      - label: "deposits_transactions/apply_fee"
+        description: "Apply a fee on a deposit account"
+        operationId: "applyFee"
+        enabled: ${DEPOSITS_TRANSACTIONS_APPLY_FEE:false}
+      - label: "deposits_transactions/make_seizure"
+        description: "Seize a block amount on a deposit account"
+        operationId: "makeSeizure"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_SEIZURE:false}
+      - label: "deposits_transactions/list"
+        description: "Get deposit transactions"
+        operationId: "getAll"
+        enabled: ${DEPOSITS_TRANSACTIONS_LIST:true}
+      - label: "deposits_transactions/make_deposit_async"
+        description: "Create deposit transaction"
+        operationId: "makeDepositAsync"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_DEPOSIT_ASYNC:false}
+      - label: "deposits_transactions/make_withdrawal_async"
+        description: "Create withdrawal transaction"
+        operationId: "makeWithdrawalAsync"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_WITHDRAWAL_ASYNC:false}
+      - label: "deposits_transactions/make_transfer"
+        description: "Create transfer transaction"
+        operationId: "makeTransfer"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_TRANSFER:false}
+      - label: "deposits_transactions/make_withdrawal"
+        description: "Create withdrawal transaction"
+        operationId: "makeWithdrawal"
+        enabled: ${DEPOSITS_TRANSACTIONS_MAKE_WITHDRAWAL:false}
+      - label: "deposits_transactions/adjust_interest"
+        description: "Adjust interest on a deposit account"
+        operationId: "adjustInterest"
+        enabled: ${DEPOSITS_TRANSACTIONS_ADJUST_INTEREST:false}
+  - id: "deposits"
+    specLocation: "json/deposits_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "deposits/list"
+        description: "Get deposit accounts"
+        operationId: "getAll"
+        enabled: ${DEPOSITS_LIST:true}
+      - label: "deposits/create"
+        description: "Create deposit account"
+        operationId: "create"
+        enabled: ${DEPOSITS_CREATE:false}
+      - label: "deposits/bulk_update_product_keys"
+        description: "Bulk update deposit account product types"
+        operationId: "bulkUpdateProductKeys"
+        enabled: ${DEPOSITS_BULK_UPDATE_PRODUCT_KEYS:false}
+      - label: "deposits/bulk_update_accounts"
+        description: "Bulk update deposit accounts"
+        operationId: "bulkUpdateAccounts"
+        enabled: ${DEPOSITS_BULK_UPDATE_ACCOUNTS:false}
+      - label: "deposits/make_bulk_interest_account_settings_availabilities"
+        description: "Create Interest Availabilities for a group of accounts"
+        operationId: "makeBulkInterestAccountSettingsAvailabilities"
+        enabled: ${DEPOSITS_MAKE_BULK_INTEREST_ACCOUNT_SETTINGS_AVAILABILITIES:false}
+      - label: "deposits/migrate"
+        description: "Migrate deposit accounts"
+        operationId: "migrate"
+        enabled: ${DEPOSITS_MIGRATE:false}
+      - label: "deposits/delete"
+        description: "Delete inactive deposit account"
+        operationId: "delete"
+        enabled: ${DEPOSITS_DELETE:false}
+      - label: "deposits/get_by_id"
+        description: "Get deposit account"
+        operationId: "getById"
+        enabled: ${DEPOSITS_GET_BY_ID:true}
+      - label: "deposits/patch"
+        description: "Partially update deposit account"
+        operationId: "patch"
+        enabled: ${DEPOSITS_PATCH:false}
+      - label: "deposits/update"
+        description: "Update deposit account"
+        operationId: "update"
+        enabled: ${DEPOSITS_UPDATE:false}
+      - label: "deposits/list_authorization_holds"
+        description: "Get authorization holds related to a deposit account, ordered from newest to oldest by creation date"
+        operationId: "getAllAuthorizationHolds"
+        enabled: ${DEPOSITS_LIST_AUTHORIZATION_HOLDS:true}
+      - label: "deposits/create_authorization_hold"
+        description: "Create an authorization hold corresponding to a given account"
+        operationId: "createAuthorizationHold"
+        enabled: ${DEPOSITS_CREATE_AUTHORIZATION_HOLD:false}
+      - label: "deposits/reverse_authorization_hold"
+        description: "Reverse account authorization hold"
+        operationId: "reverseAuthorizationHold"
+        enabled: ${DEPOSITS_REVERSE_AUTHORIZATION_HOLD:false}
+      - label: "deposits/get_authorization_hold_by_id"
+        description: "Get account authorization hold"
+        operationId: "getAuthorizationHoldById"
+        enabled: ${DEPOSITS_GET_AUTHORIZATION_HOLD_BY_ID:true}
+      - label: "deposits/list_blocks"
+        description: "Get all block funds for a deposit account"
+        operationId: "getAllBlocks"
+        enabled: ${DEPOSITS_LIST_BLOCKS:true}
+      - label: "deposits/create_block_fund"
+        description: "Create a block fund for the account"
+        operationId: "createBlockFund"
+        enabled: ${DEPOSITS_CREATE_BLOCK_FUND:false}
+      - label: "deposits/unblock_fund"
+        description: "Unblock a previously blocked fund for a deposit account"
+        operationId: "unblockFund"
+        enabled: ${DEPOSITS_UNBLOCK_FUND:false}
+      - label: "deposits/patch_block_fund"
+        description: "Updates the amount of an existing blocked fund on a deposit account. If the new amount equals the seized amount the block fund will transition to a seized state."
+        operationId: "patchBlockFund"
+        enabled: ${DEPOSITS_PATCH_BLOCK_FUND:false}
+      - label: "deposits/list_cards"
+        description: "Get cards associated with an account"
+        operationId: "getAllCards"
+        enabled: ${DEPOSITS_LIST_CARDS:true}
+      - label: "deposits/create_card"
+        description: "Represents the information needed to create and associate a new card to an account."
+        operationId: "createCard"
+        enabled: ${DEPOSITS_CREATE_CARD:false}
+      - label: "deposits/delete_card"
+        description: "Represents the information needed to delete a card associated to an account using its reference token."
+        operationId: "deleteCard"
+        enabled: ${DEPOSITS_DELETE_CARD:false}
+      - label: "deposits/get_funded_loans"
+        description: "Get all loan accounts funded by the deposit account with the given ID or encoded key"
+        operationId: "getFundedLoans"
+        enabled: ${DEPOSITS_GET_FUNDED_LOANS:true}
+      - label: "deposits/get_schedule_for_funded_account"
+        description: "Allows retrieval of the loan account schedule for a loan account with the given id or encodedKey and funded by the deposit account with the given id or encodedKey."
+        operationId: "getScheduleForFundedAccount"
+        enabled: ${DEPOSITS_GET_SCHEDULE_FOR_FUNDED_ACCOUNT:true}
+      - label: "deposits/get_interest_availabilities_list"
+        description: "Get Interest Availabilities"
+        operationId: "getInterestAvailabilitiesList"
+        enabled: ${DEPOSITS_GET_INTEREST_AVAILABILITIES_LIST:true}
+      - label: "deposits/create_interest_availability"
+        description: "Create Interest Availability"
+        operationId: "createInterestAvailability"
+        enabled: ${DEPOSITS_CREATE_INTEREST_AVAILABILITY:false}
+      - label: "deposits/delete_interest_availability"
+        description: "Delete Interest Availability"
+        operationId: "deleteInterestAvailability"
+        enabled: ${DEPOSITS_DELETE_INTEREST_AVAILABILITY:false}
+      - label: "deposits/get_interest_availability_by_id"
+        description: "Get Interest Availability"
+        operationId: "getInterestAvailabilityById"
+        enabled: ${DEPOSITS_GET_INTEREST_AVAILABILITY_BY_ID:true}
+      - label: "deposits/update_interest_availability"
+        description: "Update Interest Availability"
+        operationId: "updateInterestAvailability"
+        enabled: ${DEPOSITS_UPDATE_INTEREST_AVAILABILITY:false}
+      - label: "deposits/get_deposit_account_document"
+        description: "Get deposit account document"
+        operationId: "getDepositAccountDocument"
+        enabled: ${DEPOSITS_GET_DEPOSIT_ACCOUNT_DOCUMENT:true}
+      - label: "deposits/get_pdf_document"
+        description: "Download deposit account document PDF"
+        operationId: "getPdfDocument"
+        enabled: ${DEPOSITS_GET_PDF_DOCUMENT:true}
+      - label: "deposits/make_multiple_transactions_async"
+        description: "Create multiple transactions for an account"
+        operationId: "makeMultipleTxAsync"
+        enabled: ${DEPOSITS_MAKE_MULTIPLE_TRANSACTIONS_ASYNC:false}
+      - label: "deposits/get_withholding_tax_history"
+        description: "Get deposit account withholding tax history"
+        operationId: "getWithholdingTaxHistory"
+        enabled: ${DEPOSITS_GET_WITHHOLDING_TAX_HISTORY:true}
+      - label: "deposits/apply_interest"
+        description: "Represents information to apply accrued interest."
+        operationId: "applyInterest"
+        enabled: ${DEPOSITS_APPLY_INTEREST:false}
+      - label: "deposits/change_interest_rate"
+        description: "Change deposit account interest rate"
+        operationId: "changeInterestRate"
+        enabled: ${DEPOSITS_CHANGE_INTEREST_RATE:false}
+      - label: "deposits/change_state"
+        description: "Represents the information to post an action, such as approving a deposit account."
+        operationId: "changeState"
+        enabled: ${DEPOSITS_CHANGE_STATE:false}
+      - label: "deposits/change_withholding_tax"
+        description: "Change deposit account withholding tax rate"
+        operationId: "changeWithholdingTax"
+        enabled: ${DEPOSITS_CHANGE_WITHHOLDING_TAX:false}
+      - label: "deposits/reopen"
+        description: "Reopen a deposit account"
+        operationId: "reopen"
+        enabled: ${DEPOSITS_REOPEN:false}
+      - label: "deposits/start_maturity"
+        description: "Represents the information to post an action, such as approving a deposit account."
+        operationId: "startMaturity"
+        enabled: ${DEPOSITS_START_MATURITY:false}
+      - label: "deposits/transfer_ownership"
+        description: "Transfer the account ownership from current account holder to a new one (client/group)."
+        operationId: "transferOwnership"
+        enabled: ${DEPOSITS_TRANSFER_OWNERSHIP:false}
+      - label: "deposits/undo_maturity"
+        description: "Represents the action to undo the maturity period for the specified deposit account."
+        operationId: "undoMaturity"
+        enabled: ${DEPOSITS_UNDO_MATURITY:false}
+      - label: "deposits/get_balances"
+        description: "Get historical balances for the deposit account"
+        operationId: "getBalances"
+        enabled: ${DEPOSITS_GET_BALANCES:true}
+      - label: "deposits/search"
+        description: "Search deposit accounts"
+        operationId: "search"
+        enabled: ${DEPOSITS_SEARCH:false}
+  - id: "documents"
+    specLocation: "json/documents_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "documents/create_document"
+        description: "Create document"
+        operationId: "createDocument"
+        enabled: ${DOCUMENTS_CREATE_DOCUMENT:false}
+      - label: "documents/get_documents_by_entity_id"
+        description: "Get all documents' metadata"
+        operationId: "getDocumentsByEntityId"
+        enabled: ${DOCUMENTS_GET_DOCUMENTS_BY_ENTITY_ID:true}
+      - label: "documents/delete_document_by_id"
+        description: "Delete document"
+        operationId: "deleteDocumentById"
+        enabled: ${DOCUMENTS_DELETE_DOCUMENT_BY_ID:false}
+      - label: "documents/download_document_by_id"
+        description: "Download document"
+        operationId: "downloadDocumentById"
+        enabled: ${DOCUMENTS_DOWNLOAD_DOCUMENT_BY_ID:true}
+  - id: "extension_points"
+    specLocation: "json/extensionpoints_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "extension_points/list"
+        description: "Get all extension points"
+        operationId: "getAll"
+        enabled: ${EXTENSION_POINTS_LIST:true}
+      - label: "extension_points/get_process_definitions"
+        description: "Get process definitions for extension point phases"
+        operationId: "getProcessDefinitions"
+        enabled: ${EXTENSION_POINTS_GET_PROCESS_DEFINITIONS:true}
+      - label: "extension_points/store_process_definitions"
+        description: "Attach process definitions to extension point phases"
+        operationId: "storeProcessDefinitions"
+        enabled: ${EXTENSION_POINTS_STORE_PROCESS_DEFINITIONS:false}
+  - id: "funding_sources"
+    specLocation: "json/fundingsources_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "funding_sources/sell"
+        description: "Performs the sell of a funding share owned by an investor. Investors can sell the total share or only a part of the investment. In case of a partial sale, multiple operations can be performed until the entire investment is sold. For the seller, money will be deposited in the funding account, for the buyers money will be withdrawn from provided accounts."
+        operationId: "sell"
+        enabled: ${FUNDING_SOURCES_SELL:false}
+  - id: "gl_accounts"
+    specLocation: "json/glaccounts_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "gl_accounts/list"
+        description: "Get general ledger accounts"
+        operationId: "getAll"
+        enabled: ${GL_ACCOUNTS_LIST:true}
+      - label: "gl_accounts/create"
+        description: "Create general ledger account"
+        operationId: "create"
+        enabled: ${GL_ACCOUNTS_CREATE:false}
+      - label: "gl_accounts/get_by_id"
+        description: "Get general ledger account"
+        operationId: "getById"
+        enabled: ${GL_ACCOUNTS_GET_BY_ID:true}
+      - label: "gl_accounts/patch"
+        description: "Partially update an existing general ledger account"
+        operationId: "patch"
+        enabled: ${GL_ACCOUNTS_PATCH:false}
+  - id: "gl_journal_entries"
+    specLocation: "json/gljournalentries_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "gl_journal_entries/list"
+        description: "Get general ledger journal entries"
+        operationId: "getAll"
+        enabled: ${GL_JOURNAL_ENTRIES_LIST:true}
+      - label: "gl_journal_entries/create"
+        description: "Create general ledger journal entries."
+        operationId: "create"
+        enabled: ${GL_JOURNAL_ENTRIES_CREATE:false}
+      - label: "gl_journal_entries/search"
+        description: "Search for general ledger journal entries"
+        operationId: "search"
+        enabled: ${GL_JOURNAL_ENTRIES_SEARCH:false}
+  - id: "groups"
+    specLocation: "json/groups_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "groups/list"
+        description: "Get groups"
+        operationId: "getAll"
+        enabled: ${GROUPS_LIST:true}
+      - label: "groups/create"
+        description: "Create group"
+        operationId: "create"
+        enabled: ${GROUPS_CREATE:false}
+      - label: "groups/delete"
+        description: "Delete group"
+        operationId: "delete"
+        enabled: ${GROUPS_DELETE:false}
+      - label: "groups/get_by_id"
+        description: "Get group"
+        operationId: "getById"
+        enabled: ${GROUPS_GET_BY_ID:true}
+      - label: "groups/patch"
+        description: "Partially update group"
+        operationId: "patch"
+        enabled: ${GROUPS_PATCH:false}
+      - label: "groups/update"
+        description: "Update group"
+        operationId: "update"
+        enabled: ${GROUPS_UPDATE:false}
+      - label: "groups/get_credit_arrangements_by_group_id_or_key"
+        description: "Credit arrangements list returned."
+        operationId: "getCreditArrangementsByGroupIdOrKey"
+        enabled: ${GROUPS_GET_CREDIT_ARRANGEMENTS_BY_GROUP_ID_OR_KEY:true}
+      - label: "groups/search"
+        description: "Search groups"
+        operationId: "search"
+        enabled: ${GROUPS_SEARCH:false}
+  - id: "index_rate_sources"
+    specLocation: "json/indexratesources_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "index_rate_sources/list_index_rate_sources"
+        description: "Get index rate sources"
+        operationId: "getAllIndexRateSources"
+        enabled: ${INDEX_RATE_SOURCES_LIST_INDEX_RATE_SOURCES:true}
+      - label: "index_rate_sources/create_index_rate_source"
+        description: "Create index rate source"
+        operationId: "createIndexRateSource"
+        enabled: ${INDEX_RATE_SOURCES_CREATE_INDEX_RATE_SOURCE:false}
+      - label: "index_rate_sources/delete_index_rate_source"
+        description: "Delete index rate source"
+        operationId: "deleteIndexRateSource"
+        enabled: ${INDEX_RATE_SOURCES_DELETE_INDEX_RATE_SOURCE:false}
+      - label: "index_rate_sources/get_index_rate_source_by_id"
+        description: "Get index rate sources"
+        operationId: "getIndexRateSourceById"
+        enabled: ${INDEX_RATE_SOURCES_GET_INDEX_RATE_SOURCE_BY_ID:true}
+      - label: "index_rate_sources/list_index_rates"
+        description: "Get index rates for a source"
+        operationId: "getAllIndexRates"
+        enabled: ${INDEX_RATE_SOURCES_LIST_INDEX_RATES:true}
+      - label: "index_rate_sources/create_index_rate"
+        description: "Create index rate"
+        operationId: "createIndexRate"
+        enabled: ${INDEX_RATE_SOURCES_CREATE_INDEX_RATE:false}
+      - label: "index_rate_sources/delete_index_rate"
+        description: "Delete index rate"
+        operationId: "deleteIndexRate"
+        enabled: ${INDEX_RATE_SOURCES_DELETE_INDEX_RATE:false}
+  - id: "installments"
+    specLocation: "json/installments_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "installments/list"
+        description: "Get installments for `ACTIVE` or `ACTIVE_IN_ARREARS` loan accounts"
+        operationId: "getAll"
+        enabled: ${INSTALLMENTS_LIST:true}
+  - id: "loan_products"
+    specLocation: "json/loanproducts_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loan_products/list"
+        description: "Get loan products"
+        operationId: "getAll"
+        enabled: ${LOAN_PRODUCTS_LIST:true}
+      - label: "loan_products/create"
+        description: "Create loan product"
+        operationId: "create"
+        enabled: ${LOAN_PRODUCTS_CREATE:false}
+      - label: "loan_products/delete"
+        description: "Delete loan product"
+        operationId: "delete"
+        enabled: ${LOAN_PRODUCTS_DELETE:false}
+      - label: "loan_products/get_by_id"
+        description: "Get loan product"
+        operationId: "getById"
+        enabled: ${LOAN_PRODUCTS_GET_BY_ID:true}
+      - label: "loan_products/patch"
+        description: "Partially update loan product"
+        operationId: "patch"
+        enabled: ${LOAN_PRODUCTS_PATCH:false}
+      - label: "loan_products/update"
+        description: "Update loan product"
+        operationId: "update"
+        enabled: ${LOAN_PRODUCTS_UPDATE:false}
+  - id: "loans_download"
+    specLocation: "json/loans_download_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans_download/search_file_download"
+        description: "Search loan accounts"
+        operationId: "searchFileDownload"
+        enabled: ${LOANS_DOWNLOAD_SEARCH_FILE_DOWNLOAD:true}
+      - label: "loans_download/search_ranges"
+        description: "Get search ranges for parallel file-download streams"
+        operationId: "searchRanges"
+        enabled: ${LOANS_DOWNLOAD_SEARCH_RANGES:true}
+  - id: "loans_schedule"
+    specLocation: "json/loans_schedule_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans_schedule/preview_schedule"
+        description: "Preview loan account schedule for non-existent loan account"
+        operationId: "previewSchedule"
+        enabled: ${LOANS_SCHEDULE_PREVIEW_SCHEDULE:false}
+      - label: "loans_schedule/get_schedule_for_loan_account"
+        description: "Get loan account schedule"
+        operationId: "getScheduleForLoanAccount"
+        enabled: ${LOANS_SCHEDULE_GET_SCHEDULE_FOR_LOAN_ACCOUNT:true}
+      - label: "loans_schedule/edit_schedule"
+        description: "Update loan account schedule"
+        operationId: "editSchedule"
+        enabled: ${LOANS_SCHEDULE_EDIT_SCHEDULE:false}
+      - label: "loans_schedule/preview_process_pmt_transactionally"
+        description: "Preview loan account schedule using transactional processing for PMT."
+        operationId: "previewProcessPMTTransactionally"
+        enabled: ${LOANS_SCHEDULE_PREVIEW_PROCESS_PMT_TRANSACTIONALLY:false}
+      - label: "loans_schedule/preview_tranches_on_schedule"
+        description: "Preview loan account schedule for non-existent loan account"
+        operationId: "previewTranchesOnSchedule"
+        enabled: ${LOANS_SCHEDULE_PREVIEW_TRANCHES_ON_SCHEDULE:false}
+  - id: "loans_tranches"
+    specLocation: "json/loans_tranches_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans_tranches/get_tranches"
+        description: "Get loan account tranches list"
+        operationId: "getTranches"
+        enabled: ${LOANS_TRANCHES_GET_TRANCHES:true}
+      - label: "loans_tranches/edit_tranches"
+        description: "Update loan account tranches list"
+        operationId: "editTranches"
+        enabled: ${LOANS_TRANCHES_EDIT_TRANCHES:false}
+  - id: "loans_transactions_octetstream"
+    specLocation: "json/loans_transactions_v2+octetstream_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans_transactions_octetstream/search"
+        description: "Search loan transactions"
+        operationId: "search"
+        enabled: ${LOANS_TRANSACTIONS_OCTETSTREAM_SEARCH:false}
+  - id: "loans_transactions"
+    specLocation: "json/loans_transactions_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans_transactions/get_by_id"
+        description: "Get loan transaction"
+        operationId: "getById"
+        enabled: ${LOANS_TRANSACTIONS_GET_BY_ID:true}
+      - label: "loans_transactions/adjust"
+        description: "Adjust loan transaction"
+        operationId: "adjust"
+        enabled: ${LOANS_TRANSACTIONS_ADJUST:false}
+      - label: "loans_transactions/search"
+        description: "Search loan transactions"
+        operationId: "search"
+        enabled: ${LOANS_TRANSACTIONS_SEARCH:false}
+      - label: "loans_transactions/make_disbursement"
+        description: "Make a disbursement on a loan"
+        operationId: "makeDisbursement"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_DISBURSEMENT:false}
+      - label: "loans_transactions/apply_fee"
+        description: "Apply a fee on a loan account"
+        operationId: "applyFee"
+        enabled: ${LOANS_TRANSACTIONS_APPLY_FEE:false}
+      - label: "loans_transactions/apply_lock"
+        description: "Lock loan account income sources (interest, fees, penalties)"
+        operationId: "applyLock"
+        enabled: ${LOANS_TRANSACTIONS_APPLY_LOCK:false}
+      - label: "loans_transactions/apply_payment_made"
+        description: "Make payment in redraw balance for loan account"
+        operationId: "applyPaymentMade"
+        enabled: ${LOANS_TRANSACTIONS_APPLY_PAYMENT_MADE:false}
+      - label: "loans_transactions/make_principal_overpayment"
+        description: "Make non-scheduled principal overpayment transaction on loan account"
+        operationId: "makePrincipalOverpayment"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_PRINCIPAL_OVERPAYMENT:false}
+      - label: "loans_transactions/make_redraw_repayment"
+        description: "Make a redraw repayment transaction on a loan"
+        operationId: "makeRedrawRepayment"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_REDRAW_REPAYMENT:false}
+      - label: "loans_transactions/make_refund"
+        description: "Make refund transaction on loan account"
+        operationId: "makeRefund"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_REFUND:false}
+      - label: "loans_transactions/make_repayment"
+        description: "Make repayment transaction on loan account"
+        operationId: "makeRepayment"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_REPAYMENT:false}
+      - label: "loans_transactions/list"
+        description: "Get loan transactions"
+        operationId: "getAll"
+        enabled: ${LOANS_TRANSACTIONS_LIST:true}
+      - label: "loans_transactions/get_transactions_for_all_versions"
+        description: "Get loan transactions for all loan account versions"
+        operationId: "getTransactionsForAllVersions"
+        enabled: ${LOANS_TRANSACTIONS_GET_TRANSACTIONS_FOR_ALL_VERSIONS:true}
+      - label: "loans_transactions/apply_unlock"
+        description: "Unlock loan account income sources (interest, fees, penalties)"
+        operationId: "applyUnlock"
+        enabled: ${LOANS_TRANSACTIONS_APPLY_UNLOCK:false}
+      - label: "loans_transactions/make_withdrawal"
+        description: "Make withdrawal from redraw balance"
+        operationId: "makeWithdrawal"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_WITHDRAWAL:false}
+      - label: "loans_transactions/make_deposit_on_credit_balance"
+        description: "Represents the information for creating a transaction of type CREDIT_BALANCE_DEPOSIT."
+        operationId: "makeDepositOnCreditBalance"
+        enabled: ${LOANS_TRANSACTIONS_MAKE_DEPOSIT_ON_CREDIT_BALANCE:false}
+  - id: "loans"
+    specLocation: "json/loans_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "loans/list"
+        description: "Get loan accounts"
+        operationId: "getAll"
+        enabled: ${LOANS_LIST:true}
+      - label: "loans/create"
+        description: "Create loan account"
+        operationId: "create"
+        enabled: ${LOANS_CREATE:false}
+      - label: "loans/migrate_external"
+        description: "Create loan account via external migration"
+        operationId: "migrateExternal"
+        enabled: ${LOANS_MIGRATE_EXTERNAL:false}
+      - label: "loans/delete"
+        description: "Delete loan account"
+        operationId: "delete"
+        enabled: ${LOANS_DELETE:false}
+      - label: "loans/get_by_id"
+        description: "Get loan account"
+        operationId: "getById"
+        enabled: ${LOANS_GET_BY_ID:true}
+      - label: "loans/patch"
+        description: "Partially update loan account"
+        operationId: "patch"
+        enabled: ${LOANS_PATCH:false}
+      - label: "loans/update"
+        description: "Update loan account"
+        operationId: "update"
+        enabled: ${LOANS_UPDATE:false}
+      - label: "loans/list_authorization_holds"
+        description: "Get authorization holds related to a loan account, ordered from newest to oldest by creation date"
+        operationId: "getAllAuthorizationHolds"
+        enabled: ${LOANS_LIST_AUTHORIZATION_HOLDS:true}
+      - label: "loans/get_balances_by_loan_account_id"
+        description: "Get loan account balances"
+        operationId: "getBalancesByLoanAccountId"
+        enabled: ${LOANS_GET_BALANCES_BY_LOAN_ACCOUNT_ID:true}
+      - label: "loans/apply_balance_interest"
+        description: "Apply interest on a loan account balance"
+        operationId: "applyBalanceInterest"
+        enabled: ${LOANS_APPLY_BALANCE_INTEREST:false}
+      - label: "loans/list_cards"
+        description: "Get cards associated with an account"
+        operationId: "getAllCards"
+        enabled: ${LOANS_LIST_CARDS:true}
+      - label: "loans/create_card"
+        description: "Represents the information needed to create and associate a new card to an account."
+        operationId: "createCard"
+        enabled: ${LOANS_CREATE_CARD:false}
+      - label: "loans/delete_card"
+        description: "Represents the information needed to delete a card associated to an account using its reference token."
+        operationId: "deleteCard"
+        enabled: ${LOANS_DELETE_CARD:false}
+      - label: "loans/delete_funding_sources"
+        description: "Delete loan account funding sources"
+        operationId: "deleteFundingSources"
+        enabled: ${LOANS_DELETE_FUNDING_SOURCES:false}
+      - label: "loans/create_loan_account_funding_sources"
+        description: "Create funding sources for a loan account"
+        operationId: "createLoanAccountFundingSources"
+        enabled: ${LOANS_CREATE_LOAN_ACCOUNT_FUNDING_SOURCES:false}
+      - label: "loans/update_loan_account_funding_sources"
+        description: "Update loan account funding sources"
+        operationId: "updateLoanAccountFundingSources"
+        enabled: ${LOANS_UPDATE_LOAN_ACCOUNT_FUNDING_SOURCES:false}
+      - label: "loans/delete_single_funding_source"
+        description: "Delete loan account funding source"
+        operationId: "deleteSingleFundingSource"
+        enabled: ${LOANS_DELETE_SINGLE_FUNDING_SOURCE:false}
+      - label: "loans/patch_funding_source"
+        description: "Update loan account funding source"
+        operationId: "patchFundingSource"
+        enabled: ${LOANS_PATCH_FUNDING_SOURCE:false}
+      - label: "loans/list_planned_fees"
+        description: "Get planned fees"
+        operationId: "getAllPlannedFees"
+        enabled: ${LOANS_LIST_PLANNED_FEES:true}
+      - label: "loans/create_planned_fees"
+        description: "Create planned fees"
+        operationId: "createPlannedFees"
+        enabled: ${LOANS_CREATE_PLANNED_FEES:false}
+      - label: "loans/update_planned_fees"
+        description: "Update planned fees"
+        operationId: "updatePlannedFees"
+        enabled: ${LOANS_UPDATE_PLANNED_FEES:false}
+      - label: "loans/delete_planned_fees"
+        description: "Delete planned fee"
+        operationId: "deletePlannedFees"
+        enabled: ${LOANS_DELETE_PLANNED_FEES:false}
+      - label: "loans/apply_planned_fees"
+        description: "ApplY planned fees from the past installments, as backdated or from future installments, on the first pending installment"
+        operationId: "applyPlannedFees"
+        enabled: ${LOANS_APPLY_PLANNED_FEES:false}
+      - label: "loans/get_loan_account_document"
+        description: "Get loan account document"
+        operationId: "getLoanAccountDocument"
+        enabled: ${LOANS_GET_LOAN_ACCOUNT_DOCUMENT:true}
+      - label: "loans/get_pdf_document"
+        description: "Download loan account document PDF"
+        operationId: "getPdfDocument"
+        enabled: ${LOANS_GET_PDF_DOCUMENT:true}
+      - label: "loans/apply_interest"
+        description: "Apply accrued interest"
+        operationId: "applyInterest"
+        enabled: ${LOANS_APPLY_INTEREST:false}
+      - label: "loans/change_arrears_settings"
+        description: "Change arrears settings for loan account"
+        operationId: "changeArrearsSettings"
+        enabled: ${LOANS_CHANGE_ARREARS_SETTINGS:false}
+      - label: "loans/change_due-dates_settings"
+        description: "Change due dates settings for loan account"
+        operationId: "changeDueDatesSettings"
+        enabled: ${LOANS_CHANGE_DUE_DATES_SETTINGS:false}
+      - label: "loans/change_fee_rate"
+        description: "Change loan account fee rate"
+        operationId: "changeFeeRate"
+        enabled: ${LOANS_CHANGE_FEE_RATE:false}
+      - label: "loans/change_interest_rate"
+        description: "Change loan account interest rate"
+        operationId: "changeInterestRate"
+        enabled: ${LOANS_CHANGE_INTEREST_RATE:false}
+      - label: "loans/change_loan_term"
+        description: "Change loan account term"
+        operationId: "changeLoanTerm"
+        enabled: ${LOANS_CHANGE_LOAN_TERM:false}
+      - label: "loans/change_periodic_payment"
+        description: "Change the periodic payment amount for an active loan, so that it is still possible to have principal and interest installments, but with a smaller or greater total due amount than the initial one."
+        operationId: "changePeriodicPayment"
+        enabled: ${LOANS_CHANGE_PERIODIC_PAYMENT:false}
+      - label: "loans/change_repayment_value"
+        description: "Change repayment value for loan account"
+        operationId: "changeRepaymentValue"
+        enabled: ${LOANS_CHANGE_REPAYMENT_VALUE:false}
+      - label: "loans/change_state"
+        description: "Change loan account state"
+        operationId: "changeState"
+        enabled: ${LOANS_CHANGE_STATE:false}
+      - label: "loans/pay_off"
+        description: "Pay off loan account"
+        operationId: "payOff"
+        enabled: ${LOANS_PAY_OFF:false}
+      - label: "loans/preview_pay_off_amounts"
+        description: "Preview pay off due amounts in a future date"
+        operationId: "previewPayOffAmounts"
+        enabled: ${LOANS_PREVIEW_PAY_OFF_AMOUNTS:false}
+      - label: "loans/refinance"
+        description: "Refinance loan account"
+        operationId: "refinance"
+        enabled: ${LOANS_REFINANCE:false}
+      - label: "loans/get_loan_account_rsv"
+        description: "Allows retrieval of repayment schedule versioning for a loan account"
+        operationId: "getLoanAccountRSV"
+        enabled: ${LOANS_GET_LOAN_ACCOUNT_RSV:true}
+      - label: "loans/reschedule"
+        description: "Reschedule loan account"
+        operationId: "reschedule"
+        enabled: ${LOANS_RESCHEDULE:false}
+      - label: "loans/terminate_loan_account"
+        description: "Terminate loan account"
+        operationId: "terminateLoanAccount"
+        enabled: ${LOANS_TERMINATE_LOAN_ACCOUNT:false}
+      - label: "loans/undo_refinance"
+        description: "Undo loan account refinance action"
+        operationId: "undoRefinance"
+        enabled: ${LOANS_UNDO_REFINANCE:false}
+      - label: "loans/undo_reschedule"
+        description: "Undo loan account reschedule action"
+        operationId: "undoReschedule"
+        enabled: ${LOANS_UNDO_RESCHEDULE:false}
+      - label: "loans/undo_write_off"
+        description: "Undo write off for loan account"
+        operationId: "undoWriteOff"
+        enabled: ${LOANS_UNDO_WRITE_OFF:false}
+      - label: "loans/get_versions_by_id"
+        description: "Get all versions of loan account"
+        operationId: "getVersionsById"
+        enabled: ${LOANS_GET_VERSIONS_BY_ID:true}
+      - label: "loans/write_off"
+        description: "Write off loan account"
+        operationId: "writeOff"
+        enabled: ${LOANS_WRITE_OFF:false}
+      - label: "loans/get_preview_loan_account_schedule"
+        description: "Preview loan account schedule for non-existent loan account"
+        operationId: "getPreviewLoanAccountSchedule"
+        enabled: ${LOANS_GET_PREVIEW_LOAN_ACCOUNT_SCHEDULE:false}
+      - label: "loans/reevaluate_collateral_assets"
+        description: "Update collateral asset amounts"
+        operationId: "reevaluateCollateralAssets"
+        enabled: ${LOANS_REEVALUATE_COLLATERAL_ASSETS:false}
+      - label: "loans/search"
+        description: "Search loan accounts"
+        operationId: "search"
+        enabled: ${LOANS_SEARCH:false}
+  - id: "notification_settings_webhook"
+    specLocation: "json/notificationsettings_webhook_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "notification_settings_webhook/get_webhook_notification_settings"
+        description: "Get the webhook notification settings"
+        operationId: "getWebhookNotificationSettings"
+        enabled: ${NOTIFICATION_SETTINGS_WEBHOOK_GET_WEBHOOK_NOTIFICATION_SETTINGS:true}
+      - label: "notification_settings_webhook/update_webhook_notification_settings"
+        description: "Update the webhook notification settings"
+        operationId: "updateWebhookNotificationSettings"
+        enabled: ${NOTIFICATION_SETTINGS_WEBHOOK_UPDATE_WEBHOOK_NOTIFICATION_SETTINGS:false}
+  - id: "organization_holidays_general"
+    specLocation: "json/organization_holidays_general_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "organization_holidays_general/create"
+        description: "Create holidays"
+        operationId: "create"
+        enabled: ${ORGANIZATION_HOLIDAYS_GENERAL_CREATE:false}
+      - label: "organization_holidays_general/delete"
+        description: "Delete holiday"
+        operationId: "delete"
+        enabled: ${ORGANIZATION_HOLIDAYS_GENERAL_DELETE:false}
+      - label: "organization_holidays_general/get_by_id"
+        description: "Get holiday"
+        operationId: "getByIdentifier"
+        enabled: ${ORGANIZATION_HOLIDAYS_GENERAL_GET_BY_ID:true}
+  - id: "organization_holidays_nonworkingdays"
+    specLocation: "json/organization_holidays_nonworkingdays_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "organization_holidays_nonworkingdays/get_non_working_days"
+        description: "Get non-working days"
+        operationId: "getNonWorkingDays"
+        enabled: ${ORGANIZATION_HOLIDAYS_NONWORKINGDAYS_GET_NON_WORKING_DAYS:true}
+      - label: "organization_holidays_nonworkingdays/update_non_working_days"
+        description: "Update non-working days"
+        operationId: "updateNonWorkingDays"
+        enabled: ${ORGANIZATION_HOLIDAYS_NONWORKINGDAYS_UPDATE_NON_WORKING_DAYS:false}
+  - id: "organization_holidays"
+    specLocation: "json/organization_holidays_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "organization_holidays/get"
+        description: "Get holidays"
+        operationId: "get"
+        enabled: ${ORGANIZATION_HOLIDAYS_GET:true}
+      - label: "organization_holidays/update"
+        description: "Update holidays"
+        operationId: "update"
+        enabled: ${ORGANIZATION_HOLIDAYS_UPDATE:false}
+  - id: "organization_identification_document_templates"
+    specLocation: "json/organization_identificationDocumentTemplates_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "organization_identification_document_templates/list"
+        description: "Get ID templates"
+        operationId: "getAll"
+        enabled: ${ORGANIZATION_IDENTIFICATION_DOCUMENT_TEMPLATES_LIST:true}
+  - id: "organization_transaction_channels"
+    specLocation: "json/organization_transactionChannels_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "organization_transaction_channels/list"
+        description: "Get transaction channels"
+        operationId: "getAll"
+        enabled: ${ORGANIZATION_TRANSACTION_CHANNELS_LIST:true}
+      - label: "organization_transaction_channels/create"
+        description: "Create transaction channel"
+        operationId: "create"
+        enabled: ${ORGANIZATION_TRANSACTION_CHANNELS_CREATE:false}
+      - label: "organization_transaction_channels/delete"
+        description: "Delete transaction channel"
+        operationId: "delete"
+        enabled: ${ORGANIZATION_TRANSACTION_CHANNELS_DELETE:false}
+      - label: "organization_transaction_channels/get_by_id"
+        description: "Get transaction channel"
+        operationId: "getById"
+        enabled: ${ORGANIZATION_TRANSACTION_CHANNELS_GET_BY_ID:true}
+      - label: "organization_transaction_channels/update"
+        description: "Update transaction channel"
+        operationId: "update"
+        enabled: ${ORGANIZATION_TRANSACTION_CHANNELS_UPDATE:false}
+  - id: "profit_sharing_cashflows"
+    specLocation: "json/profitsharing_cash-flows_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "profit_sharing_cashflows/get_cash_flows"
+        description: "Allows retrieval of a list of cash flows"
+        operationId: "getCashFlows"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_GET_CASH_FLOWS:true}
+      - label: "profit_sharing_cashflows/create_cash_flow"
+        description: "Create a new cash flow"
+        operationId: "createCashFlow"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_CREATE_CASH_FLOW:false}
+      - label: "profit_sharing_cashflows/get_cash_flow_by_id"
+        description: "Allows retrieval of a single cash flow"
+        operationId: "getCashFlowById"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_GET_CASH_FLOW_BY_ID:true}
+      - label: "profit_sharing_cashflows/update_cash_flow"
+        description: "Update an existing cash flow"
+        operationId: "updateCashFlow"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_UPDATE_CASH_FLOW:false}
+      - label: "profit_sharing_cashflows/create_cash_flow_settings"
+        description: "Create new settings for a cash flow"
+        operationId: "createCashFlowSettings"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_CREATE_CASH_FLOW_SETTINGS:false}
+      - label: "profit_sharing_cashflows/get_cash_flow_settings_by_id"
+        description: "Retrieves the settings for a cash flow"
+        operationId: "getCashFlowSettingsById"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_GET_CASH_FLOW_SETTINGS_BY_ID:true}
+      - label: "profit_sharing_cashflows/update_cash_flow_settings"
+        description: "Update settings for an existing cash flow"
+        operationId: "updateCashFlowSettings"
+        enabled: ${PROFIT_SHARING_CASHFLOWS_UPDATE_CASH_FLOW_SETTINGS:false}
+  - id: "profit_sharing_pools"
+    specLocation: "json/profitsharing_pools_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "profit_sharing_pools/get_pools"
+        description: "Allows retrieval of a list of pools"
+        operationId: "getPools"
+        enabled: ${PROFIT_SHARING_POOLS_GET_POOLS:true}
+      - label: "profit_sharing_pools/create_pool"
+        description: "Create a new investment pool"
+        operationId: "createPool"
+        enabled: ${PROFIT_SHARING_POOLS_CREATE_POOL:false}
+      - label: "profit_sharing_pools/get_pool_by_id"
+        description: "Allows retrieval of a single pool"
+        operationId: "getPoolById"
+        enabled: ${PROFIT_SHARING_POOLS_GET_POOL_BY_ID:true}
+      - label: "profit_sharing_pools/update_pool"
+        description: "Update an existing investment pool"
+        operationId: "updatePool"
+        enabled: ${PROFIT_SHARING_POOLS_UPDATE_POOL:false}
+      - label: "profit_sharing_pools/create_pool_settings"
+        description: "Create new settings for investment pool"
+        operationId: "createPoolSettings"
+        enabled: ${PROFIT_SHARING_POOLS_CREATE_POOL_SETTINGS:false}
+      - label: "profit_sharing_pools/get_pool_settings_by_id"
+        description: "Retrieves settings for an investment pool"
+        operationId: "getPoolSettingsById"
+        enabled: ${PROFIT_SHARING_POOLS_GET_POOL_SETTINGS_BY_ID:true}
+      - label: "profit_sharing_pools/update_pool_settings"
+        description: "Update settings for an existing investment pool"
+        operationId: "updatePoolSettings"
+        enabled: ${PROFIT_SHARING_POOLS_UPDATE_POOL_SETTINGS:false}
+  - id: "profit_sharing_product_settings"
+    specLocation: "json/profitsharing_product-settings_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "profit_sharing_product-settings/create_product_settings"
+        description: "Create new product settings"
+        operationId: "createProductSettings"
+        enabled: ${PROFIT_SHARING_PRODUCT_SETTINGS_CREATE_PRODUCT_SETTINGS:false}
+      - label: "profit_sharing_product-settings/get_product_settings_by_id"
+        description: "Allows retrieval of product settings"
+        operationId: "getProductSettingsById"
+        enabled: ${PROFIT_SHARING_PRODUCT_SETTINGS_GET_PRODUCT_SETTINGS_BY_ID:true}
+      - label: "profit_sharing_product-settings/update_product_settings"
+        description: "Update existing product settings"
+        operationId: "updateProductSettings"
+        enabled: ${PROFIT_SHARING_PRODUCT_SETTINGS_UPDATE_PRODUCT_SETTINGS:false}
+      - label: "profit_sharing_product-settings/search_product_settings"
+        description: "Allows the retrieval of product settings based on criteria"
+        operationId: "searchProductSettings"
+        enabled: ${PROFIT_SHARING_PRODUCT_SETTINGS_SEARCH_PRODUCT_SETTINGS:true}
+  - id: "profit_sharing_products"
+    specLocation: "json/profitsharing_products_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "profit_sharing_products/list"
+        description: "Allows retrieval of Islamic savings products"
+        operationId: "getAll"
+        enabled: ${PROFIT_SHARING_PRODUCTS_LIST:true}
+  - id: "profit_sharing_proposals"
+    specLocation: "json/profitsharing_proposals_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "profit_sharing_proposals/find_proposal_account_details"
+        description: "Allows the retrieval of proposal accounts details and account payment/profit cycle calculation by proposal id and other params."
+        operationId: "findProposalAccountDetails"
+        enabled: ${PROFIT_SHARING_PROPOSALS_FIND_PROPOSAL_ACCOUNT_DETAILS:true}
+      - label: "profit_sharing_proposals/find_proposals"
+        description: "Allows the retrieval of proposals calculation"
+        operationId: "findProposals"
+        enabled: ${PROFIT_SHARING_PROPOSALS_FIND_PROPOSALS:true}
+      - label: "profit_sharing_proposals/approve_proposal"
+        description: "Allows approval of a proposal"
+        operationId: "approveProposal"
+        enabled: ${PROFIT_SHARING_PROPOSALS_APPROVE_PROPOSAL:false}
+  - id: "process_definitions"
+    specLocation: "json/processdefinitions_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "process_definitions/upload"
+        description: "Upload a BPMN process definition"
+        operationId: "upload"
+        enabled: ${PROCESS_DEFINITIONS_UPLOAD:false}
+  - id: "rates"
+    specLocation: "json/rates_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+  - id: "setup_general"
+    specLocation: "json/setup_general_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "setup_general/get_general_setup"
+        description: "Get general setup"
+        operationId: "getGeneralSetup"
+        enabled: ${SETUP_GENERAL_GET_GENERAL_SETUP:true}
+  - id: "setup_organization"
+    specLocation: "json/setup_organization_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "setup_organization/get_organization_setup"
+        description: "Get organization details"
+        operationId: "getOrganizationSetup"
+        enabled: ${SETUP_ORGANIZATION_GET_ORGANIZATION_SETUP:true}
+      - label: "setup_organization/update_organization_setup"
+        description: "Update organization details"
+        operationId: "updateOrganizationSetup"
+        enabled: ${SETUP_ORGANIZATION_UPDATE_ORGANIZATION_SETUP:false}
+  - id: "subscriptions"
+    specLocation: "json/subscriptions_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "subscriptions/create_or_get"
+        description: "Allows the creation of a streaming events subscription"
+        operationId: "createOrGetSubscription"
+        enabled: ${SUBSCRIPTIONS_CREATE_OR_GET:false}
+      - label: "subscriptions/delete"
+        description: "Allows the deletion of a streaming events subscription"
+        operationId: "deleteSubscription"
+        enabled: ${SUBSCRIPTIONS_DELETE:false}
+      - label: "subscriptions/get_events"
+        description: "Get subscription events"
+        operationId: "getSubscriptionEvents"
+        enabled: ${SUBSCRIPTIONS_GET_EVENTS:true}
+  - id: "tasks"
+    specLocation: "json/tasks_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "tasks/list"
+        description: "Gets tasks"
+        operationId: "getAll"
+        enabled: ${TASKS_LIST:true}
+      - label: "tasks/create"
+        description: "Create task"
+        operationId: "create"
+        enabled: ${TASKS_CREATE:false}
+      - label: "tasks/delete"
+        description: "Delete task"
+        operationId: "delete"
+        enabled: ${TASKS_DELETE:false}
+      - label: "tasks/get_by_id"
+        description: "Get task"
+        operationId: "getById"
+        enabled: ${TASKS_GET_BY_ID:true}
+      - label: "tasks/patch"
+        description: "Partially update task"
+        operationId: "patch"
+        enabled: ${TASKS_PATCH:false}
+      - label: "tasks/update"
+        description: "Update task"
+        operationId: "update"
+        enabled: ${TASKS_UPDATE:false}
+  - id: "templates"
+    specLocation: "json/templates_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "templates/create_template"
+        description: "Create a new template"
+        operationId: "createTemplate"
+        enabled: ${TEMPLATES_CREATE_TEMPLATE:false}
+      - label: "templates/delete"
+        description: "Delete an existing template"
+        operationId: "delete"
+        enabled: ${TEMPLATES_DELETE:false}
+      - label: "templates/get_by_template_id"
+        description: "Get template by id"
+        operationId: "getByTemplateId"
+        enabled: ${TEMPLATES_GET_BY_TEMPLATE_ID:true}
+      - label: "templates/update_template"
+        description: "Update an existing template"
+        operationId: "updateTemplate"
+        enabled: ${TEMPLATES_UPDATE_TEMPLATE:false}
+  - id: "user_roles"
+    specLocation: "json/userroles_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "user_roles/list"
+        description: "Get user roles"
+        operationId: "getAll"
+        enabled: ${USER_ROLES_LIST:true}
+      - label: "user_roles/create"
+        description: "Create user role"
+        operationId: "create"
+        enabled: ${USER_ROLES_CREATE:false}
+      - label: "user_roles/delete"
+        description: "Delete user role"
+        operationId: "delete"
+        enabled: ${USER_ROLES_DELETE:false}
+      - label: "user_roles/get_by_id"
+        description: "Get user role"
+        operationId: "getById"
+        enabled: ${USER_ROLES_GET_BY_ID:true}
+      - label: "user_roles/patch"
+        description: "Partially update user role"
+        operationId: "patch"
+        enabled: ${USER_ROLES_PATCH:false}
+      - label: "user_roles/update"
+        description: "Update user role"
+        operationId: "update"
+        enabled: ${USER_ROLES_UPDATE:false}
+  - id: "users"
+    specLocation: "json/users_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "users/list"
+        description: "Get users"
+        operationId: "getAll"
+        enabled: ${USERS_LIST:true}
+      - label: "users/create"
+        description: "Create user"
+        operationId: "create"
+        enabled: ${USERS_CREATE:false}
+      - label: "users/delete"
+        description: "Delete user"
+        operationId: "delete"
+        enabled: ${USERS_DELETE:false}
+      - label: "users/get_by_id"
+        description: "Get user"
+        operationId: "getById"
+        enabled: ${USERS_GET_BY_ID:true}
+      - label: "users/patch"
+        description: "Partially update user"
+        operationId: "patch"
+        enabled: ${USERS_PATCH:false}
+      - label: "users/update"
+        description: "Update user"
+        operationId: "update"
+        enabled: ${USERS_UPDATE:false}
