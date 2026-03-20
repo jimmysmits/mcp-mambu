@@ -1,34 +1,34 @@
 class Mmcp < Formula
   desc "MCP Server for OpenAPI — search and invoke any REST API from AI agents"
   homepage "https://github.com/mambu-gmbh/mmcp-brew"
-  version "v0.0.27"
+  version "v0.0.31"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.27/mmcp-v0.0.27-macos-arm64.tar.gz"
-      sha256 "9e7211ecda532bc8e21d5c08aea3e62690d1cfd69e36717145fdbbabff830589"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-macos-arm64.tar.gz"
+      sha256 "981f091f554faa595a70b5c109a745edd9f2a5c4ada42703359b9117dac705af"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.27/mmcp-v0.0.27-linux-amd64.tar.gz"
-      sha256 "1a97291d78d5da45635df24f7142c75cdd7b6eaf91ef2e6bc8b4fc2b4881d6f9"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-linux-amd64.tar.gz"
+      sha256 "041de8640d14e9c50622fff4abde6bdb2c1b5f8a35ee743ca52f8ebd3bf155bc"
     elsif Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.27/mmcp-v0.0.27-linux-arm64.tar.gz"
-      sha256 "4a3fa4c3ebf6978058629c1f1610efb33e2d383cce6462c446387903407d079b"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.31/mmcp-v0.0.31-linux-arm64.tar.gz"
+      sha256 "f821a58846e2c1b3879002fbbe42452163cf93d082a88e78ec31c9ccd28206db"
     end
   end
 
   # ONNX embedding model (nomic-embed-text-v1.5, ~550 MB)
   resource "model" do
     url "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/onnx/model.onnx"
-    sha256 "PLACEHOLDER_MODEL_SHA256"
+    sha256 "147d5aa88c2101237358e17796cf3a227cead1ec304ec34b465bb08e9d952965"
   end
 
   resource "tokenizer" do
     url "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer.json"
-    sha256 "PLACEHOLDER_TOKENIZER_SHA256"
+    sha256 "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
   end
 
   def install
