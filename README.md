@@ -1,4 +1,4 @@
-# MMCP — MCP Server for OpenAPI
+# MMCP — Mambu MCP Server
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that enables AI agents to discover and execute REST API operations described by OpenAPI specifications. Includes a complete catalog for the [Mambu Banking Platform](https://mambu.com/) V2 API.
 
@@ -28,8 +28,8 @@ brew install mambu-gmbh/mmcp-brew/mmcp
 
 This installs:
 *   The `mmcp` native binary
-*   The [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) ONNX embedding model (~550 MB)
-*   The Mambu Banking Platform reference API catalog and OpenAPI specs
+*   The [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) ONNX embedding model (~550 MB) into the Homebrew prefix
+*   The Mambu Banking Platform reference API catalog and OpenAPI specs (when included in the release)
 
 To update to the latest version:
 
@@ -41,42 +41,17 @@ brew upgrade mmcp
 
 ## Quick Start
 
-Three commands to go from zero to a running MCP server with Mambu banking APIs:
+### 1. Install
 
 ```bash
-brew install mambu-gmbh/mmcp-brew/mmcp                                         # 1. Install
-mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml  # 2. Setup
-mmcp                                                                            # 3. Start
+brew install mambu-gmbh/mmcp-brew/mmcp
 ```
 
-### 1. Set your Mambu credentials
+This downloads the embedding model, the Mambu reference catalog, and automatically builds the search index. The install may take a few minutes due to the model download (~550 MB) and index build.
 
-```bash
-export MAMBU_API_KEY="your-api-key"
-export MAMBU_BASE_URL="https://your-tenant.mambu.com/api"
-```
+### 2. Configure your MCP client
 
-### 2. Run setup
-
-The `setup` command copies the catalog and spec files into platform-default directories, finds the embedding model from the Homebrew prefix, and builds the search index:
-
-```bash
-mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml
-```
-
-This only needs to be run once (or again when the catalog changes).
-
-### 3. Start the server
-
-```bash
-mmcp
-```
-
-The server reads all configuration from the platform default directories — no environment variables needed (except `MAMBU_API_KEY` and `MAMBU_BASE_URL` for API authentication at runtime).
-
-### 4. Configure your MCP client
-
-MMCP supports **stdio** (default), **SSE/Streamable HTTP**, and **WebSocket** transports. Configure your AI client to launch `mmcp` as an MCP server.
+Configure your AI client to launch `mmcp` with your Mambu credentials as environment variables. The `MAMBU_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
 #### Claude Desktop
 
@@ -176,6 +151,7 @@ The search engine uses a hybrid approach combining keyword matching (BM25) and s
 Operations are controlled via `catalog.yaml`, not individual environment variables. Each API entry defines which operations are enabled:
 
 ```yaml
+baseUrl: "${MAMBU_BASE_URL}"
 apis:
   - id: "clients"
     specLocation: "json/clients_v2_swagger.json"

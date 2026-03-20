@@ -57,24 +57,13 @@ class Mmcp < Formula
     end
   end
 
-  def caveats
-    <<~EOS
-      The ONNX embedding model has been installed to:
-        #{share}/mmcp/models/
+  def post_install
+    catalog = share/"mmcp/reference-apis/mambu/catalog.yaml"
+    if catalog.exist?
+      ohai "Running mmcp setup (building search index — this may take a few minutes)..."
+      system bin/"mmcp", "setup", "--catalog", catalog
+    end
+  end
 
-      The Mambu reference API catalog has been installed to:
-        #{share}/mmcp/reference-apis/mambu/catalog.yaml
-
-      To set up MMCP with the Mambu banking APIs:
-        export MAMBU_API_KEY="your-api-key"
-        export MAMBU_BASE_URL="https://your-tenant.mambu.com/api"
-        mmcp setup --catalog #{share}/mmcp/reference-apis/mambu/catalog.yaml
-
-      Or with your own API catalog:
-        mmcp setup --catalog /path/to/your/catalog.yaml
-
-      Then start the server with:
-        mmcp
-    EOS
   end
 end
