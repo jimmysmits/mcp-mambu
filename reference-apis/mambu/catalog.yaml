@@ -3,7 +3,7 @@ apis:
   - id: "accounting_interest_accrual"
     specLocation: "json/accounting_interestaccrual_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "accounting_interest_accrual/search"
@@ -13,7 +13,7 @@ apis:
   - id: "accounting_reports"
     specLocation: "json/accounting_reports_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "accounting_reports/create"
@@ -27,7 +27,7 @@ apis:
   - id: "api_key_rotation"
     specLocation: "json/apikey_rotation_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "api_key_rotation/rotate_key"
@@ -37,7 +37,7 @@ apis:
   - id: "application_status"
     specLocation: "json/application_status_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "application_status/get"
@@ -47,7 +47,7 @@ apis:
   - id: "archive_deposits_transactions_custom_fields"
     specLocation: "json/archive_deposits_transactions_customfields_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "archive_deposits_transactions_custom_fields/get_by_id"
@@ -61,7 +61,7 @@ apis:
   - id: "background_process"
     specLocation: "json/backgroundprocess_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "background_process/get_latest_by_type"
@@ -75,7 +75,7 @@ apis:
   - id: "branches"
     specLocation: "json/branches_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "branches/list"
@@ -93,7 +93,7 @@ apis:
   - id: "bulks"
     specLocation: "json/bulks_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "bulks/get_bulk_status"
@@ -103,7 +103,7 @@ apis:
   - id: "cards"
     specLocation: "json/cards_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "cards/create_authorization_hold"
@@ -153,7 +153,7 @@ apis:
   - id: "centres"
     specLocation: "json/centres_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "centres/list"
@@ -167,7 +167,7 @@ apis:
   - id: "clients_documents"
     specLocation: "json/clients_documents_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "clients_documents/get_client_document_file_by_id"
@@ -189,7 +189,7 @@ apis:
   - id: "clients"
     specLocation: "json/clients_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "clients/list"
@@ -231,7 +231,7 @@ apis:
   - id: "comments"
     specLocation: "json/comments_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "comments/get_comments"
@@ -245,7 +245,7 @@ apis:
   - id: "communications_messages"
     specLocation: "json/communications_messages_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "communications_messages/send"
@@ -279,7 +279,7 @@ apis:
   - id: "configuration_accounting_rules_yaml"
     specLocation: "json/configuration_accountingrules.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_accounting_rules_yaml/get"
@@ -293,7 +293,7 @@ apis:
   - id: "configuration_authorization_holds_yaml"
     specLocation: "json/configuration_authorizationholds.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_authorization_holds_yaml/get"
@@ -307,7 +307,7 @@ apis:
   - id: "configuration_branches_yaml"
     specLocation: "json/configuration_branches.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_branches_yaml/get"
@@ -321,7 +321,7 @@ apis:
   - id: "configuration_centres_yaml"
     specLocation: "json/configuration_centres.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_centres_yaml/get"
@@ -335,7 +335,7 @@ apis:
   - id: "configuration_client_roles_yaml"
     specLocation: "json/configuration_clientroles.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_client_roles_yaml/get"
@@ -349,7 +349,7 @@ apis:
   - id: "configuration_currencies_yaml"
     specLocation: "json/configuration_currencies.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_currencies_yaml/get"
@@ -363,7 +363,7 @@ apis:
   - id: "configuration_custom_fields"
     specLocation: "json/configuration_customfields_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_custom_fields/get"
@@ -381,7 +381,7 @@ apis:
   - id: "configuration_deposit_products_yaml"
     specLocation: "json/configuration_depositproducts.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_deposit_products_yaml/get"
@@ -395,7 +395,7 @@ apis:
   - id: "configuration_end_of_day_processing_yaml"
     specLocation: "json/configuration_endofdayprocessing.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_end_of_day_processing_yaml/get"
@@ -409,7 +409,7 @@ apis:
   - id: "configuration_group_role_names_yaml"
     specLocation: "json/configuration_grouprolenames.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_group_role_names_yaml/get"
@@ -423,7 +423,7 @@ apis:
   - id: "configuration_holidays_yaml"
     specLocation: "json/configuration_holidays.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_holidays_yaml/get"
@@ -437,7 +437,7 @@ apis:
   - id: "configuration_id_document_templates_yaml"
     specLocation: "json/configuration_iddocumenttemplates.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_id_document_templates_yaml/get"
@@ -451,7 +451,7 @@ apis:
   - id: "configuration_index_rates_yaml"
     specLocation: "json/configuration_indexrates.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_index_rates_yaml/get"
@@ -465,7 +465,7 @@ apis:
   - id: "configuration_internal_controls_yaml"
     specLocation: "json/configuration_internalcontrols.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_internal_controls_yaml/get"
@@ -479,7 +479,7 @@ apis:
   - id: "configuration_labels_yaml"
     specLocation: "json/configuration_labels.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_labels_yaml/get"
@@ -493,7 +493,7 @@ apis:
   - id: "configuration_loan_products_yaml"
     specLocation: "json/configuration_loanproducts.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_loan_products_yaml/get"
@@ -507,7 +507,7 @@ apis:
   - id: "configuration_loan_risk_levels_yaml"
     specLocation: "json/configuration_loanrisklevels.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_loan_risk_levels_yaml/get"
@@ -521,7 +521,7 @@ apis:
   - id: "configuration_organization"
     specLocation: "json/configuration_organization_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_organization/get"
@@ -539,7 +539,7 @@ apis:
   - id: "configuration_transaction_channels_yaml"
     specLocation: "json/configuration_transactionchannels.yaml_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_transaction_channels_yaml/get"
@@ -553,7 +553,7 @@ apis:
   - id: "configuration_user_roles"
     specLocation: "json/configuration_userroles_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "configuration_user_roles/get"
@@ -571,7 +571,7 @@ apis:
   - id: "consumers"
     specLocation: "json/consumers_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "consumers/list"
@@ -617,7 +617,7 @@ apis:
   - id: "credit_arrangements"
     specLocation: "json/creditarrangements_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "credit_arrangements/list"
@@ -671,7 +671,7 @@ apis:
   - id: "crons_early_eod"
     specLocation: "json/crons_earlyeod_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "crons_early_eod/run_earlier_hourly_and_end_of_day_crons"
@@ -681,7 +681,7 @@ apis:
   - id: "crons_eod"
     specLocation: "json/crons_eod_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "crons_eod/run_hourly_and_end_of_day_crons"
@@ -691,7 +691,7 @@ apis:
   - id: "currencies_accounting_rates"
     specLocation: "json/currencies_accountingRates_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "currencies_accounting_rates/list"
@@ -705,7 +705,7 @@ apis:
   - id: "currencies_rates"
     specLocation: "json/currencies_rates_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "currencies_rates/list"
@@ -719,7 +719,7 @@ apis:
   - id: "currencies"
     specLocation: "json/currencies_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "currencies/list"
@@ -745,7 +745,7 @@ apis:
   - id: "custom_fields"
     specLocation: "json/customfields_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "custom_fields/get_by_id"
@@ -755,7 +755,7 @@ apis:
   - id: "custom_field_sets"
     specLocation: "json/customfieldsets_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "custom_field_sets/list"
@@ -769,7 +769,7 @@ apis:
   - id: "data_import"
     specLocation: "json/data_import_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "data_import/data_import"
@@ -787,7 +787,7 @@ apis:
   - id: "database_backup"
     specLocation: "json/database_backup_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "database_backup/trigger_backup"
@@ -801,7 +801,7 @@ apis:
   - id: "deposit_products"
     specLocation: "json/depositproducts_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "deposit_products/list"
@@ -835,7 +835,7 @@ apis:
   - id: "deposits_balance_summary"
     specLocation: "json/deposits_balanceSummary_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "deposits_balance_summary/search"
@@ -849,7 +849,7 @@ apis:
   - id: "deposits_download"
     specLocation: "json/deposits_download_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "deposits_download/search_file_download"
@@ -859,7 +859,7 @@ apis:
   - id: "deposits_transactions"
     specLocation: "json/deposits_transactions_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "deposits_transactions/make_bulk_deposits"
@@ -925,7 +925,7 @@ apis:
   - id: "deposits"
     specLocation: "json/deposits_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "deposits/list"
@@ -1099,7 +1099,7 @@ apis:
   - id: "documents"
     specLocation: "json/documents_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "documents/create_document"
@@ -1121,7 +1121,7 @@ apis:
   - id: "extension_points"
     specLocation: "json/extensionpoints_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "extension_points/list"
@@ -1139,7 +1139,7 @@ apis:
   - id: "funding_sources"
     specLocation: "json/fundingsources_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "funding_sources/sell"
@@ -1149,7 +1149,7 @@ apis:
   - id: "gl_accounts"
     specLocation: "json/glaccounts_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "gl_accounts/list"
@@ -1171,7 +1171,7 @@ apis:
   - id: "gl_journal_entries"
     specLocation: "json/gljournalentries_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "gl_journal_entries/list"
@@ -1189,7 +1189,7 @@ apis:
   - id: "groups"
     specLocation: "json/groups_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "groups/list"
@@ -1227,7 +1227,7 @@ apis:
   - id: "index_rate_sources"
     specLocation: "json/indexratesources_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "index_rate_sources/list_index_rate_sources"
@@ -1261,7 +1261,7 @@ apis:
   - id: "installments"
     specLocation: "json/installments_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "installments/list"
@@ -1271,7 +1271,7 @@ apis:
   - id: "loan_products"
     specLocation: "json/loanproducts_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loan_products/list"
@@ -1301,7 +1301,7 @@ apis:
   - id: "loans_download"
     specLocation: "json/loans_download_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans_download/search_file_download"
@@ -1315,7 +1315,7 @@ apis:
   - id: "loans_schedule"
     specLocation: "json/loans_schedule_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans_schedule/preview_schedule"
@@ -1341,7 +1341,7 @@ apis:
   - id: "loans_tranches"
     specLocation: "json/loans_tranches_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans_tranches/get_tranches"
@@ -1355,7 +1355,7 @@ apis:
   - id: "loans_transactions_octetstream"
     specLocation: "json/loans_transactions_v2+octetstream_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans_transactions_octetstream/search"
@@ -1365,7 +1365,7 @@ apis:
   - id: "loans_transactions"
     specLocation: "json/loans_transactions_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans_transactions/get_by_id"
@@ -1435,7 +1435,7 @@ apis:
   - id: "loans"
     specLocation: "json/loans_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "loans/list"
@@ -1633,7 +1633,7 @@ apis:
   - id: "notification_settings_webhook"
     specLocation: "json/notificationsettings_webhook_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "notification_settings_webhook/get_webhook_notification_settings"
@@ -1647,7 +1647,7 @@ apis:
   - id: "organization_holidays_general"
     specLocation: "json/organization_holidays_general_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "organization_holidays_general/create"
@@ -1665,7 +1665,7 @@ apis:
   - id: "organization_holidays_nonworkingdays"
     specLocation: "json/organization_holidays_nonworkingdays_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "organization_holidays_nonworkingdays/get_non_working_days"
@@ -1679,7 +1679,7 @@ apis:
   - id: "organization_holidays"
     specLocation: "json/organization_holidays_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "organization_holidays/get"
@@ -1693,7 +1693,7 @@ apis:
   - id: "organization_identification_document_templates"
     specLocation: "json/organization_identificationDocumentTemplates_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "organization_identification_document_templates/list"
@@ -1703,7 +1703,7 @@ apis:
   - id: "organization_transaction_channels"
     specLocation: "json/organization_transactionChannels_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "organization_transaction_channels/list"
@@ -1729,7 +1729,7 @@ apis:
   - id: "profit_sharing_cashflows"
     specLocation: "json/profitsharing_cash-flows_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "profit_sharing_cashflows/get_cash_flows"
@@ -1763,7 +1763,7 @@ apis:
   - id: "profit_sharing_pools"
     specLocation: "json/profitsharing_pools_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "profit_sharing_pools/get_pools"
@@ -1797,7 +1797,7 @@ apis:
   - id: "profit_sharing_product_settings"
     specLocation: "json/profitsharing_product-settings_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "profit_sharing_product-settings/create_product_settings"
@@ -1819,7 +1819,7 @@ apis:
   - id: "profit_sharing_products"
     specLocation: "json/profitsharing_products_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "profit_sharing_products/list"
@@ -1829,7 +1829,7 @@ apis:
   - id: "profit_sharing_proposals"
     specLocation: "json/profitsharing_proposals_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "profit_sharing_proposals/find_proposal_account_details"
@@ -1847,7 +1847,7 @@ apis:
   - id: "process_definitions"
     specLocation: "json/processdefinitions_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "process_definitions/upload"
@@ -1857,13 +1857,13 @@ apis:
   - id: "rates"
     specLocation: "json/rates_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
   - id: "setup_general"
     specLocation: "json/setup_general_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "setup_general/get_general_setup"
@@ -1873,7 +1873,7 @@ apis:
   - id: "setup_organization"
     specLocation: "json/setup_organization_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "setup_organization/get_organization_setup"
@@ -1887,7 +1887,7 @@ apis:
   - id: "subscriptions"
     specLocation: "json/subscriptions_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "subscriptions/create_or_get"
@@ -1905,7 +1905,7 @@ apis:
   - id: "tasks"
     specLocation: "json/tasks_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "tasks/list"
@@ -1935,7 +1935,7 @@ apis:
   - id: "templates"
     specLocation: "json/templates_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "templates/create_template"
@@ -1957,7 +1957,7 @@ apis:
   - id: "user_roles"
     specLocation: "json/userroles_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "user_roles/list"
@@ -1987,7 +1987,7 @@ apis:
   - id: "users"
     specLocation: "json/users_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "users/list"

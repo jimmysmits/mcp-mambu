@@ -56,11 +56,11 @@ brew upgrade mmcp
 
 After installation, configure your MCP client with your Mambu credentials.
 
-The `MAMBU_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
+The `MAMBU_AUTH_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
 ### Configure your MCP client
 
-Configure your AI client to launch `mmcp` with your Mambu credentials as environment variables. The `MAMBU_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
+Configure your AI client to launch `mmcp` with your Mambu credentials as environment variables. The `MAMBU_AUTH_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
 #### Claude Desktop
 
@@ -76,7 +76,7 @@ Edit your Claude Desktop configuration file:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key"
       }
     }
   }
@@ -94,7 +94,7 @@ Add to your `.mcp.json`:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key"
       }
     }
   }
@@ -114,7 +114,7 @@ Edit your Junie MCP configuration file:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key"
       },
       "sourcePath": "~/.junie/mcp/mcp.json",
       "enabled": "true"
@@ -133,7 +133,7 @@ In VS Code, open Cline settings and add to your MCP servers configuration:
     "command": "mmcp",
     "env": {
       "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-      "MAMBU_API_KEY": "your-api-key"
+      "MAMBU_AUTH_API_KEY": "your-api-key"
     }
   }
 }
@@ -161,7 +161,7 @@ For better security, you can use a wrapper script that loads credentials from a 
 
 ```bash
 #!/bin/bash
-source ~/.mambu_credentials  # Contains MAMBU_API_KEY and MAMBU_BASE_URL
+source ~/.mambu_credentials  # Contains MAMBU_AUTH_API_KEY and MAMBU_BASE_URL
 exec mmcp "$@"
 ```
 
@@ -189,7 +189,7 @@ apis:
   - id: "clients"
     specLocation: "json/clients_v2_swagger.json"
     headers:
-      apiKey: "${MAMBU_API_KEY}"
+      apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
       - label: "clients/list"
@@ -282,7 +282,7 @@ The server listens on port 8080.
 ### Authentication Errors
 
 *   Verify `MAMBU_BASE_URL` includes `/api` at the end
-*   Check that `MAMBU_API_KEY` is set in your MCP client configuration
+*   Check that `MAMBU_AUTH_API_KEY` is set in your MCP client configuration
 *   Ensure your API key has the required permissions
 
 ### Connection Issues
