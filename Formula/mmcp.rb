@@ -65,5 +65,4 @@ class Mmcp < Formula
     end
   end
 
-  end
 end
