@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# IDE/project-local files
+.idea/
+
+# Local agent/session state
+.junie/
