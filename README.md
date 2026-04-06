@@ -49,6 +49,8 @@ brew upgrade mmcp
 
 After installation, configure your MCP client with your Mambu credentials. The `MAMBU_AUTH_API_KEY` and `MAMBU_BASE_URL` variables are resolved at runtime when API requests are made — they must be set in your MCP client configuration (not just in your shell).
 
+By default, only read operations (list, get, search, download, find) are enabled. To allow write operations, add `ACCESS_INCLUDE` with the labels you need (see [Access Control](#access-control)).
+
 ### Configure your MCP client
 
 #### Claude Desktop
@@ -65,7 +67,8 @@ Edit your Claude Desktop configuration file:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key",
+        "ACCESS_INCLUDE": "clients/create,clients/update"
       }
     }
   }
@@ -83,7 +86,8 @@ Add to your `.mcp.json`:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key",
+        "ACCESS_INCLUDE": "clients/create,clients/update"
       }
     }
   }
@@ -103,7 +107,8 @@ Edit your Junie MCP configuration file:
       "command": "mmcp",
       "env": {
         "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_API_KEY": "your-api-key"
+        "MAMBU_AUTH_API_KEY": "your-api-key",
+        "ACCESS_INCLUDE": "clients/create,clients/update"
       },
       "sourcePath": "~/.junie/mcp/mcp.json",
       "enabled": "true"
@@ -122,7 +127,8 @@ In VS Code, open Cline settings and add to your MCP servers configuration:
     "command": "mmcp",
     "env": {
       "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-      "MAMBU_AUTH_API_KEY": "your-api-key"
+      "MAMBU_AUTH_API_KEY": "your-api-key",
+      "ACCESS_INCLUDE": "clients/create,clients/update"
     }
   }
 }
@@ -130,7 +136,9 @@ In VS Code, open Cline settings and add to your MCP servers configuration:
 
 #### Other MCP Clients
 
-For other MCP-compatible tools (Cursor, Windsurf, etc.), use the same pattern — point them at the `mmcp` binary with your Mambu credentials as environment variables.
+For other MCP-compatible tools (Cursor, Windsurf, etc.), use the same pattern — point them at the `mmcp` binary with your Mambu credentials and optional access control as environment variables.
+
+> **Note**: The `ACCESS_INCLUDE` variable is optional. Without it, only read operations are available. See [Access Control](#access-control) for the full set of environment variables.
 
 
 ## How It Works
@@ -144,9 +152,79 @@ When an AI agent needs to call an API, it follows a two-step workflow:
 The search engine uses a hybrid approach combining keyword matching (BM25) and semantic similarity (ONNX embeddings) for accurate results even with varied phrasing.
 
 
+## Access Control
+
+Operations are gated by a top-level `access` block in `catalog.yaml` using glob patterns. The bundled Mambu catalog ships with a **deny-by-default** policy that allows only read operations:
+
+```yaml
+access:
+  default: deny
+  include:
+    - "*/list"
+    - "*/get"
+    - "*/get_*"
+    - "*/search_*"
+    - "*/download_*"
+    - "*/find_*"
+  exclude:
+    - "archive_*/*"
+    - "database_backup/*"
+```
+
+### Evaluation rules
+
+Patterns are evaluated in this order (exclude always wins):
+
+1.  If the label matches any **exclude** pattern &rarr; **denied**
+2.  If the label matches any **include** pattern &rarr; **allowed**
+3.  Otherwise &rarr; the **default** policy applies (`allow` or `deny`)
+
+### Glob syntax
+
+Patterns use `*` as a wildcard within a single path segment. Labels follow the format `apiId/operation`:
+
+| Pattern | Matches |
+|---|---|
+| `*/list` | `clients/list`, `branches/list`, etc. |
+| `clients/*` | All operations under the clients API |
+| `clients/create` | Exactly `clients/create` |
+| `*/get_*` | `clients/get_by_id`, `loans/get_schedule`, etc. |
+
+### Environment variable overrides
+
+Three environment variables merge with the YAML config, allowing runtime customization without editing `catalog.yaml`:
+
+| Variable | Description | Example |
+|---|---|---|
+| `ACCESS_DEFAULT` | Override the default policy | `allow` or `deny` |
+| `ACCESS_INCLUDE` | Comma-separated include globs (added to YAML includes) | `clients/create,loans/create` |
+| `ACCESS_EXCLUDE` | Comma-separated exclude globs (added to YAML excludes) | `*/delete,api_key_rotation/*` |
+
+Environment variable patterns are **merged** with YAML patterns, not replaced.
+
+### Common examples
+
+**Allow a few specific write operations** (add to your MCP client `env`):
+
+```
+ACCESS_INCLUDE=clients/create,clients/update,loans/create
+```
+
+**Allow all operations** (override the default policy):
+
+```
+ACCESS_DEFAULT=allow
+```
+
+**Block a specific API entirely**:
+
+```
+ACCESS_EXCLUDE=api_key_rotation/*,database_backup/*
+```
+
 ## Catalog Configuration
 
-Operations are controlled via `catalog.yaml`, not individual environment variables. Each API entry defines which operations are enabled:
+Each API entry in `catalog.yaml` defines its spec location, authentication headers, and operations:
 
 ```yaml
 baseUrl: "${MAMBU_BASE_URL}"
@@ -160,24 +238,16 @@ apis:
       - label: "clients/list"
         description: "Get clients"
         operationId: "getAll"
-        enabled: true
       - label: "clients/create"
         description: "Create client"
         operationId: "create"
-        enabled: ${CLIENTS_CREATE:false}
 ```
 
 Key fields:
 
-*   **`enabled`**: Controls which operations are exposed to AI agents. Supports `${ENV_VAR:default}` placeholders for runtime control.
 *   **`headers`**: HTTP headers added to every request — use for authentication. Supports `${ENV_VAR}` placeholders.
-*   **`baseUrl`** (optional): Overrides the server URL from the OpenAPI spec.
-
-By default, read-only operations (GET) are enabled and mutating operations (POST, PUT, DELETE) are disabled. To enable a mutating operation, set the corresponding environment variable:
-
-```bash
-export CLIENTS_CREATE=true
-```
+*   **`baseUrl`** (optional per API): Overrides the server URL from the OpenAPI spec.
+*   **`access`**: Controls which operations are exposed to AI agents (see [Access Control](#access-control) above).
 
 To update your catalog after changes:
 
