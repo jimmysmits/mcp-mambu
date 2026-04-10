@@ -768,7 +768,5 @@ rm -rf ~/Library/Application\ Support/mmcp/
 rm -rf ~/.config/mmcp/ ~/.local/share/mmcp/
 ```
 
-
 ## License
-
-Apache 2.0. Maintained by Mambu Tech B.V.
+This software is proprietary and confidential. Unauthorized copying, distribution, or use is strictly prohibited. © Mambu Tech B.V. All rights reserved.
