@@ -38,7 +38,7 @@ class Mmcp < Formula
     # mmcp setup detects this via SetupCommand.resolveBrewModelDir()
     (share/"mmcp/models").mkpath
     resource("model").stage do
-      (share/"mmcp/models").install "model.onnx"
+      (share/"mmcp/models").install "model_quantized.onnx" => "model.onnx"
     end
     resource("tokenizer").stage do
       (share/"mmcp/models").install "tokenizer.json"
