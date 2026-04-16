@@ -1,34 +1,34 @@
 class Mmcp < Formula
   desc "MCP Server for OpenAPI — search and invoke any REST API from AI agents"
   homepage "https://github.com/mambu-gmbh/mmcp-brew"
-  version "v0.0.35"
+  version "v0.0.36"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.35/mmcp-v0.0.35-macos-arm64.tar.gz"
-      sha256 "692d12f2518995169ffc6c41d06e24adf84a1f6a503663cda7aa0cc1b51958f6"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.36/mmcp-v0.0.36-macos-arm64.tar.gz"
+      sha256 "d67629857e8b74202f3b66b36eb3a743f64ad1400a275699f7ff035f2c832a36"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.35/mmcp-v0.0.35-linux-amd64.tar.gz"
-      sha256 "e59cb9f2a5ac27206cd7df1b460f8b3f9923263635da1530ffe4c41a014b1235"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.36/mmcp-v0.0.36-linux-amd64.tar.gz"
+      sha256 "1efdb38621b0c30016452da673cf6112428ee0792d35f943d2363378d063a1bd"
     elsif Hardware::CPU.arm?
-      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.35/mmcp-v0.0.35-linux-arm64.tar.gz"
-      sha256 "a4eb929442efe7c95282f02fae55b7b71dad3ecdd067d4714089c28fbbc7feb1"
+      url "https://github.com/mambu-gmbh/mmcp-brew/releases/download/v0.0.36/mmcp-v0.0.36-linux-arm64.tar.gz"
+      sha256 "c9fc7683a1a355838ab213a2d1a3c54cbc1227c54abd78d7b4b2f533ffe42c82"
     end
   end
 
-  # ONNX embedding model (nomic-embed-text-v1.5, ~550 MB)
+  # ONNX embedding model (multilingual-e5-small, ~118 MB, int8 quantized)
   resource "model" do
-    url "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/onnx/model.onnx"
-    sha256 "147d5aa88c2101237358e17796cf3a227cead1ec304ec34b465bb08e9d952965"
+    url "https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/onnx/model_quantized.onnx"
+    sha256 "f80102d3f2a1229f387d3c81909990d8945513e347b0eab049f7de3c6f98c193"
   end
 
   resource "tokenizer" do
-    url "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer.json"
-    sha256 "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+    url "https://huggingface.co/Xenova/multilingual-e5-small/resolve/main/tokenizer.json"
+    sha256 "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39"
   end
 
   def install
