@@ -31,17 +31,17 @@ mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.ya
 ```
 
 This installs:
-*   The `mmcp` native binary
-*   The [nomic-embed-text-v1.5](https://huggingface.co/nomic-ai/nomic-embed-text-v1.5) ONNX embedding model (~550 MB)
+*   The `mmcp` native binary (the embedding model is bundled inside the binary — no separate download)
 *   The Mambu Banking Platform reference API catalog and OpenAPI specs
 
-The install may take a few minutes due to the model download (~550 MB). The `mmcp setup` command copies files to your user directory and builds the search index — it only needs to be run once (or again when the catalog changes).
+`mmcp setup` copies the bundled catalog into your user directory and builds the search index. It only needs to be run once (or again when the catalog changes).
 
 To update to the latest version:
 
 ```bash
 brew update
 brew upgrade mmcp
+mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml
 ```
 
 
@@ -146,6 +146,7 @@ access:
   default: deny
   include:
     - "*/list"
+    - "*/list_*"
     - "*/get"
     - "*/get_*"
     - "*/search_*"
@@ -154,6 +155,8 @@ access:
   exclude:
     - "archive_*/*"
     - "database_backup/*"
+    - "communications_messages/search_sorted"
+    - "loans/get_preview_loan_account_schedule"
 ```
 
 ### Evaluation rules
@@ -243,6 +246,13 @@ mmcp -Dquarkus.http.host-enabled=true
 *   **Exclude dangerous operations.** The bundled catalog excludes `archive_*/*`, `database_backup/*`, and specific high-risk operations. Consider also excluding delete operations (`*/delete`), key rotation (`api_key_rotation/*`), and system configuration APIs (`configuration_*/*`) unless specifically needed.
 *   **Prefer include patterns over `default: allow`.** Even if you need broad access, an include list with targeted excludes is safer than allowing everything.
 
+## Trial Expiration
+
+Each MMCP build carries a 90-day trial window computed from the build timestamp baked into the binary. Past that window the server refuses to start — it logs the expiry date at `FATAL` and exits with code `2`. The CLI subcommands (`mmcp setup`, `mmcp index-build`) are not gated, so you can still rebuild the index on an expired binary.
+
+When the remaining window drops to 7 days or less, the server logs a warning on startup. To renew, run `brew upgrade mmcp` to pick up the latest build; every release ships with a fresh 90-day window from its build date.
+
+
 ## Catalog Configuration
 
 Each API entry in `catalog.yaml` defines its spec location, authentication headers, and operations:
@@ -283,23 +293,16 @@ For the complete list of available operations, see [Mambu API Reference](#mambu-
 
 ## Mambu API Reference
 
-The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 API groups with over 375 operations. The default access policy is deny-by-default with read-only operations included (see [Access Control](#access-control)).
+The bundled catalog ships with **70 API groups and 327 operations**, filtered for operational and customer-facing use. Admin-only APIs (platform setup, user/role CRUD, scheduler control, DB backup, template management, etc.) are commented out in `catalog.yaml` — uncomment them for admin deployments. Access control additionally restricts writes by default (see [Access Control](#access-control)).
+
+Each `label` below is the exact string to use with `ACCESS_INCLUDE` / `ACCESS_EXCLUDE` and with the `invoke` MCP tool.
 
 | Label | Description |
 |---|---|
 | `accounting_interest_accrual/search` | Allows search of interest accrual breakdown entries by various criteria |
-| `accounting_reports/create` | Create  accounting report |
-| `accounting_reports/get` | Get accounting reports |
-| `api_key_rotation/rotate_key` | Rotate API key |
-| `application_status/get` | Allows you to retrieve the state of application data access |
-| `archive_deposits_transactions_custom_fields/get_by_id` | Get archived deposit transaction |
-| `archive_deposits_transactions_custom_fields/search` | Search Archived Deposit Transactions |
-| `background_process/get_latest_by_type` | Get the latest manual or automatic end of day (EOD) process by specifying the type |
-| `background_process/update` | Cancel manual or automatic end of day (EOD) processes using the encoded key |
 | `branches/list` | Get branches |
 | `branches/create` | Create branch |
 | `branches/get_by_id` | Get branch |
-| `bulks/get_bulk_status` | Allow retrieval the status of a bulk process via key |
 | `cards/create_authorization_hold` | Create an authorization hold corresponding to a given card |
 | `cards/reverse_authorization_hold` | Reverse a card authorization hold |
 | `cards/get_authorization_hold_by_id` | Get card authorization hold |
@@ -327,7 +330,6 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `clients/get_role_by_client_id` | Get client role for client |
 | `clients/search` | Search clients |
 | `comments/get_comments` | Get comments for an entity |
-| `comments/create_comment` | Create a new comment for an entity |
 | `communications_messages/send` | Send communication message |
 | `communications_messages/get_by_encoded_key` | Get communication message |
 | `communications_messages/resend` | Resend failed communication message(s) |
@@ -400,8 +402,6 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `credit_arrangements/change_state` | Change credit arrangement state |
 | `credit_arrangements/remove_account` | Remove account from credit arrangement |
 | `credit_arrangements/search` | Search credit arrangements |
-| `crons_early_eod/run_earlier_hourly_and_end_of_day_crons` | Trigger hourly and end of day Processing earlier, on the current day |
-| `crons_eod/run_hourly_and_end_of_day_crons` | Trigger hourly and end of day Processing on the previous day |
 | `currencies_accounting_rates/list` | Get accounting rates |
 | `currencies_accounting_rates/create` | Create accounting rates |
 | `currencies_rates/list` | Get exchange rates for a specific currency |
@@ -414,11 +414,6 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `custom_fields/get_by_id` | Get custom field definition |
 | `custom_field_sets/list` | Get custom field sets |
 | `custom_field_sets/list_by_set_id` | Get custom field definitions by custom field set |
-| `data_import/data_import` | Allows you to import data |
-| `data_import/action` | Allows you to approve or reject a data import event |
-| `data_import/get_import` | Allows you to retrieve a data import response |
-| `database_backup/trigger_backup` | Trigger database backup |
-| `database_backup/download_backup` | Download database backup |
 | `deposit_products/list` | Get deposit products |
 | `deposit_products/create` | Create deposit product |
 | `deposit_products/delete` | Delete deposit product |
@@ -493,7 +488,6 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `extension_points/list` | Get all extension points |
 | `extension_points/get_process_definitions` | Get process definitions for extension point phases |
 | `extension_points/store_process_definitions` | Attach process definitions to extension point phases |
-| `funding_sources/sell` | Performs the sell of a funding share owned by an investor. Investors can sell the total share or only a part of the i... |
 | `gl_accounts/list` | Get general ledger accounts |
 | `gl_accounts/create` | Create general ledger account |
 | `gl_accounts/get_by_id` | Get general ledger account |
@@ -510,12 +504,8 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `groups/get_credit_arrangements_by_group_id_or_key` | Credit arrangements list returned |
 | `groups/search` | Search groups |
 | `index_rate_sources/list_index_rate_sources` | Get index rate sources |
-| `index_rate_sources/create_index_rate_source` | Create index rate source |
-| `index_rate_sources/delete_index_rate_source` | Delete index rate source |
 | `index_rate_sources/get_index_rate_source_by_id` | Get index rate sources |
 | `index_rate_sources/list_index_rates` | Get index rates for a source |
-| `index_rate_sources/create_index_rate` | Create index rate |
-| `index_rate_sources/delete_index_rate` | Delete index rate |
 | `installments/list` | Get installments for `ACTIVE` or `ACTIVE_IN_ARREARS` loan accounts |
 | `loan_products/list` | Get loan products |
 | `loan_products/create` | Create loan product |
@@ -586,7 +576,7 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `loans/pay_off` | Pay off loan account |
 | `loans/preview_pay_off_amounts` | Preview pay off due amounts in a future date |
 | `loans/refinance` | Refinance loan account |
-| `loans/get_loan_account_rsv` | Allows retrieval of repayment schedule versioning for a loan account |
+| `loans/get_loan_account_rsv` | Get versioning records (RSV) for a loan |
 | `loans/reschedule` | Reschedule loan account |
 | `loans/terminate_loan_account` | Terminate loan account |
 | `loans/undo_refinance` | Undo loan account refinance action |
@@ -598,20 +588,12 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `loans/reevaluate_collateral_assets` | Update collateral asset amounts |
 | `loans/search` | Search loan accounts |
 | `notification_settings_webhook/get_webhook_notification_settings` | Get the webhook notification settings |
-| `notification_settings_webhook/update_webhook_notification_settings` | Update the webhook notification settings |
-| `organization_holidays_general/create` | Create holidays |
-| `organization_holidays_general/delete` | Delete holiday |
 | `organization_holidays_general/get_by_id` | Get holiday |
 | `organization_holidays_nonworkingdays/get_non_working_days` | Get non-working days |
-| `organization_holidays_nonworkingdays/update_non_working_days` | Update non-working days |
 | `organization_holidays/get` | Get holidays |
-| `organization_holidays/update` | Update holidays |
 | `organization_identification_document_templates/list` | Get ID templates |
 | `organization_transaction_channels/list` | Get transaction channels |
-| `organization_transaction_channels/create` | Create transaction channel |
-| `organization_transaction_channels/delete` | Delete transaction channel |
 | `organization_transaction_channels/get_by_id` | Get transaction channel |
-| `organization_transaction_channels/update` | Update transaction channel |
 | `profit_sharing_cashflows/get_cash_flows` | Allows retrieval of a list of cash flows |
 | `profit_sharing_cashflows/create_cash_flow` | Create a new cash flow |
 | `profit_sharing_cashflows/get_cash_flow_by_id` | Allows retrieval of a single cash flow |
@@ -626,43 +608,24 @@ The bundled catalog includes the complete Mambu Banking Platform V2 API — 84 A
 | `profit_sharing_pools/create_pool_settings` | Create new settings for investment pool |
 | `profit_sharing_pools/get_pool_settings_by_id` | Retrieves settings for an investment pool |
 | `profit_sharing_pools/update_pool_settings` | Update settings for an existing investment pool |
-| `profit_sharing_product-settings/create_product_settings` | Create new product settings |
 | `profit_sharing_product-settings/get_product_settings_by_id` | Allows retrieval of product settings |
-| `profit_sharing_product-settings/update_product_settings` | Update existing product settings |
 | `profit_sharing_product-settings/search_product_settings` | Allows the retrieval of product settings based on criteria |
 | `profit_sharing_products/list` | Allows retrieval of Islamic savings products |
 | `profit_sharing_proposals/find_proposal_account_details` | Allows the retrieval of proposal accounts details and account payment/profit cycle calculation by proposal id and oth... |
 | `profit_sharing_proposals/find_proposals` | Allows the retrieval of proposals calculation |
 | `profit_sharing_proposals/approve_proposal` | Allows approval of a proposal |
 | `process_definitions/upload` | Upload a BPMN process definition |
-| `setup_general/get_general_setup` | Get general setup |
-| `setup_organization/get_organization_setup` | Get organization details |
-| `setup_organization/update_organization_setup` | Update organization details |
-| `subscriptions/create_or_get` | Allows the creation of a streaming events subscription |
-| `subscriptions/delete` | Allows the deletion of a streaming events subscription |
-| `subscriptions/get_events` | Get subscription events |
 | `tasks/list` | Gets tasks |
 | `tasks/create` | Create task |
 | `tasks/delete` | Delete task |
 | `tasks/get_by_id` | Get task |
 | `tasks/patch` | Partially update task |
 | `tasks/update` | Update task |
-| `templates/create_template` | Create a new template |
-| `templates/delete` | Delete an existing template |
 | `templates/get_by_template_id` | Get template by id |
-| `templates/update_template` | Update an existing template |
 | `user_roles/list` | Get user roles |
-| `user_roles/create` | Create user role |
-| `user_roles/delete` | Delete user role |
 | `user_roles/get_by_id` | Get user role |
-| `user_roles/patch` | Partially update user role |
-| `user_roles/update` | Update user role |
 | `users/list` | Get users |
-| `users/create` | Create user |
-| `users/delete` | Delete user |
 | `users/get_by_id` | Get user |
-| `users/patch` | Partially update user |
-| `users/update` | Update user |
 
 
 ## File Locations
@@ -675,10 +638,7 @@ After running `mmcp setup`, configuration and data files are stored in platform-
 ~/Library/Application Support/mmcp/
 ├── catalog.yaml
 ├── specs/
-├── index/
-└── models/
-    ├── model.onnx
-    └── tokenizer.json
+└── index/
 ```
 
 ### Linux
@@ -689,11 +649,21 @@ After running `mmcp setup`, configuration and data files are stored in platform-
 └── specs/
 
 ~/.local/share/mmcp/
-├── index/
-└── models/
-    ├── model.onnx
-    └── tokenizer.json
+└── index/
 ```
+
+### Windows
+
+> Windows builds are not distributed via Homebrew — see [Building for Windows](#building-for-windows) below.
+
+```
+%LOCALAPPDATA%\mmcp\
+├── catalog.yaml
+├── specs\
+└── index\
+```
+
+If `%LOCALAPPDATA%` is unset, MMCP falls back to `%APPDATA%\mmcp\` and then `%USERPROFILE%\AppData\Local\mmcp\`.
 
 
 ## HTTP Server Mode
@@ -723,13 +693,35 @@ mmcp
 The same catalog, index, model, and access control configuration apply in both stdio and HTTP server modes.
 
 
+## Building for Windows
+
+Homebrew does not distribute Windows binaries. Windows x64 is supported by the source build — the Maven `native-windows-x64` profile auto-activates on a Windows x64 host, and MMCP resolves default paths to `%LOCALAPPDATA%\mmcp\` (with fallbacks to `%APPDATA%\mmcp\` and `%USERPROFILE%\AppData\Local\mmcp\`).
+
+To build locally on a Windows machine with Java 25 (GraalVM CE recommended) and Maven 3.9+:
+
+```
+git clone https://github.com/mambu-gmbh/mmcp.git
+cd mmcp
+mvn clean package -Dnative -DskipTests
+```
+
+The resulting `mmcp.exe` behaves identically to the macOS and Linux binaries. Caveats:
+
+*   **x64 only** — ARM64 Windows is not supported.
+*   **No cross-compilation** — GraalVM native-image builds on the host platform only, so a Windows binary must be built on a Windows host.
+*   **No CI artifact yet** — Windows binaries are produced by local build; a CI runner is a planned addition.
+
+
 ## Troubleshooting
 
 ### Setup Fails
 
 *   Verify the catalog path exists: `ls $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml`
-*   Check that the embedding model was installed: `ls $(brew --prefix)/share/mmcp/models/model.onnx`
 *   Re-run setup: `mmcp setup --catalog /path/to/catalog.yaml`
+
+### Trial Expired
+
+Each MMCP build ships with a 90-day trial window computed from the build timestamp. If the server refuses to start with a `mmcp trial expired on YYYY-MM-DD` message and exit code `2`, run `brew upgrade mmcp` to install a fresh build — every release carries its own 90-day window from its build date.
 
 ### Server Won't Start
 
@@ -768,5 +760,9 @@ rm -rf ~/Library/Application\ Support/mmcp/
 rm -rf ~/.config/mmcp/ ~/.local/share/mmcp/
 ```
 
+On Windows (source build), remove `%LOCALAPPDATA%\mmcp\` (or whichever fallback directory was created).
+
 ## License
 This software is proprietary and confidential. Unauthorized copying, distribution, or use is strictly prohibited. © Mambu Tech B.V. All rights reserved.
+
+Binaries ship with a 90-day trial from the build date — see [Trial Expiration](#trial-expiration).
