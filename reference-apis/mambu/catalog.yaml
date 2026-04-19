@@ -25,60 +25,75 @@ apis:
       - label: "accounting_interest_accrual/search"
         description: "Allows search of interest accrual breakdown entries by various criteria."
         operationId: "search"
-  - id: "accounting_reports"
-    specLocation: "json/accounting_reports_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "accounting_reports/create"
-        description: "Create  accounting report"
-        operationId: "create"
-      - label: "accounting_reports/get"
-        description: "Get accounting reports"
-        operationId: "get"
-  - id: "api_key_rotation"
-    specLocation: "json/apikey_rotation_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "api_key_rotation/rotate_key"
-        description: "Rotate API key"
-        operationId: "rotateKey"
-  - id: "application_status"
-    specLocation: "json/application_status_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "application_status/get"
-        description: "Allows you to retrieve the state of application data access"
-        operationId: "getApplicationStatus"
-  - id: "archive_deposits_transactions_custom_fields"
-    specLocation: "json/archive_deposits_transactions_customfields_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "archive_deposits_transactions_custom_fields/get_by_id"
-        description: "Get archived deposit transaction"
-        operationId: "getById"
-      - label: "archive_deposits_transactions_custom_fields/search"
-        description: "Search Archived Deposit Transactions"
-        operationId: "search"
-  - id: "background_process"
-    specLocation: "json/backgroundprocess_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "background_process/get_latest_by_type"
-        description: "Get the latest manual or automatic end of day (EOD) process by specifying the type"
-        operationId: "getLatestByType"
-      - label: "background_process/update"
-        description: "Cancel manual or automatic end of day (EOD) processes using the encoded key"
-        operationId: "update"
+# Disabled: admin/finance-ops API. Uncomment for finance-staff deployments.
+#  - id: "accounting_reports"
+#    specLocation: "json/accounting_reports_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "accounting_reports/create"
+#        description: "Create  accounting report"
+#        operationId: "create"
+#      - label: "accounting_reports/get"
+#        description: "Get accounting reports"
+#        operationId: "get"
+
+# Disabled: platform credential rotation. Admin-only; never re-enable for agent use.
+#  - id: "api_key_rotation"
+#    specLocation: "json/apikey_rotation_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "api_key_rotation/rotate_key"
+#        description: "Rotate API key"
+#        operationId: "rotateKey"
+
+# Disabled: platform-state probe. Uncomment only for ops/admin deployments.
+#  - id: "application_status"
+#    specLocation: "json/application_status_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "application_status/get"
+#        description: "Allows you to retrieve the state of application data access"
+#        operationId: "getApplicationStatus"
+
+# Disabled: historical-archive access. Also in top-level exclude — commenting out removes from the index.
+#  - id: "archive_deposits_transactions_custom_fields"
+#    specLocation: "json/archive_deposits_transactions_customfields_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "archive_deposits_transactions_custom_fields/get_by_id"
+#        description: "Get archived deposit transaction"
+#        operationId: "getById"
+#      - label: "archive_deposits_transactions_custom_fields/search"
+#        description: "Search archived (historical only) deposit transaction custom fields"
+#        operationId: "search"
+#        prompts:
+#          en:
+#            - "search archived custom fields on historical deposits"
+#          es:
+#            - "buscar campos personalizados archivados de depósitos históricos"
+
+# Disabled: EOD job control. Admin scheduler surface.
+#  - id: "background_process"
+#    specLocation: "json/backgroundprocess_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "background_process/get_latest_by_type"
+#        description: "Get the latest manual or automatic end of day (EOD) process by specifying the type"
+#        operationId: "getLatestByType"
+#      - label: "background_process/update"
+#        description: "Cancel manual or automatic end of day (EOD) processes using the encoded key"
+#        operationId: "update"
+
   - id: "branches"
     specLocation: "json/branches_v2_swagger.json"
     headers:
@@ -88,21 +103,52 @@ apis:
       - label: "branches/list"
         description: "Get branches"
         operationId: "getAll"
+        prompts:
+          en:
+            - "branches"
+            - "list branches"
+            - "show branches"
+            - "show every bank branch in the organization"
+            - "which branches do we operate"
+            - "branch directory"
+            - "pull up the list of all branches in the organization"
+          es:
+            - "sucursales"
+            - "listar sucursales"
+            - "mostrar sucursales"
+            - "mostrar todas las sucursales activas"
+            - "lista de todas las sucursales"
+            - "mostrar todas las sucursales de la organización"
+            - "qué sucursales tenemos operando"
+            - "directorio de sucursales"
       - label: "branches/create"
         description: "Create branch"
         operationId: "create"
       - label: "branches/get_by_id"
         description: "Get branch"
         operationId: "getById"
-  - id: "bulks"
-    specLocation: "json/bulks_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "bulks/get_bulk_status"
-        description: "Allow retrieval the status of a bulk process via key"
-        operationId: "getBulkStatus"
+        prompts:
+          en:
+            - "details of a single branch by identifier"
+            - "one branch's metadata and address"
+            - "lookup a branch record"
+            - "pull up the record for this specific branch by its identifier"
+          es:
+            - "detalles de una sucursal por identificador"
+            - "metadatos y dirección de una sucursal"
+            - "consultar registro de una sucursal"
+            -
+# Disabled: bulk-process status. Re-enable if bulk create/update endpoints are exposed elsewhere.
+#  - id: "bulks"
+#    specLocation: "json/bulks_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "bulks/get_bulk_status"
+#        description: "Allow retrieval the status of a bulk process via key"
+#        operationId: "getBulkStatus"
+
   - id: "cards"
     specLocation: "json/cards_v2_swagger.json"
     headers:
@@ -151,9 +197,29 @@ apis:
       - label: "centres/list"
         description: "Get centres"
         operationId: "getAll"
+        prompts:
+          en:
+            - "list operational centres under branches"
+            - "sub-branch collection points"
+            - "show all the centres"
+            - "show me all the sub-branch collection centres"
+          es:
+            - "listar centros operativos bajo sucursales"
+            - "puntos de cobranza de sucursal"
+            - "mostrar todos los centros"
       - label: "centres/get_by_id"
         description: "Get centre"
         operationId: "getById"
+        prompts:
+          en:
+            - "details of a single centre by identifier"
+            - "one centre's record and parent branch"
+            - "lookup a specific centre"
+            - "show me the record for this particular centre and its parent branch"
+          es:
+            - "detalles de un centro por identificador"
+            - "registro de un centro y su sucursal matriz"
+            - "consultar un centro específico"
   - id: "clients_documents"
     specLocation: "json/clients_documents_v2_swagger.json"
     headers:
@@ -172,6 +238,21 @@ apis:
       - label: "clients_documents/get_documents_by_client_id"
         description: "Get all client documents"
         operationId: "getDocumentsByClientId"
+        prompts:
+          en:
+            - "client documents"
+            - "list client documents"
+            - "uploaded documents on this customer's file"
+            - "all uploaded documents for a specific client"
+            - "KYC paperwork on file for a customer"
+            - "list client's document attachments"
+            - "show me all the uploaded documents for this customer's file"
+          es:
+            - "documentos del cliente"
+            - "documentos subidos del cliente"
+            - "todos los documentos cargados de un cliente específico"
+            - "papeles KYC en el expediente del cliente"
+            - "listar adjuntos documentales del cliente"
   - id: "clients"
     specLocation: "json/clients_v2_swagger.json"
     headers:
@@ -190,6 +271,16 @@ apis:
       - label: "clients/get_by_id"
         description: "Get client"
         operationId: "getById"
+        prompts:
+          en:
+            - "single client record by identifier"
+            - "retrieve one customer's profile"
+            - "fetch a client's full record"
+            - "let me pull up this customer's complete record by their id"
+          es:
+            - "registro de un cliente por identificador"
+            - "recuperar el perfil de un cliente"
+            - "obtener el expediente completo del cliente"
       - label: "clients/patch"
         description: "Partially update client"
         operationId: "patch"
@@ -199,12 +290,48 @@ apis:
       - label: "clients/get_credit_arrangements_by_client_id_or_key"
         description: "Credit arrangements list returned."
         operationId: "getCreditArrangementsByClientIdOrKey"
+        prompts:
+          en:
+            - "all credit arrangements tied to a specific client"
+            - "everything under this client's credit umbrella"
+            - "client's lending relationship summary"
+            - "show me every lending relationship tied to this specific client"
+          es:
+            - "todos los acuerdos de crédito de un cliente específico"
+            - "vinculación crediticia completa del cliente"
+            - "resumen de la relación de crédito del cliente"
       - label: "clients/get_role_by_client_id"
         description: "Get client role for client"
         operationId: "getRoleByClientId"
+        prompts:
+          en:
+            - "client role assigned to a customer"
+            - "customer's designated role type"
+            - "what role does this client hold"
+            - "show me the role designation for this individual client"
+          es:
+            - "rol de cliente asignado a un cliente"
+            - "tipo de rol designado del cliente"
+            - "qué rol tiene asignado este cliente"
       - label: "clients/search"
         description: "Search clients"
         operationId: "search"
+        prompts:
+          en:
+            - "find a customer by name or ID"
+            - "find a customer by national ID number"
+            - "find a client by their government ID number"
+            - "look up client by document number"
+            - "search clients by ID"
+            - "look up a client record"
+            - "search for a customer"
+            - "let me look up a client record using search filters"
+          es:
+            - "buscar cliente por nombre o identificación"
+            - "buscar cliente por número de documento"
+            - "encontrar cliente por DNI"
+            - "encontrar registro del cliente"
+            - "localizar un cliente"
   - id: "comments"
     specLocation: "json/comments_v2_swagger.json"
     headers:
@@ -214,9 +341,10 @@ apis:
       - label: "comments/get_comments"
         description: "Get comments for an entity"
         operationId: "getComments"
-      - label: "comments/create_comment"
-        description: "Create a new comment for an entity."
-        operationId: "createComment"
+      # Disabled: write op. Re-enable if agents need to author comments.
+      #- label: "comments/create_comment"
+      #  description: "Create a new comment for an entity."
+      #  operationId: "createComment"
   - id: "communications_messages"
     specLocation: "json/communications_messages_v2_swagger.json"
     headers:
@@ -241,9 +369,30 @@ apis:
       - label: "communications_messages/search"
         description: "Searching communication messages"
         operationId: "search"
+        prompts:
+          en:
+            - "find messages sent to a client"
+            - "communications history with customer"
+            - "look up client notifications"
+            - "show me the notification and messaging history for this client"
+          es:
+            - "mensajes enviados al cliente"
+            - "buscar comunicaciones con el cliente"
+            - "historial de notificaciones al cliente"
+            - "registro de mensajes SMS, correos electrónicos y notificaciones enviadas desde el banco"
+            - "búsqueda en el log de mensajes del sistema por fecha o estado de entrega"
+            - "consultar el historial de mensajes enviados, filtrado por destinatario o canal"
       - label: "communications_messages/search_sorted"
         description: "Searching sorted communication messages"
         operationId: "search_1"
+        prompts:
+          en:
+            - "search client messages with sort order"
+            - "sorted message history"
+            - "ordered communication log"
+          es:
+            - "buscar mensajes ordenados"
+            - "historial de mensajes ordenado"
   - id: "configuration_accounting_rules_yaml"
     specLocation: "json/configuration_accountingrules.yaml_v2_swagger.json"
     headers:
@@ -538,15 +687,46 @@ apis:
       - label: "credit_arrangements/list"
         description: "Get credit arrangements"
         operationId: "getAll"
+        prompts:
+          en:
+            - "credit arrangements"
+            - "list credit arrangements"
+            - "list all credit arrangements across portfolio"
+            - "active credit facilities on the books"
+            - "show every credit arrangement"
+            - "show me all the credit facilities that are on our books right now"
+            - "credit arrangements catalog view, browsing every existing record"
+          es:
+            - "acuerdos de crédito"
+            - "listar acuerdos de crédito"
+            - "grupos de crédito"
+            - "listar todos los acuerdos de crédito de la cartera"
+            - "facilidades crediticias activas registradas"
+            - "mostrar cada acuerdo de crédito"
+            - "catálogo para consultar todos los acuerdos de crédito existentes"
       - label: "credit_arrangements/create"
         description: "Create credit arrangement"
         operationId: "create"
+        prompts:
+          en:
+            - "action endpoint to register a brand-new credit arrangement for a client"
+            - "create a fresh credit arrangement record on the books"
+          es:
+            - "endpoint de acción para registrar un nuevo acuerdo de crédito de cliente"
+            - "crear un nuevo registro de acuerdo de crédito en los libros"
       - label: "credit_arrangements/delete"
         description: "Delete credit arrangement"
         operationId: "delete"
       - label: "credit_arrangements/get_by_id"
         description: "Get credit arrangement"
         operationId: "getById"
+        prompts:
+          en:
+            - "lookup of a single specific credit arrangement by its unique identifier"
+            - "retrieve one particular credit arrangement record by ID"
+          es:
+            - "consulta de un acuerdo de crédito específico por su identificador único"
+            - "obtener un acuerdo de crédito particular por ID"
       - label: "credit_arrangements/patch"
         description: "Partially update credit arrangement"
         operationId: "patch"
@@ -571,24 +751,28 @@ apis:
       - label: "credit_arrangements/search"
         description: "Search credit arrangements"
         operationId: "search"
-  - id: "crons_early_eod"
-    specLocation: "json/crons_earlyeod_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "crons_early_eod/run_earlier_hourly_and_end_of_day_crons"
-        description: "Trigger hourly and end of day Processing earlier, on the current day"
-        operationId: "runEarlierHourlyAndEndOfDayCrons"
-  - id: "crons_eod"
-    specLocation: "json/crons_eod_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "crons_eod/run_hourly_and_end_of_day_crons"
-        description: "Trigger hourly and end of day Processing on the previous day"
-        operationId: "runHourlyAndEndOfDayCrons"
+
+# Disabled: scheduler control. Admin-only.
+#  - id: "crons_early_eod"
+#    specLocation: "json/crons_earlyeod_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "crons_early_eod/run_earlier_hourly_and_end_of_day_crons"
+#        description: "Trigger hourly and end of day Processing earlier, on the current day"
+#        operationId: "runEarlierHourlyAndEndOfDayCrons"
+
+# Disabled: scheduler control. Admin-only.
+#  - id: "crons_eod"
+#    specLocation: "json/crons_eod_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "crons_eod/run_hourly_and_end_of_day_crons"
+#        description: "Trigger hourly and end of day Processing on the previous day"
+#        operationId: "runHourlyAndEndOfDayCrons"
   - id: "currencies_accounting_rates"
     specLocation: "json/currencies_accountingRates_v2_swagger.json"
     headers:
@@ -655,33 +839,47 @@ apis:
       - label: "custom_field_sets/list_by_set_id"
         description: "Get custom field definitions by custom field set"
         operationId: "getAllBySetId"
-  - id: "data_import"
-    specLocation: "json/data_import_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "data_import/data_import"
-        description: "Allows you to import data"
-        operationId: "dataImport"
-      - label: "data_import/action"
-        description: "Allows you to approve or reject a data import event"
-        operationId: "action"
-      - label: "data_import/get_import"
-        description: "Allows you to retrieve a data import response"
-        operationId: "getImport"
-  - id: "database_backup"
-    specLocation: "json/database_backup_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "database_backup/trigger_backup"
-        description: "Trigger database backup"
-        operationId: "triggerBackup"
-      - label: "database_backup/download_backup"
-        description: "Download database backup"
-        operationId: "downloadBackup"
+# Disabled: admin migration tooling.
+#  - id: "data_import"
+#    specLocation: "json/data_import_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "data_import/data_import"
+#        description: "Allows you to import data"
+#        operationId: "dataImport"
+#      - label: "data_import/action"
+#        description: "Allows you to approve or reject a data import event"
+#        operationId: "action"
+#      - label: "data_import/get_import"
+#        description: "Allows you to retrieve a data import response"
+#        operationId: "getImport"
+#        prompts:
+#          en:
+#            - "status of a bulk data import job"
+#            - "check whether the nightly import finished"
+#            - "import job result and error count"
+#            - "show me the status of this particular bulk data import job"
+#          es:
+#            - "estado del proceso de importación de datos"
+#            - "verificar si la importación nocturna terminó"
+#            - "resultado del trabajo de importación y errores"
+
+# Disabled: DB backup trigger/download. Also in top-level exclude — commenting out removes from the index.
+#  - id: "database_backup"
+#    specLocation: "json/database_backup_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "database_backup/trigger_backup"
+#        description: "Trigger database backup"
+#        operationId: "triggerBackup"
+#      - label: "database_backup/download_backup"
+#        description: "Download database backup"
+#        operationId: "downloadBackup"
+
   - id: "deposit_products"
     specLocation: "json/depositproducts_v2_swagger.json"
     headers:
@@ -721,6 +919,16 @@ apis:
       - label: "deposits_balance_summary/list"
         description: "Get balance summary for the deposit account"
         operationId: "getAll"
+        prompts:
+          en:
+            - "balance summary for a deposit account"
+            - "deposit account balance totals and averages"
+            - "aggregate balance view of a deposit"
+            - "show me the balance totals and averages on this savings account"
+          es:
+            - "resumen de saldo de una cuenta de depósito"
+            - "totales y promedios de saldo de la cuenta de depósito"
+            - "vista agregada del saldo del depósito"
   - id: "deposits_download"
     specLocation: "json/deposits_download_v2_swagger.json"
     headers:
@@ -754,6 +962,24 @@ apis:
       - label: "deposits_transactions/search"
         description: "Search deposit transactions for deposit accounts by various criteria"
         operationId: "search"
+        prompts:
+          en:
+            - "search deposit transactions"
+            - "withdrawals today"
+            - "recent withdrawals"
+            - "recent deposits"
+            - "deposit transactions"
+            - "find recent deposit transactions"
+            - "deposit transaction history"
+            - "show deposits and withdrawals on an account"
+            - "show me the deposits and withdrawals for this checking account"
+          es:
+            - "buscar transacciones de depósito"
+            - "retiros de hoy"
+            - "depósitos recientes"
+            - "últimos movimientos de la cuenta"
+            - "historial de transacciones del depósito"
+            - "buscar depósitos y retiros recientes"
       - label: "deposits_transactions/make_deposit"
         description: "Create deposit transaction"
         operationId: "makeDeposit"
@@ -766,6 +992,16 @@ apis:
       - label: "deposits_transactions/list"
         description: "Get deposit transactions"
         operationId: "getAll"
+        prompts:
+          en:
+            - "list deposit transactions"
+            - "all deposits and withdrawals"
+            - "recent account activity"
+            - "show me every deposit and withdrawal on this savings account"
+          es:
+            - "listar movimientos de la cuenta"
+            - "actividad reciente de depósitos y retiros"
+            - "todos los movimientos del depósito"
       - label: "deposits_transactions/make_deposit_async"
         description: "Create deposit transaction"
         operationId: "makeDepositAsync"
@@ -811,6 +1047,14 @@ apis:
       - label: "deposits/get_by_id"
         description: "Get deposit account"
         operationId: "getById"
+        prompts:
+          en:
+            - "deposit account details"
+            - "savings account info"
+            - "current savings account balance details"
+          es:
+            - "detalles de la cuenta de depósito"
+            - "información de la cuenta de ahorros"
       - label: "deposits/patch"
         description: "Partially update deposit account"
         operationId: "patch"
@@ -820,6 +1064,22 @@ apis:
       - label: "deposits/list_authorization_holds"
         description: "Get authorization holds related to a deposit account, ordered from newest to oldest by creation date"
         operationId: "getAllAuthorizationHolds"
+        prompts:
+          en:
+            - "authorization holds"
+            - "hold records"
+            - "list authorization holds"
+            - "pending authorization holds on a deposit account"
+            - "hold records placed against the account"
+            - "list funds currently held on the account"
+            - "show me all the pending authorization holds on this savings account"
+            - "deposit account authorization holds on checking or savings, bank-side rather than card-side"
+          es:
+            - "retenciones de autorización"
+            - "registros de retención"
+            - "retenciones de autorización pendientes en la cuenta de depósito"
+            - "registros de bloqueo aplicados a la cuenta"
+            - "fondos actualmente retenidos en la cuenta"
       - label: "deposits/create_authorization_hold"
         description: "Create an authorization hold corresponding to a given account"
         operationId: "createAuthorizationHold"
@@ -883,6 +1143,16 @@ apis:
       - label: "deposits/get_withholding_tax_history"
         description: "Get deposit account withholding tax history"
         operationId: "getWithholdingTaxHistory"
+        prompts:
+          en:
+            - "withholding tax history on a deposit account"
+            - "tax retention records applied to deposits"
+            - "deposit account's historical tax withholdings"
+            - "show me the tax retention records on this savings account over time"
+          es:
+            - "historial de retención de impuestos de una cuenta de depósito"
+            - "registros de retención fiscal aplicados al depósito"
+            - "retenciones fiscales históricas de la cuenta de depósito"
       - label: "deposits/apply_interest"
         description: "Represents information to apply accrued interest."
         operationId: "applyInterest"
@@ -910,6 +1180,16 @@ apis:
       - label: "deposits/get_balances"
         description: "Get historical balances for the deposit account"
         operationId: "getBalances"
+        prompts:
+          en:
+            - "check account balance"
+            - "how much money is in the account"
+            - "current deposit balance"
+            - "show me the current available balance on this deposit account"
+          es:
+            - "consultar saldo de la cuenta"
+            - "cuánto dinero tiene la cuenta"
+            - "saldo disponible del depósito"
       - label: "deposits/search"
         description: "Search deposit accounts"
         operationId: "search"
@@ -925,12 +1205,38 @@ apis:
       - label: "documents/get_documents_by_entity_id"
         description: "Get all documents' metadata"
         operationId: "getDocumentsByEntityId"
+        prompts:
+          en:
+            - "list documents attached to this loan"
+            - "client documents"
+            - "documents attached to this client"
+            - "signed PDF of loan agreement"
+            - "find documents for this entity"
+          es:
+            - "documentos del cliente"
+            - "documentos adjuntos al cliente"
+            - "PDF firmado del contrato de préstamo"
       - label: "documents/delete_document_by_id"
         description: "Delete document"
         operationId: "deleteDocumentById"
       - label: "documents/download_document_by_id"
         description: "Download document"
         operationId: "downloadDocumentById"
+        prompts:
+          en:
+            - "download document"
+            - "download signed PDF for this loan agreement"
+            - "signed PDF for this loan agreement"
+            - "retrieve the binary file of a stored document"
+            - "pull down the PDF attachment for this record"
+            - "fetch a document file by its ID"
+            - "pull up the raw file contents for this particular document id"
+          es:
+            - "descargar documento"
+            - "descargar el PDF firmado del contrato de préstamo"
+            - "obtener el archivo binario de un documento almacenado"
+            - "descargar el PDF adjunto de este registro"
+            - "obtener un archivo de documento por su identificador"
   - id: "extension_points"
     specLocation: "json/extensionpoints_v2_swagger.json"
     headers:
@@ -946,15 +1252,17 @@ apis:
       - label: "extension_points/store_process_definitions"
         description: "Attach process definitions to extension point phases"
         operationId: "storeProcessDefinitions"
-  - id: "funding_sources"
-    specLocation: "json/fundingsources_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "funding_sources/sell"
-        description: "Performs the sell of a funding share owned by an investor. Investors can sell the total share or only a part of the investment. In case of a partial sale, multiple operations can be performed until the entire investment is sold. For the seller, money will be deposited in the funding account, for the buyers money will be withdrawn from provided accounts."
-        operationId: "sell"
+# Disabled: only op is `sell` (write). Runtime access policy already blocks it;
+# commenting out also keeps it out of the search index.
+#  - id: "funding_sources"
+#    specLocation: "json/fundingsources_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "funding_sources/sell"
+#        description: "Performs the sell of a funding share owned by an investor. Investors can sell the total share or only a part of the investment. In case of a partial sale, multiple operations can be performed until the entire investment is sold. For the seller, money will be deposited in the funding account, for the buyers money will be withdrawn from provided accounts."
+#        operationId: "sell"
   - id: "gl_accounts"
     specLocation: "json/glaccounts_v2_swagger.json"
     headers:
@@ -964,12 +1272,43 @@ apis:
       - label: "gl_accounts/list"
         description: "Get general ledger accounts"
         operationId: "getAll"
+        prompts:
+          en:
+            - "GL accounts"
+            - "list GL accounts"
+            - "list GL accounts by type"
+            - "list general ledger accounts in the chart of accounts"
+            - "show every GL account we track"
+            - "accounting chart of accounts roster"
+            - "show me the full GL accounts roster for accounting"
+          es:
+            - "cuentas contables"
+            - "listar cuentas contables"
+            - "listar cuentas del libro mayor en el plan de cuentas"
+            - "mostrar todas las cuentas contables que llevamos"
+            - "nómina del plan de cuentas contable"
+            - "catálogo completo de cuentas contables, todas las cuentas en una lista"
       - label: "gl_accounts/create"
         description: "Create general ledger account"
         operationId: "create"
+        prompts:
+          en:
+            - "add a new ledger record"
+            - "register a new accounting code"
+          es:
+            - "agregar un nuevo registro contable"
+            - "registrar un nuevo código contable"
       - label: "gl_accounts/get_by_id"
         description: "Get general ledger account"
         operationId: "getById"
+        prompts:
+          en:
+            - "lookup by identifier"
+            - "details of a specific record by id"
+            - "fetch one record by its identifier"
+          es:
+            - "buscar por identificador"
+            - "detalles de un registro por su id único"
       - label: "gl_accounts/patch"
         description: "Partially update an existing general ledger account"
         operationId: "patch"
@@ -982,12 +1321,43 @@ apis:
       - label: "gl_journal_entries/list"
         description: "Get general ledger journal entries"
         operationId: "getAll"
+        prompts:
+          en:
+            - "journal entries"
+            - "GL journal entries"
+            - "all GL journal entries across the ledger"
+            - "browse accounting journal entries"
+            - "show me every general ledger journal entry that's been posted"
+          es:
+            - "asientos contables"
+            - "asientos del libro mayor"
+            - "listar asientos contables"
+            - "todos los asientos del libro mayor"
+            - "explorar asientos contables"
       - label: "gl_journal_entries/create"
         description: "Create general ledger journal entries."
         operationId: "create"
       - label: "gl_journal_entries/search"
         description: "Search for general ledger journal entries"
         operationId: "search"
+        prompts:
+          en:
+            - "search journal entries"
+            - "journal entries posted to a GL account"
+            - "journal entries posted last week"
+            - "find journal entries by date range"
+            - "find journal entries filtered by GL account"
+            - "look up general ledger journal entries by criteria"
+            - "find accounting journal postings for a period"
+            - "accounting ledger entries filtered by date or account"
+            - "search the general ledger journal postings for a particular entry"
+          es:
+            - "buscar asientos contables"
+            - "asientos contables filtrados por fecha"
+            - "asientos contables de una cuenta específica"
+            - "buscar asientos contables del libro mayor por criterios"
+            - "encontrar asientos de contabilidad de un periodo"
+            - "asientos del libro contable filtrados por fecha o cuenta"
   - id: "groups"
     specLocation: "json/groups_v2_swagger.json"
     headers:
@@ -997,6 +1367,16 @@ apis:
       - label: "groups/list"
         description: "Get groups"
         operationId: "getAll"
+        prompts:
+          en:
+            - "list all client groups on file"
+            - "group lending rosters"
+            - "browse group memberships"
+            - "show me every client group currently registered in the system"
+          es:
+            - "listar todos los grupos de clientes registrados"
+            - "listados de grupos de crédito"
+            - "explorar membresías de grupo"
       - label: "groups/create"
         description: "Create group"
         operationId: "create"
@@ -1018,6 +1398,23 @@ apis:
       - label: "groups/search"
         description: "Search groups"
         operationId: "search"
+        prompts:
+          en:
+            - "search groups"
+            - "what group does this client belong to"
+            - "find which group a client belongs to"
+            - "search groups by client membership"
+            - "find a lending or membership group by criteria"
+            - "search the registry of client groups"
+            - "locate a group of clients matching a filter"
+            - "search the group roster for a particular lending circle"
+          es:
+            - "buscar grupos"
+            - "a qué grupo pertenece este cliente"
+            - "qué grupos tiene el cliente"
+            - "buscar un grupo de préstamo o afiliación por criterios"
+            - "consultar el registro de grupos de clientes"
+            - "localizar un grupo de clientes que cumpla un filtro"
   - id: "index_rate_sources"
     specLocation: "json/indexratesources_v2_swagger.json"
     headers:
@@ -1027,24 +1424,28 @@ apis:
       - label: "index_rate_sources/list_index_rate_sources"
         description: "Get index rate sources"
         operationId: "getAllIndexRateSources"
-      - label: "index_rate_sources/create_index_rate_source"
-        description: "Create index rate source"
-        operationId: "createIndexRateSource"
-      - label: "index_rate_sources/delete_index_rate_source"
-        description: "Delete index rate source"
-        operationId: "deleteIndexRateSource"
+      # Disabled: write op (admin-only rate-source CRUD).
+      #- label: "index_rate_sources/create_index_rate_source"
+      #  description: "Create index rate source"
+      #  operationId: "createIndexRateSource"
+      # Disabled: write op (admin-only rate-source CRUD).
+      #- label: "index_rate_sources/delete_index_rate_source"
+      #  description: "Delete index rate source"
+      #  operationId: "deleteIndexRateSource"
       - label: "index_rate_sources/get_index_rate_source_by_id"
         description: "Get index rate sources"
         operationId: "getIndexRateSourceById"
       - label: "index_rate_sources/list_index_rates"
         description: "Get index rates for a source"
         operationId: "getAllIndexRates"
-      - label: "index_rate_sources/create_index_rate"
-        description: "Create index rate"
-        operationId: "createIndexRate"
-      - label: "index_rate_sources/delete_index_rate"
-        description: "Delete index rate"
-        operationId: "deleteIndexRate"
+      # Disabled: write op (admin-only rate-source CRUD).
+      #- label: "index_rate_sources/create_index_rate"
+      #  description: "Create index rate"
+      #  operationId: "createIndexRate"
+      # Disabled: write op (admin-only rate-source CRUD).
+      #- label: "index_rate_sources/delete_index_rate"
+      #  description: "Delete index rate"
+      #  operationId: "deleteIndexRate"
   - id: "installments"
     specLocation: "json/installments_v2_swagger.json"
     headers:
@@ -1099,12 +1500,44 @@ apis:
       - label: "loans_schedule/preview_schedule"
         description: "Preview loan account schedule for non-existent loan account"
         operationId: "previewSchedule"
+        prompts:
+          en:
+            - "simulate a loan repayment schedule before booking"
+            - "preview installment plan for a hypothetical loan"
+            - "what-if amortization schedule calculation"
+            - "simulate the installment schedule before booking this loan"
+          es:
+            - "simular cronograma de pagos de préstamo antes de crear"
+            - "previsualizar plan de cuotas de un préstamo hipotético"
+            - "cálculo de amortización simulada"
       - label: "loans_schedule/get_schedule_for_loan_account"
         description: "Get loan account schedule"
         operationId: "getScheduleForLoanAccount"
+        prompts:
+          en:
+            - "repayment schedule"
+            - "loan repayment schedule"
+            - "loan schedule"
+            - "pull the repayment schedule on this active loan account"
+            - "upcoming loan installments"
+            - "when are the loan payments due"
+            - "show me the installment plan on this particular borrower's loan"
+          es:
+            - "cronograma"
+            - "cronograma del préstamo"
+            - "cronograma de pagos del préstamo"
+            - "cuotas pendientes del préstamo"
+            - "fechas de pago del préstamo"
       - label: "loans_schedule/edit_schedule"
         description: "Update loan account schedule"
         operationId: "editSchedule"
+        prompts:
+          en:
+            - "modify an existing installment plan"
+            - "rewrite the booked plan"
+          es:
+            - "modificar un plan de cuotas existente"
+            - "reescribir un plan ya creado"
       - label: "loans_schedule/preview_process_pmt_transactionally"
         description: "Preview loan account schedule using transactional processing for PMT."
         operationId: "previewProcessPMTTransactionally"
@@ -1132,6 +1565,15 @@ apis:
       - label: "loans_transactions_octetstream/search"
         description: "Search loan transactions"
         operationId: "search"
+        prompts:
+          en:
+            - "bulk file export of loan transactions as binary stream"
+            - "download loan transaction records as octet-stream for offline processing"
+            - "CSV or file-based export endpoint for loan transaction data"
+          es:
+            - "exportación masiva de transacciones de préstamo como archivo binario"
+            - "descargar registros de transacciones de préstamo en flujo octet-stream"
+            - "endpoint de exportación en archivo para datos de transacciones de préstamo"
   - id: "loans_transactions"
     specLocation: "json/loans_transactions_v2_swagger.json"
     headers:
@@ -1141,12 +1583,38 @@ apis:
       - label: "loans_transactions/get_by_id"
         description: "Get loan transaction"
         operationId: "getById"
+        prompts:
+          en:
+            - "lookup of a single specific loan transaction record by its identifier"
+            - "retrieve one particular loan transaction entry by ID"
+          es:
+            - "consulta de una transacción de préstamo específica por su identificador"
+            - "obtener una transacción de préstamo particular por ID"
       - label: "loans_transactions/adjust"
         description: "Adjust loan transaction"
         operationId: "adjust"
       - label: "loans_transactions/search"
         description: "Search loan transactions"
         operationId: "search"
+        prompts:
+          en:
+            - "search loan transactions"
+            - "transaction reversal history"
+            - "loan transaction reversal history"
+            - "find loan transactions by filter"
+            - "filter loan transactions by date range"
+            - "find transactions for this loan in the last 90 days"
+            - "find repayment and disbursement transactions on a loan"
+            - "audit loan postings across a date range"
+            - "look up specific loan repayments by filter"
+            - "search the loan payment and disbursement history for this account"
+          es:
+            - "buscar transacciones del préstamo"
+            - "historial de reversiones"
+            - "filtrar transacciones del préstamo por rango de fechas"
+            - "buscar pagos y desembolsos en un préstamo"
+            - "auditar movimientos del préstamo en un rango de fechas"
+            - "consultar cuotas específicas del préstamo con filtros"
       - label: "loans_transactions/make_disbursement"
         description: "Make a disbursement on a loan"
         operationId: "makeDisbursement"
@@ -1174,6 +1642,25 @@ apis:
       - label: "loans_transactions/list"
         description: "Get loan transactions"
         operationId: "getAll"
+        prompts:
+          en:
+            - "loan transactions"
+            - "list loan transactions"
+            - "loan transaction history"
+            - "find all transactions for this loan"
+            - "list all loan transactions portfolio-wide"
+            - "every transaction across loan accounts"
+            - "browse loan movement history"
+            - "show me every loan transaction across the entire portfolio"
+            - "loan transactions ledger view across all loan accounts combined"
+          es:
+            - "transacciones del préstamo"
+            - "transacciones de préstamo"
+            - "listar transacciones de préstamo"
+            - "historial de transacciones del préstamo"
+            - "listar todas las transacciones de préstamo de la cartera"
+            - "cada transacción en las cuentas de préstamo"
+            - "explorar historial de movimientos de préstamos"
       - label: "loans_transactions/get_transactions_for_all_versions"
         description: "Get loan transactions for all loan account versions"
         operationId: "getTransactionsForAllVersions"
@@ -1195,6 +1682,17 @@ apis:
       - label: "loans/list"
         description: "Get loan accounts"
         operationId: "getAll"
+        prompts:
+          en:
+            - "list all loans"
+            - "loans held by a customer"
+            - "borrower's loan accounts"
+            - "show me every loan account in the entire portfolio"
+          es:
+            - "listar préstamos del cliente"
+            - "todos los préstamos de un cliente"
+            - "cartera de préstamos del cliente"
+            - "cartera institucional completa de préstamos abiertos para revisión o auditoría regulatoria"
       - label: "loans/create"
         description: "Create loan account"
         operationId: "create"
@@ -1216,9 +1714,31 @@ apis:
       - label: "loans/list_authorization_holds"
         description: "Get authorization holds related to a loan account, ordered from newest to oldest by creation date"
         operationId: "getAllAuthorizationHolds"
+        prompts:
+          en:
+            - "authorization holds on a loan"
+            - "hold records on a loan account"
+            - "list loan authorization holds"
+          es:
+            - "retenciones de autorización del préstamo"
+            - "registros de retención en el préstamo"
       - label: "loans/get_balances_by_loan_account_id"
         description: "Get loan account balances"
         operationId: "getBalancesByLoanAccountId"
+        prompts:
+          en:
+            - "loan balance"
+            - "how much is owed on the loan"
+            - "outstanding loan balance"
+            - "remaining loan debt"
+            - "show me the current outstanding balance on this specific loan"
+          es:
+            - "saldo del préstamo"
+            - "saldo pendiente del préstamo"
+            - "cuánto debe el cliente en el préstamo"
+            - "cuánto debe el cliente en su préstamo"
+            - "saldo completo del préstamo del deudor"
+            - "deuda actual del préstamo"
       - label: "loans/apply_balance_interest"
         description: "Apply interest on a loan account balance"
         operationId: "applyBalanceInterest"
@@ -1249,15 +1769,53 @@ apis:
       - label: "loans/list_planned_fees"
         description: "Get planned fees"
         operationId: "getAllPlannedFees"
+        prompts:
+          en:
+            - "planned fees"
+            - "list planned fees"
+            - "upcoming fees"
+            - "planned fees scheduled on a loan account"
+            - "upcoming fee charges queued for a loan"
+            - "list pre-scheduled loan fees"
+            - "show me the upcoming fee charges queued on this loan account"
+            - "planned fees viewing or listing the current schedule without modifying it"
+          es:
+            - "comisiones planificadas"
+            - "listar comisiones planificadas"
+            - "comisiones próximas"
+            - "comisiones planificadas de una cuenta de préstamo"
+            - "cargos de comisión próximos de un préstamo"
+            - "listar comisiones preprogramadas del préstamo"
       - label: "loans/create_planned_fees"
         description: "Create planned fees"
         operationId: "createPlannedFees"
+        prompts:
+          en:
+            - "add new planned fee entries"
+            - "register a new fee on a loan"
+          es:
+            - "agregar nuevas comisiones"
+            - "registrar una nueva comisión en un préstamo"
       - label: "loans/update_planned_fees"
         description: "Update planned fees"
         operationId: "updatePlannedFees"
+        prompts:
+          en:
+            - "modify amounts or dates of an existing fee"
+            - "change configured fee values"
+          es:
+            - "modificar montos o fechas existentes"
+            - "cambiar los valores configurados"
       - label: "loans/delete_planned_fees"
         description: "Delete planned fee"
         operationId: "deletePlannedFees"
+        prompts:
+          en:
+            - "remove an existing fee record"
+            - "delete a configured fee"
+          es:
+            - "eliminar un registro existente"
+            - "borrar una configuración"
       - label: "loans/apply_planned_fees"
         description: "ApplY planned fees from the past installments, as backdated or from future installments, on the first pending installment"
         operationId: "applyPlannedFees"
@@ -1267,6 +1825,16 @@ apis:
       - label: "loans/get_pdf_document"
         description: "Download loan account document PDF"
         operationId: "getPdfDocument"
+        prompts:
+          en:
+            - "download the loan account statement PDF"
+            - "generate loan contract PDF document"
+            - "fetch loan paperwork as PDF"
+            - "pull up the full loan contract paperwork in PDF form"
+          es:
+            - "descargar estado de cuenta del préstamo en PDF"
+            - "generar documento contractual del préstamo en PDF"
+            - "obtener el PDF del expediente del préstamo"
       - label: "loans/apply_interest"
         description: "Apply accrued interest"
         operationId: "applyInterest"
@@ -1300,12 +1868,29 @@ apis:
       - label: "loans/preview_pay_off_amounts"
         description: "Preview pay off due amounts in a future date"
         operationId: "previewPayOffAmounts"
+        prompts:
+          en:
+            - "how much to pay off the loan early"
+            - "loan settlement amount"
+            - "total due to close out the loan"
+            - "show me the total payoff amount to settle this loan early"
+          es:
+            - "cuánto debo pagar para cancelar el préstamo"
+            - "monto total para saldar el préstamo"
+            - "pago anticipado del préstamo"
       - label: "loans/refinance"
         description: "Refinance loan account"
         operationId: "refinance"
       - label: "loans/get_loan_account_rsv"
-        description: "Allows retrieval of repayment schedule versioning for a loan account"
+        description: "Get versioning records (RSV) for a loan"
         operationId: "getLoanAccountRSV"
+        prompts:
+          en:
+            - "versioning records for a loan"
+            - "historical revisions of the loan setup"
+          es:
+            - "historial de versiones del préstamo"
+            - "revisiones anteriores del registro del préstamo"
       - label: "loans/reschedule"
         description: "Reschedule loan account"
         operationId: "reschedule"
@@ -1336,6 +1921,17 @@ apis:
       - label: "loans/search"
         description: "Search loan accounts"
         operationId: "search"
+        prompts:
+          en:
+            - "search loan accounts"
+            - "find loan accounts by filter"
+            - "find all loans for this borrower"
+            - "search loans by client"
+            - "filter loan accounts by criteria"
+          es:
+            - "buscar cuentas de préstamo"
+            - "filtrar préstamos por cliente"
+            - "encontrar préstamos de este prestatario"
   - id: "notification_settings_webhook"
     specLocation: "json/notificationsettings_webhook_v2_swagger.json"
     headers:
@@ -1345,21 +1941,24 @@ apis:
       - label: "notification_settings_webhook/get_webhook_notification_settings"
         description: "Get the webhook notification settings"
         operationId: "getWebhookNotificationSettings"
-      - label: "notification_settings_webhook/update_webhook_notification_settings"
-        description: "Update the webhook notification settings"
-        operationId: "updateWebhookNotificationSettings"
+      # Disabled: write op (webhook wiring is admin-only).
+      #- label: "notification_settings_webhook/update_webhook_notification_settings"
+      #  description: "Update the webhook notification settings"
+      #  operationId: "updateWebhookNotificationSettings"
   - id: "organization_holidays_general"
     specLocation: "json/organization_holidays_general_v2_swagger.json"
     headers:
       apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
-      - label: "organization_holidays_general/create"
-        description: "Create holidays"
-        operationId: "create"
-      - label: "organization_holidays_general/delete"
-        description: "Delete holiday"
-        operationId: "delete"
+      # Disabled: write op (holiday config is admin-only).
+      #- label: "organization_holidays_general/create"
+      #  description: "Create holidays"
+      #  operationId: "create"
+      # Disabled: write op (holiday config is admin-only).
+      #- label: "organization_holidays_general/delete"
+      #  description: "Delete holiday"
+      #  operationId: "delete"
       - label: "organization_holidays_general/get_by_id"
         description: "Get holiday"
         operationId: "getByIdentifier"
@@ -1372,9 +1971,10 @@ apis:
       - label: "organization_holidays_nonworkingdays/get_non_working_days"
         description: "Get non-working days"
         operationId: "getNonWorkingDays"
-      - label: "organization_holidays_nonworkingdays/update_non_working_days"
-        description: "Update non-working days"
-        operationId: "updateNonWorkingDays"
+      # Disabled: write op (non-working-days config is admin-only).
+      #- label: "organization_holidays_nonworkingdays/update_non_working_days"
+      #  description: "Update non-working days"
+      #  operationId: "updateNonWorkingDays"
   - id: "organization_holidays"
     specLocation: "json/organization_holidays_v2_swagger.json"
     headers:
@@ -1384,9 +1984,10 @@ apis:
       - label: "organization_holidays/get"
         description: "Get holidays"
         operationId: "get"
-      - label: "organization_holidays/update"
-        description: "Update holidays"
-        operationId: "update"
+      # Disabled: write op (holiday config is admin-only).
+      #- label: "organization_holidays/update"
+      #  description: "Update holidays"
+      #  operationId: "update"
   - id: "organization_identification_document_templates"
     specLocation: "json/organization_identificationDocumentTemplates_v2_swagger.json"
     headers:
@@ -1405,18 +2006,21 @@ apis:
       - label: "organization_transaction_channels/list"
         description: "Get transaction channels"
         operationId: "getAll"
-      - label: "organization_transaction_channels/create"
-        description: "Create transaction channel"
-        operationId: "create"
-      - label: "organization_transaction_channels/delete"
-        description: "Delete transaction channel"
-        operationId: "delete"
+      # Disabled: write op (transaction-channel config is admin-only).
+      #- label: "organization_transaction_channels/create"
+      #  description: "Create transaction channel"
+      #  operationId: "create"
+      # Disabled: write op (transaction-channel config is admin-only).
+      #- label: "organization_transaction_channels/delete"
+      #  description: "Delete transaction channel"
+      #  operationId: "delete"
       - label: "organization_transaction_channels/get_by_id"
         description: "Get transaction channel"
         operationId: "getById"
-      - label: "organization_transaction_channels/update"
-        description: "Update transaction channel"
-        operationId: "update"
+      # Disabled: write op (transaction-channel config is admin-only).
+      #- label: "organization_transaction_channels/update"
+      #  description: "Update transaction channel"
+      #  operationId: "update"
   - id: "profit_sharing_cashflows"
     specLocation: "json/profitsharing_cash-flows_v2_swagger.json"
     headers:
@@ -1477,15 +2081,17 @@ apis:
       apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
-      - label: "profit_sharing_product-settings/create_product_settings"
-        description: "Create new product settings"
-        operationId: "createProductSettings"
+      # Disabled: write op (product-settings config is admin-only).
+      #- label: "profit_sharing_product-settings/create_product_settings"
+      #  description: "Create new product settings"
+      #  operationId: "createProductSettings"
       - label: "profit_sharing_product-settings/get_product_settings_by_id"
         description: "Allows retrieval of product settings"
         operationId: "getProductSettingsById"
-      - label: "profit_sharing_product-settings/update_product_settings"
-        description: "Update existing product settings"
-        operationId: "updateProductSettings"
+      # Disabled: write op (product-settings config is admin-only).
+      #- label: "profit_sharing_product-settings/update_product_settings"
+      #  description: "Update existing product settings"
+      #  operationId: "updateProductSettings"
       - label: "profit_sharing_product-settings/search_product_settings"
         description: "Allows the retrieval of product settings based on criteria"
         operationId: "searchProductSettings"
@@ -1522,48 +2128,45 @@ apis:
       - label: "process_definitions/upload"
         description: "Upload a BPMN process definition"
         operationId: "upload"
-  - id: "rates"
-    specLocation: "json/rates_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-  - id: "setup_general"
-    specLocation: "json/setup_general_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "setup_general/get_general_setup"
-        description: "Get general setup"
-        operationId: "getGeneralSetup"
-  - id: "setup_organization"
-    specLocation: "json/setup_organization_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "setup_organization/get_organization_setup"
-        description: "Get organization details"
-        operationId: "getOrganizationSetup"
-      - label: "setup_organization/update_organization_setup"
-        description: "Update organization details"
-        operationId: "updateOrganizationSetup"
-  - id: "subscriptions"
-    specLocation: "json/subscriptions_v2_swagger.json"
-    headers:
-      apiKey: "${MAMBU_AUTH_API_KEY}"
-      Accept: "application/vnd.mambu.v2+json"
-    operations:
-      - label: "subscriptions/create_or_get"
-        description: "Allows the creation of a streaming events subscription"
-        operationId: "createOrGetSubscription"
-      - label: "subscriptions/delete"
-        description: "Allows the deletion of a streaming events subscription"
-        operationId: "deleteSubscription"
-      - label: "subscriptions/get_events"
-        description: "Get subscription events"
-        operationId: "getSubscriptionEvents"
+# Disabled: initial-setup wizard. Admin-only.
+#  - id: "setup_general"
+#    specLocation: "json/setup_general_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "setup_general/get_general_setup"
+#        description: "Get general setup"
+#        operationId: "getGeneralSetup"
+# Disabled: org-setup wizard. Admin-only.
+#  - id: "setup_organization"
+#    specLocation: "json/setup_organization_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "setup_organization/get_organization_setup"
+#        description: "Get organization details"
+#        operationId: "getOrganizationSetup"
+#      - label: "setup_organization/update_organization_setup"
+#        description: "Update organization details"
+#        operationId: "updateOrganizationSetup"
+# Disabled: streaming-event subscriptions. Admin integration surface.
+#  - id: "subscriptions"
+#    specLocation: "json/subscriptions_v2_swagger.json"
+#    headers:
+#      apiKey: "${MAMBU_AUTH_API_KEY}"
+#      Accept: "application/vnd.mambu.v2+json"
+#    operations:
+#      - label: "subscriptions/create_or_get"
+#        description: "Allows the creation of a streaming events subscription"
+#        operationId: "createOrGetSubscription"
+#      - label: "subscriptions/delete"
+#        description: "Allows the deletion of a streaming events subscription"
+#        operationId: "deleteSubscription"
+#      - label: "subscriptions/get_events"
+#        description: "Get subscription events"
+#        operationId: "getSubscriptionEvents"
   - id: "tasks"
     specLocation: "json/tasks_v2_swagger.json"
     headers:
@@ -1573,6 +2176,16 @@ apis:
       - label: "tasks/list"
         description: "Gets tasks"
         operationId: "getAll"
+        prompts:
+          en:
+            - "list outstanding workflow tasks assigned to staff"
+            - "show queued action items"
+            - "workflow task inbox for follow-up work"
+            - "show me all the pending workflow tasks assigned in the system"
+          es:
+            - "listar tareas de flujo de trabajo asignadas al personal"
+            - "mostrar pendientes encolados para seguimiento"
+            - "bandeja de tareas por completar"
       - label: "tasks/create"
         description: "Create task"
         operationId: "create"
@@ -1594,18 +2207,21 @@ apis:
       apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
-      - label: "templates/create_template"
-        description: "Create a new template"
-        operationId: "createTemplate"
-      - label: "templates/delete"
-        description: "Delete an existing template"
-        operationId: "delete"
+      # Disabled: write op (template CRUD is admin-only).
+      #- label: "templates/create_template"
+      #  description: "Create a new template"
+      #  operationId: "createTemplate"
+      # Disabled: write op (template CRUD is admin-only).
+      #- label: "templates/delete"
+      #  description: "Delete an existing template"
+      #  operationId: "delete"
       - label: "templates/get_by_template_id"
         description: "Get template by id"
         operationId: "getByTemplateId"
-      - label: "templates/update_template"
-        description: "Update an existing template"
-        operationId: "updateTemplate"
+      # Disabled: write op (template CRUD is admin-only).
+      #- label: "templates/update_template"
+      #  description: "Update an existing template"
+      #  operationId: "updateTemplate"
   - id: "user_roles"
     specLocation: "json/userroles_v2_swagger.json"
     headers:
@@ -1615,21 +2231,35 @@ apis:
       - label: "user_roles/list"
         description: "Get user roles"
         operationId: "getAll"
-      - label: "user_roles/create"
-        description: "Create user role"
-        operationId: "create"
-      - label: "user_roles/delete"
-        description: "Delete user role"
-        operationId: "delete"
+        prompts:
+          en:
+            - "list permission roles assignable to staff accounts"
+            - "available user role definitions"
+            - "staff access-level catalog"
+            - "show me every user role available for staff assignments"
+          es:
+            - "listar roles de permisos asignables a cuentas de personal"
+            - "definiciones de rol de usuario disponibles"
+            - "catálogo de niveles de acceso del personal"
+      # Disabled: write op (IAM role CRUD is admin-only).
+      #- label: "user_roles/create"
+      #  description: "Create user role"
+      #  operationId: "create"
+      # Disabled: write op (IAM role CRUD is admin-only).
+      #- label: "user_roles/delete"
+      #  description: "Delete user role"
+      #  operationId: "delete"
       - label: "user_roles/get_by_id"
         description: "Get user role"
         operationId: "getById"
-      - label: "user_roles/patch"
-        description: "Partially update user role"
-        operationId: "patch"
-      - label: "user_roles/update"
-        description: "Update user role"
-        operationId: "update"
+      # Disabled: write op (IAM role CRUD is admin-only).
+      #- label: "user_roles/patch"
+      #  description: "Partially update user role"
+      #  operationId: "patch"
+      # Disabled: write op (IAM role CRUD is admin-only).
+      #- label: "user_roles/update"
+      #  description: "Update user role"
+      #  operationId: "update"
   - id: "users"
     specLocation: "json/users_v2_swagger.json"
     headers:
@@ -1639,18 +2269,32 @@ apis:
       - label: "users/list"
         description: "Get users"
         operationId: "getAll"
-      - label: "users/create"
-        description: "Create user"
-        operationId: "create"
-      - label: "users/delete"
-        description: "Delete user"
-        operationId: "delete"
+        prompts:
+          en:
+            - "list internal staff user accounts in the system"
+            - "employees with access to the platform"
+            - "Mambu staff user roster"
+            - "show me every staff user account with access to the system"
+          es:
+            - "listar cuentas de usuarios internos del personal"
+            - "empleados con acceso a la plataforma"
+            - "nómina de usuarios del personal del sistema"
+      # Disabled: write op (staff account CRUD is admin-only).
+      #- label: "users/create"
+      #  description: "Create user"
+      #  operationId: "create"
+      # Disabled: write op (staff account CRUD is admin-only).
+      #- label: "users/delete"
+      #  description: "Delete user"
+      #  operationId: "delete"
       - label: "users/get_by_id"
         description: "Get user"
         operationId: "getById"
-      - label: "users/patch"
-        description: "Partially update user"
-        operationId: "patch"
-      - label: "users/update"
-        description: "Update user"
-        operationId: "update"
+      # Disabled: write op (staff account CRUD is admin-only).
+      #- label: "users/patch"
+      #  description: "Partially update user"
+      #  operationId: "patch"
+      # Disabled: write op (staff account CRUD is admin-only).
+      #- label: "users/update"
+      #  description: "Update user"
+      #  operationId: "update"
