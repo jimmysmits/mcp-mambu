@@ -30,6 +30,8 @@ brew install mmcp
 mmcp setup --catalog $(brew --prefix)/share/mmcp/reference-apis/mambu/catalog.yaml
 ```
 
+> **Supported platforms:** Apple Silicon macOS (arm64) and Linux (amd64 / arm64). Intel Macs are not distributed (the formula will tell you so); Windows is source-build only — see [Building for Windows](#building-for-windows).
+
 This installs:
 *   The `mmcp` native binary (the embedding model is bundled inside the binary — no separate download)
 *   The Mambu Banking Platform reference API catalog and OpenAPI specs
@@ -214,24 +216,8 @@ ACCESS_EXCLUDE=api_key_rotation/*,database_backup/*
 
 The `access` block in `catalog.yaml` is always read at startup. Environment variables merge on top, allowing runtime customization without editing the catalog.
 
-**Stdio mode** — set env vars in your MCP client's JSON configuration:
-
-```json
-{
-  "mcpServers": {
-    "mambu": {
-      "command": "mmcp",
-      "env": {
-        "MAMBU_BASE_URL": "https://your-tenant.mambu.com/api",
-        "MAMBU_AUTH_API_KEY": "your-api-key",
-        "ACCESS_INCLUDE": "clients/create,loans/create"
-      }
-    }
-  }
-}
-```
-
-**HTTP server mode** — set env vars in the shell or pass as `-D` flags:
+- **Stdio mode** — add `ACCESS_DEFAULT` / `ACCESS_INCLUDE` / `ACCESS_EXCLUDE` to the `env` block of your MCP client config, alongside the Mambu credentials (see [Configure your MCP client](#configure-your-mcp-client-stdio)).
+- **HTTP server mode** — set env vars in the shell, or pass as `-D` flags:
 
 ```bash
 export MAMBU_BASE_URL="https://your-tenant.mambu.com/api"
@@ -258,27 +244,35 @@ When the remaining window drops to 7 days or less, the server logs a warning on 
 Each API entry in `catalog.yaml` defines its spec location, authentication headers, and operations:
 
 ```yaml
-baseUrl: "${MAMBU_BASE_URL}"
+baseUrl: "${MAMBU_BASE_URL}"          # default base URL for every API
 apis:
-  - id: "clients"
+  - id: "clients"                     # API group id; prefix of each label
+    name: "Clients"                   # human-readable group name
     specLocation: "json/clients_v2_swagger.json"
     headers:
       apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
-      - label: "clients/list"
+      - label: "clients/list"         # exact string for invoke + ACCESS_*
         description: "Get clients"
-        operationId: "getAll"
+        operationId: "getAll"         # operationId from the OpenAPI spec
+        type: "READ"                  # READ | CREATE | UPDATE | DELETE
       - label: "clients/create"
         description: "Create client"
         operationId: "create"
+        type: "CREATE"
 ```
 
 Key fields:
 
+*   **`baseUrl`**: default base URL for all APIs; a per-API `baseUrl` overrides it (and the server URL in the OpenAPI spec).
+*   **`id`** / **`name`**: API group identifier (used as the `label` prefix) and its human-readable name.
+*   **`specLocation`**: path to the API's OpenAPI/Swagger spec, relative to `catalog.yaml`.
 *   **`headers`**: HTTP headers added to every request — use for authentication. Supports `${ENV_VAR}` placeholders.
-*   **`baseUrl`** (optional per API): Overrides the server URL from the OpenAPI spec.
-*   **`access`**: Controls which operations are exposed to MCP clients (see [Access Control](#access-control) above).
+*   **`operations[].label`**: the exact string used by `invoke` and `ACCESS_INCLUDE` / `ACCESS_EXCLUDE` (format `apiId/operation`).
+*   **`operations[].operationId`**: the `operationId` in the spec that this label maps to.
+*   **`operations[].type`**: operation category — `READ`, `CREATE`, `UPDATE`, or `DELETE`.
+*   **`access`**: top-level block controlling which operations are exposed (see [Access Control](#access-control) above).
 
 To update your catalog after changes:
 
@@ -293,9 +287,12 @@ For the complete list of available operations, see [Mambu API Reference](#mambu-
 
 ## Mambu API Reference
 
-The bundled catalog ships with **70 API groups and 327 operations**, filtered for operational and customer-facing use. Admin-only APIs (platform setup, user/role CRUD, scheduler control, DB backup, template management, etc.) are commented out in `catalog.yaml` — uncomment them for admin deployments. Access control additionally restricts writes by default (see [Access Control](#access-control)).
+The bundled catalog is filtered for operational and customer-facing use. Admin-only APIs (platform setup, user/role CRUD, scheduler control, DB backup, template management, etc.) are commented out in `catalog.yaml` — uncomment them for admin deployments. Access control additionally restricts writes by default (see [Access Control](#access-control)).
 
 Each `label` below is the exact string to use with `ACCESS_INCLUDE` / `ACCESS_EXCLUDE` and with the `invoke` MCP tool.
+
+<!-- BEGIN:operations (auto-generated from reference-apis/mambu/catalog.yaml — do not edit by hand) -->
+**70 API groups, 327 operations.**
 
 | Label | Description |
 |---|---|
@@ -626,6 +623,7 @@ Each `label` below is the exact string to use with `ACCESS_INCLUDE` / `ACCESS_EX
 | `user_roles/get_by_id` | Get user role |
 | `users/list` | Get users |
 | `users/get_by_id` | Get user |
+<!-- END:operations -->
 
 
 ## File Locations
@@ -680,7 +678,7 @@ The server binds to `0.0.0.0:8081` by default. To use a different port:
 mmcp -Dquarkus.http.host-enabled=true -Dquarkus.http.port=9090
 ```
 
-MCP clients that support remote servers can connect via the SSE endpoint at `http://<host>:8081/mcp/sse`.
+Remote MCP clients connect to the **Streamable HTTP** endpoint at `http://<host>:8081/mcp` — this is the current MCP HTTP transport and what most clients should use. A legacy **SSE** endpoint remains available at `http://<host>:8081/mcp/sse` for older clients, and a **WebSocket** transport is also built in.
 
 You can also enable HTTP mode via environment variables instead of `-D` flags:
 
@@ -721,7 +719,7 @@ The resulting `mmcp.exe` behaves identically to the macOS and Linux binaries. Ca
 
 ### Trial Expired
 
-Each MMCP build ships with a 90-day trial window computed from the build timestamp. If the server refuses to start with a `mmcp trial expired on YYYY-MM-DD` message and exit code `2`, run `brew upgrade mmcp` to install a fresh build — every release carries its own 90-day window from its build date.
+If the server refuses to start with a `mmcp trial expired on YYYY-MM-DD` message and exit code `2`, the trial window has elapsed. Run `brew upgrade mmcp` to install a fresh build. See [Trial Expiration](#trial-expiration) for the full explanation.
 
 ### Server Won't Start
 
