@@ -15,6 +15,12 @@ access:
     - "database_backup/*"
     - "communications_messages/search_sorted"
     - "loans/get_preview_loan_account_schedule"
+    # Admin migration tooling — present in the catalog (so it's indexed and
+    # search-quality tuning can measure it) but denied at runtime so live
+    # agents never see it. Note data_import/get_import would otherwise be
+    # auto-allowed by the "*/get_*" include, so this explicit exclude is
+    # required. Operators who need it can override via ACCESS_INCLUDE.
+    - "data_import/*"
 apis:
   - id: "accounting_interest_accrual"
     name: "Accounting – Interest Accrual"
@@ -125,6 +131,27 @@ apis:
             - "mostrar todas las sucursales de la organización"
             - "qué sucursales tenemos operando"
             - "directorio de sucursales"
+          pt-BR:
+            - "agências"
+            - "listar agências"
+            - "mostrar agências"
+            - "mostrar todas as agências ativas"
+            - "lista de todas as agências"
+            - "mostrar todas as agências da organização"
+            - "quais agências temos operando"
+            - "diretório de agências"
+          ja:
+            - "支店の一覧を表示"
+            - "すべての支店を表示"
+            - "支店ディレクトリ"
+          nb:
+            - "vis alle filialene"
+            - "oversikt over filialer"
+            - "filialkatalog"
+          ms:
+            - "paparkan semua cawangan"
+            - "direktori cawangan"
+            - "senarai cawangan dalam organisasi"
       - label: "branches/create"
         description: "Create branch"
         operationId: "create"
@@ -143,7 +170,22 @@ apis:
             - "detalles de una sucursal por identificador"
             - "metadatos y dirección de una sucursal"
             - "consultar registro de una sucursal"
-            -
+          pt-BR:
+            - "detalhes de uma agência por identificador"
+            - "metadados e endereço de uma agência"
+            - "consultar registro de uma agência"
+          ja:
+            - "特定の支店の詳細"
+            - "支店レコードを照会"
+            - "IDで支店を検索"
+          nb:
+            - "detaljer om en bestemt filial"
+            - "slå opp en filialoppføring"
+            - "en filials metadata og adresse"
+          ms:
+            - "butiran sebuah cawangan tertentu"
+            - "cari rekod cawangan"
+            - "metadata dan alamat sesebuah cawangan"
 # Disabled: bulk-process status. Re-enable if bulk create/update endpoints are exposed elsewhere.
 #  - id: "bulks"
 #    specLocation: "json/bulks_v2_swagger.json"
@@ -166,18 +208,118 @@ apis:
         description: "Create an authorization hold corresponding to a given card."
         operationId: "createAuthorizationHold"
         type: "CREATE"
+        prompts:
+          en:
+            - "place an authorization hold on a card"
+            - "create a card hold"
+            - "reserve funds on a card"
+          es:
+            - "crear una retención de autorización en una tarjeta"
+            - "colocar un bloqueo en una tarjeta"
+            - "reservar fondos en una tarjeta"
+          pt-BR:
+            - "criar uma retenção de autorização em um cartão"
+            - "colocar um bloqueio em um cartão"
+            - "reservar fundos em um cartão"
+          ja:
+            - "カードにオーソリ保留をかける"
+            - "カードの与信枠を確保する"
+            - "カード保留を作成"
+          nb:
+            - "legg en autorisasjonssperre på et kort"
+            - "reserver midler på et kort"
+            - "opprett en kortsperre"
+          ms:
+            - "letakkan tahanan kebenaran pada kad"
+            - "cipta tahanan kad"
+            - "rizab dana pada kad"
       - label: "cards/reverse_authorization_hold"
         description: "Reverse a card authorization hold."
         operationId: "reverseAuthorizationHold"
         type: "CREATE"
+        prompts:
+          en:
+            - "reverse a card authorization hold"
+            - "release a hold placed on a card"
+            - "undo a card authorization hold"
+          es:
+            - "revertir una retención de autorización de tarjeta"
+            - "liberar una retención puesta en la tarjeta"
+            - "anular la retención de la tarjeta"
+          pt-BR:
+            - "reverter uma retenção de autorização do cartão"
+            - "liberar uma retenção colocada no cartão"
+            - "estornar a retenção do cartão"
+          ja:
+            - "カードのオーソリを取り消す"
+            - "カードにかけた保留を解除する"
+            - "カードの与信保留を元に戻す"
+          nb:
+            - "tilbakefør en kortautorisasjonssperre"
+            - "frigi en sperre satt på kortet"
+            - "opphev kortets autorisasjonssperre"
+          ms:
+            - "balikkan tahanan kebenaran pada kad"
+            - "lepaskan tahanan yang dikenakan pada kad"
+            - "batalkan tahanan kad"
       - label: "cards/get_authorization_hold_by_id"
         description: "Get card authorization hold"
         operationId: "getAuthorizationHoldById"
         type: "READ"
+        prompts:
+          en:
+            - "get a card authorization hold by its identifier"
+            - "look up a specific card hold by ID"
+            - "retrieve one authorization hold on a card"
+          es:
+            - "obtener una retención de autorización de tarjeta por su identificador"
+            - "buscar una retención de tarjeta específica por ID"
+            - "recuperar una retención de la tarjeta"
+          pt-BR:
+            - "obter uma retenção de autorização de cartão pelo identificador"
+            - "buscar uma retenção de cartão específica por ID"
+            - "recuperar uma retenção do cartão"
+          ja:
+            - "IDでカードのオーソリ保留を取得する"
+            - "特定のカード保留をIDで照会する"
+            - "カードの保留を1件取得する"
+          nb:
+            - "hent en kortautorisasjonssperre etter id"
+            - "slå opp en bestemt kortsperre etter ID"
+            - "hent én autorisasjonssperre på et kort"
+          ms:
+            - "dapatkan tahanan kebenaran kad mengikut ID"
+            - "cari tahanan kad tertentu mengikut ID"
+            - "lihat satu tahanan kebenaran pada kad"
       - label: "cards/patch_authorization_hold"
         description: "Partially update an authorization hold"
         operationId: "patchAuthorizationHold"
         type: "UPDATE"
+        prompts:
+          en:
+            - "partially update a card authorization hold"
+            - "modify fields of a card hold"
+            - "patch an authorization hold on a card"
+          es:
+            - "actualizar parcialmente una retención de autorización de tarjeta"
+            - "modificar campos de una retención de tarjeta"
+            - "editar una retención de la tarjeta"
+          pt-BR:
+            - "atualizar parcialmente uma retenção de autorização de cartão"
+            - "modificar campos de uma retenção de cartão"
+            - "editar uma retenção do cartão"
+          ja:
+            - "カードのオーソリ保留を部分的に更新する"
+            - "カード保留の項目を変更する"
+            - "カードの保留を一部修正する"
+          nb:
+            - "oppdater en kortautorisasjonssperre delvis"
+            - "endre felter på en kortsperre"
+            - "rediger en autorisasjonssperre på et kort"
+          ms:
+            - "kemas kini sebahagian tahanan kebenaran kad"
+            - "ubah medan tahanan kad"
+            - "pinda tahanan kebenaran pada kad"
       - label: "cards/decrease_authorization_hold"
         description: "Decreases the amount of an authorization hold. If the amount is greater or equal to the authorization hold amount, then the authorization hold is reversed."
         operationId: "decreaseAuthorizationHold"
@@ -186,22 +328,147 @@ apis:
         description: "Increase authorization hold amount"
         operationId: "increaseAuthorizationHold"
         type: "UPDATE"
+        prompts:
+          en:
+            - "increase the amount of a card authorization hold"
+            - "raise the hold amount on a card"
+            - "top up a card authorization hold"
+          es:
+            - "aumentar el monto de una retención de autorización de tarjeta"
+            - "incrementar la retención de la tarjeta"
+            - "subir el importe retenido en la tarjeta"
+          pt-BR:
+            - "aumentar o valor da retenção de autorização do cartão"
+            - "elevar o valor retido no cartão"
+            - "incrementar a retenção do cartão"
+          ja:
+            - "カードのオーソリ保留の金額を増やす"
+            - "カードの与信枠の保留額を引き上げる"
+            - "カード保留の金額を増額する"
+          nb:
+            - "øk beløpet på en kortautorisasjonssperre"
+            - "hev det reserverte beløpet på kortet"
+            - "utvid kortsperrens beløp"
+          ms:
+            - "naikkan amaun tahanan kebenaran kad"
+            - "tingkatkan amaun tahanan pada kad"
+            - "tambah jumlah tahanan kad"
       - label: "cards/create_bulk_authorization_holds"
         description: "Create bulk authorization holds corresponding to a given card"
         operationId: "createBulkAuthorizationHolds"
         type: "CREATE"
+        prompts:
+          en:
+            - "create authorization holds in bulk for a card"
+            - "place multiple card holds at once"
+            - "batch-create card authorization holds"
+          es:
+            - "crear retenciones de autorización en lote para una tarjeta"
+            - "poner varias retenciones de tarjeta a la vez"
+            - "crear retenciones de tarjeta de forma masiva"
+          pt-BR:
+            - "criar retenções de autorização em lote para um cartão"
+            - "colocar várias retenções de cartão de uma vez"
+            - "criar retenções de cartão em massa"
+          ja:
+            - "カードのオーソリ保留を一括で作成する"
+            - "複数のカード保留をまとめてかける"
+            - "カード保留を一括登録する"
+          nb:
+            - "opprett autorisasjonssperrer i bulk for et kort"
+            - "legg flere kortsperrer samtidig"
+            - "masseopprett kortautorisasjonssperrer"
+          ms:
+            - "cipta tahanan kebenaran secara pukal untuk kad"
+            - "letak beberapa tahanan kad sekali gus"
+            - "cipta tahanan kad secara berkelompok"
       - label: "cards/get_account_balances"
         description: "Get account balances using card tokens"
         operationId: "getAccountBalances"
         type: "READ"
+        prompts:
+          en:
+            - "balances on a card account"
+            - "available and current balance for a card"
+            - "how much is on this card"
+          es:
+            - "saldos de una cuenta de tarjeta"
+            - "saldo disponible y actual de una tarjeta"
+            - "cuánto hay en esta tarjeta"
+          pt-BR:
+            - "saldos de uma conta de cartão"
+            - "saldo disponível e atual de um cartão"
+            - "quanto há neste cartão"
+          ja:
+            - "カード口座の残高"
+            - "カードの利用可能残高"
+            - "カードトークンで残高照会"
+          nb:
+            - "saldo på en kortkonto"
+            - "tilgjengelig saldo for et kort"
+            - "hvor mye står på kortet"
+          ms:
+            - "baki pada akaun kad"
+            - "baki tersedia dan semasa untuk kad"
+            - "berapa baki dalam kad"
       - label: "cards/create_card_transaction"
         description: "Create a financial transaction corresponding to a given card"
         operationId: "createCardTransaction"
         type: "CREATE"
+        prompts:
+          en:
+            - "record a card purchase"
+            - "post a transaction on a card"
+            - "log a card payment"
+          es:
+            - "asentar una compra realizada con tarjeta"
+            - "registrar un movimiento de tarjeta"
+            - "anotar un pago hecho con tarjeta"
+          pt-BR:
+            - "lançar uma compra realizada no cartão"
+            - "registrar um movimento de cartão"
+            - "anotar um pagamento feito no cartão"
+          ja:
+            - "カード取引を記録する"
+            - "カードの支払いを計上する"
+            - "カード決済を登録"
+          nb:
+            - "registrer et kortkjøp"
+            - "bokfør en transaksjon på et kort"
+            - "logg en kortbetaling"
+          ms:
+            - "rekod pembelian kad"
+            - "catat transaksi pada kad"
+            - "log bayaran kad"
       - label: "cards/get_card_transaction"
         description: "Get card transaction"
         operationId: "getCardTransaction"
         type: "READ"
+        prompts:
+          en:
+            - "details of a card transaction"
+            - "look up a specific card payment"
+            - "view a posted card charge"
+          es:
+            - "detalle de un movimiento de tarjeta"
+            - "consultar un pago específico con tarjeta"
+            - "ver un cargo realizado con tarjeta"
+          pt-BR:
+            - "detalhe de um movimento de cartão"
+            - "consultar um pagamento específico no cartão"
+            - "ver uma cobrança feita no cartão"
+          ja:
+            - "カード取引の詳細を照会"
+            - "特定のカード決済を確認"
+            - "計上済みカード明細を表示"
+          nb:
+            - "slå opp en bestemt kortbetaling"
+            - "vis en bokført kortbelastning"
+            - "korttransaksjonsdetaljer"
+          ms:
+            - "butiran sesuatu transaksi kad"
+            - "cari bayaran kad tertentu"
+            - "lihat caj kad yang dicatat"
       - label: "cards/reverse_card_transaction"
         description: "Reverse card transaction"
         operationId: "reverseCardTransaction"
@@ -227,6 +494,22 @@ apis:
             - "listar centros operativos bajo sucursales"
             - "puntos de cobranza de sucursal"
             - "mostrar todos los centros"
+          pt-BR:
+            - "listar centros operacionais sob as agências"
+            - "pontos de cobrança da agência"
+            - "mostrar todos os centros"
+          ja:
+            - "すべてのセンターを表示"
+            - "支店配下のセンターを表示"
+            - "営業拠点の一覧"
+          nb:
+            - "oversikt over sentre under filialene"
+            - "vis alle sentrene"
+            - "innsamlingssentre under filial"
+          ms:
+            - "senarai pusat operasi"
+            - "titik kutipan operasi"
+            - "paparkan semua pusat"
       - label: "centres/get_by_id"
         description: "Get centre"
         operationId: "getById"
@@ -241,6 +524,22 @@ apis:
             - "detalles de un centro por identificador"
             - "registro de un centro y su sucursal matriz"
             - "consultar un centro específico"
+          pt-BR:
+            - "detalhes de um centro por identificador"
+            - "registro de um centro e sua agência matriz"
+            - "consultar um centro específico"
+          ja:
+            - "特定のセンターの詳細"
+            - "センターのレコードと親支店を照会"
+            - "IDでセンターを検索"
+          nb:
+            - "detaljer om et bestemt senter"
+            - "et senters oppføring og overordnet filial"
+            - "slå opp et enkelt senter"
+          ms:
+            - "butiran sesebuah pusat tertentu"
+            - "rekod pusat dan cawangan induknya"
+            - "cari pusat tertentu"
   - id: "clients_documents"
     name: "Client Documents"
     specLocation: "json/clients_documents_v2_swagger.json"
@@ -279,6 +578,24 @@ apis:
             - "todos los documentos cargados de un cliente específico"
             - "papeles KYC en el expediente del cliente"
             - "listar adjuntos documentales del cliente"
+          pt-BR:
+            - "documentos do cliente"
+            - "documentos enviados do cliente"
+            - "todos os documentos carregados de um cliente específico"
+            - "papéis KYC no cadastro do cliente"
+            - "listar anexos documentais do cliente"
+          ja:
+            - "顧客の書類一覧"
+            - "顧客ファイルにアップロードされた書類"
+            - "本人確認書類を確認"
+          nb:
+            - "dokumenter på kundens sak"
+            - "opplastede dokumenter for en kunde"
+            - "KYC-papirer på kundens fil"
+          ms:
+            - "dokumen yang dimuat naik dalam fail pelanggan"
+            - "kertas kerja KYC pelanggan"
+            - "lampiran dokumen pelanggan"
   - id: "clients"
     name: "Clients"
     specLocation: "json/clients_v2_swagger.json"
@@ -290,6 +607,36 @@ apis:
         description: "Get clients"
         operationId: "getAll"
         type: "READ"
+        prompts:
+          en:
+            - "list clients"
+            - "get all clients"
+            - "all clients"
+            - "show all customers"
+            - "list all customers"
+            - "browse all clients"
+          es:
+            - "listar clientes"
+            - "ver todos los clientes"
+            - "mostrar todos los clientes"
+            - "todos los clientes"
+          pt-BR:
+            - "listar clientes"
+            - "ver todos os clientes"
+            - "mostrar todos os clientes"
+            - "todos os clientes"
+          ja:
+            - "顧客一覧"
+            - "全顧客の一覧"
+            - "すべての顧客を表示"
+          nb:
+            - "liste over kunder"
+            - "vis alle kunder"
+            - "alle kunder"
+          ms:
+            - "senarai pelanggan"
+            - "lihat semua pelanggan"
+            - "semua pelanggan"
       - label: "clients/create"
         description: "Create client"
         operationId: "create"
@@ -312,6 +659,22 @@ apis:
             - "registro de un cliente por identificador"
             - "recuperar el perfil de un cliente"
             - "obtener el expediente completo del cliente"
+          pt-BR:
+            - "registro de um cliente por identificador"
+            - "recuperar o perfil de um cliente"
+            - "obter o cadastro completo do cliente"
+          ja:
+            - "IDで顧客レコードを取得"
+            - "顧客の完全なプロフィールを照会"
+            - "特定顧客の記録を表示"
+          nb:
+            - "enkelt kundeoppføring etter id"
+            - "hent en kundes fullstendige profil"
+            - "slå opp én kundes profil"
+          ms:
+            - "rekod pelanggan tunggal mengikut ID"
+            - "dapatkan profil penuh seorang pelanggan"
+            - "cari satu rekod pelanggan"
       - label: "clients/patch"
         description: "Partially update client"
         operationId: "patch"
@@ -334,6 +697,22 @@ apis:
             - "todos los acuerdos de crédito de un cliente específico"
             - "vinculación crediticia completa del cliente"
             - "resumen de la relación de crédito del cliente"
+          pt-BR:
+            - "todos os acordos de crédito de um cliente específico"
+            - "vínculo de crédito completo do cliente"
+            - "resumo da relação de crédito do cliente"
+          ja:
+            - "この顧客に紐づく与信契約"
+            - "顧客の与信関係のサマリー"
+            - "顧客の融資枠を表示"
+          nb:
+            - "alle kredittavtaler knyttet til en bestemt kunde"
+            - "kundens samlede låneforhold"
+            - "vis kundens kredittforhold"
+          ms:
+            - "semua perjanjian kredit yang dikaitkan dengan pelanggan"
+            - "ringkasan hubungan pinjaman pelanggan"
+            - "lihat kemudahan kredit pelanggan"
       - label: "clients/get_role_by_client_id"
         description: "Get client role for client"
         operationId: "getRoleByClientId"
@@ -348,6 +727,22 @@ apis:
             - "rol de cliente asignado a un cliente"
             - "tipo de rol designado del cliente"
             - "qué rol tiene asignado este cliente"
+          pt-BR:
+            - "papel de cliente atribuído a um cliente"
+            - "tipo de papel designado do cliente"
+            - "qual papel está atribuído a este cliente"
+          ja:
+            - "顧客に割り当てられた役割"
+            - "顧客の役割区分を確認"
+            - "この顧客はどの役割か"
+          nb:
+            - "rollen som er tildelt en kunde"
+            - "kundens rolletype"
+            - "hvilken rolle har denne kunden"
+          ms:
+            - "peranan yang diberikan kepada pelanggan"
+            - "jenis peranan pelanggan"
+            - "apakah peranan pelanggan ini"
       - label: "clients/search"
         description: "Search clients"
         operationId: "search"
@@ -368,6 +763,26 @@ apis:
             - "encontrar cliente por DNI"
             - "encontrar registro del cliente"
             - "localizar un cliente"
+          pt-BR:
+            - "buscar cliente por nome ou identificação"
+            - "buscar cliente por número de documento"
+            - "encontrar cliente por CPF"
+            - "encontrar registro do cliente"
+            - "localizar um cliente"
+          ja:
+            - "名前やIDで顧客を検索"
+            - "本人確認番号で顧客を探す"
+            - "書類番号で顧客を照会"
+            - "顧客レコードを検索"
+          nb:
+            - "finn en kunde etter navn eller ID"
+            - "finn en kunde med fødselsnummer"
+            - "slå opp kunde etter dokumentnummer"
+            - "søk i kunderegisteret"
+          ms:
+            - "cari pelanggan mengikut nama atau ID"
+            - "cari pelanggan mengikut nombor pengenalan"
+            - "cari rekod pelanggan mengikut nombor dokumen"
   - id: "comments"
     name: "Comments"
     specLocation: "json/comments_v2_swagger.json"
@@ -379,10 +794,60 @@ apis:
         description: "Get comments for an entity"
         operationId: "getComments"
         type: "READ"
-      # Disabled: write op. Re-enable if agents need to author comments.
-      #- label: "comments/create_comment"
-      #  description: "Create a new comment for an entity."
-      #  operationId: "createComment"
+        prompts:
+          en:
+            - "notes on a record"
+            - "view annotations for an entity"
+            - "comments left on a client"
+          es:
+            - "notas sobre un registro"
+            - "anotaciones de una entidad"
+            - "comentarios de un cliente"
+          pt-BR:
+            - "notas sobre um registro"
+            - "anotações de uma entidade"
+            - "comentários de um cliente"
+          ja:
+            - "レコードのコメント"
+            - "案件のメモを表示"
+            - "エンティティの注記を確認"
+          nb:
+            - "notater på en oppføring"
+            - "vis merknader for en enhet"
+            - "kommentarer lagt igjen på en kunde"
+          ms:
+            - "nota pada sesuatu rekod"
+            - "lihat anotasi untuk entiti"
+            - "komen yang ditinggalkan pada pelanggan"
+      - label: "comments/create_comment"
+        description: "Create a new comment for an entity."
+        operationId: "createComment"
+        type: "CREATE"
+        prompts:
+          en:
+            - "leave a comment on an entity"
+            - "annotate a client record"
+            - "post a note about this account"
+          es:
+            - "dejar un comentario en una entidad"
+            - "anotar un registro de cliente"
+            - "agregar una nota a una cuenta"
+          pt-BR:
+            - "deixar um comentário em uma entidade"
+            - "anotar um registro de cliente"
+            - "adicionar uma nota a uma conta"
+          ja:
+            - "エンティティにコメントを残す"
+            - "顧客レコードにメモを追加"
+            - "口座に注記を投稿"
+          nb:
+            - "legg igjen en kommentar på en enhet"
+            - "skriv en merknad på en kundeoppføring"
+            - "publiser et notat om denne kontoen"
+          ms:
+            - "tinggalkan komen pada entiti"
+            - "tambah nota pada rekod pelanggan"
+            - "catat nota tentang akaun ini"
   - id: "communications_messages"
     name: "Communications"
     specLocation: "json/communications_messages_v2_swagger.json"
@@ -427,6 +892,25 @@ apis:
             - "registro de mensajes SMS, correos electrónicos y notificaciones enviadas desde el banco"
             - "búsqueda en el log de mensajes del sistema por fecha o estado de entrega"
             - "consultar el historial de mensajes enviados, filtrado por destinatario o canal"
+          pt-BR:
+            - "mensagens enviadas ao cliente"
+            - "buscar comunicações com o cliente"
+            - "histórico de notificações ao cliente"
+            - "registro de mensagens SMS, e-mails e notificações enviadas pelo banco"
+            - "busca no log de mensagens do sistema por data ou status de entrega"
+            - "consultar o histórico de mensagens enviadas, filtrado por destinatário ou canal"
+          ja:
+            - "顧客に送ったメッセージを検索"
+            - "顧客とのやり取りの履歴"
+            - "顧客への通知を照会"
+          nb:
+            - "finn meldinger sendt til en kunde"
+            - "kommunikasjonshistorikk med kunde"
+            - "slå opp kundevarsler"
+          ms:
+            - "cari mesej yang dihantar kepada pelanggan"
+            - "sejarah komunikasi dengan pelanggan"
+            - "cari notifikasi pelanggan"
       - label: "communications_messages/search_sorted"
         description: "Searching sorted communication messages"
         operationId: "search_1"
@@ -439,6 +923,21 @@ apis:
           es:
             - "buscar mensajes ordenados"
             - "historial de mensajes ordenado"
+          pt-BR:
+            - "buscar mensagens ordenadas"
+            - "histórico de mensagens ordenado"
+          ja:
+            - "並べ替えたメッセージ履歴を検索"
+            - "ソート済みの通信ログ"
+            - "順序付きのメッセージ一覧"
+          nb:
+            - "søk i kundemeldinger med sortering"
+            - "sortert meldingshistorikk"
+            - "ordnet kommunikasjonslogg"
+          ms:
+            - "cari mesej pelanggan mengikut susunan"
+            - "sejarah mesej yang disusun"
+            - "log komunikasi tersusun"
   - id: "configuration_accounting_rules_yaml"
     name: "Configuration – Accounting Rules"
     specLocation: "json/configuration_accountingrules.yaml_v2_swagger.json"
@@ -450,6 +949,31 @@ apis:
         description: "Retrieve accounting rules configuration"
         operationId: "get"
         type: "READ"
+        prompts:
+          en:
+            - "accounting posting rules configuration"
+            - "the configured GL accounting rules"
+            - "settings that control how journal entries are posted"
+          es:
+            - "configuración de reglas contables de asientos"
+            - "las reglas contables del libro mayor configuradas"
+            - "ajustes que controlan cómo se registran los asientos"
+          pt-BR:
+            - "configuração de regras contábeis de lançamentos"
+            - "as regras contábeis do razão configuradas"
+            - "ajustes que controlam como os lançamentos são registrados"
+          ja:
+            - "会計記帳ルールの設定"
+            - "現在の会計ルール設定"
+            - "仕訳の記帳方法を制御する設定"
+          nb:
+            - "konfigurasjon av regnskapsregler"
+            - "reglene som styrer bokføringen"
+            - "oppsett for hvordan posteringer bokføres"
+          ms:
+            - "konfigurasi peraturan pengeposan perakaunan"
+            - "peraturan perakaunan GL yang ditetapkan"
+            - "tetapan cara catatan jurnal dipos"
       - label: "configuration_accounting_rules_yaml/update"
         description: "Update the current accounting rules configuration"
         operationId: "update"
@@ -480,6 +1004,31 @@ apis:
         description: "Get branches configuration"
         operationId: "get"
         type: "READ"
+        prompts:
+          en:
+            - "get the branches configuration"
+            - "retrieve branch configuration settings"
+            - "view how branches are configured"
+          es:
+            - "obtener la configuración de sucursales"
+            - "recuperar los ajustes de configuración de sucursales"
+            - "ver cómo están configuradas las sucursales"
+          pt-BR:
+            - "obter a configuração de agências"
+            - "recuperar as definições de configuração de agências"
+            - "ver como as agências estão configuradas"
+          ja:
+            - "支店の設定を取得する"
+            - "支店の構成設定を取得する"
+            - "支店がどう構成されているか確認する"
+          nb:
+            - "hent filialkonfigurasjonen"
+            - "hent konfigurasjonsinnstillinger for filialer"
+            - "se hvordan filialer er konfigurert"
+          ms:
+            - "dapatkan konfigurasi cawangan"
+            - "tetapan konfigurasi cawangan"
+            - "lihat bagaimana cawangan dikonfigurasi"
       - label: "configuration_branches_yaml/update"
         description: "Update branch configuration"
         operationId: "update"
@@ -782,11 +1331,11 @@ apis:
         description: "Update API consumer"
         operationId: "update"
         type: "UPDATE"
-      - label: "consumers/create_api_key_for_consumer"
+      - label: "consumers/create_api_key"
         description: "Create API key"
         operationId: "createApiKeyForConsumer"
         type: "CREATE"
-      - label: "consumers/delete_api_key_for_consumer"
+      - label: "consumers/delete_api_key"
         description: "Delete API key"
         operationId: "deleteApiKeyForConsumer"
         type: "DELETE"
@@ -794,7 +1343,7 @@ apis:
         description: "Get API keys"
         operationId: "getKeysByConsumerId"
         type: "READ"
-      - label: "consumers/create_secret_key_for_consumer"
+      - label: "consumers/create_secret_key"
         description: "Create secret key"
         operationId: "createSecretKeyForConsumer"
         type: "CREATE"
@@ -826,6 +1375,26 @@ apis:
             - "facilidades crediticias activas registradas"
             - "mostrar cada acuerdo de crédito"
             - "catálogo para consultar todos los acuerdos de crédito existentes"
+          pt-BR:
+            - "acordos de crédito"
+            - "listar acordos de crédito"
+            - "grupos de crédito"
+            - "listar todos os acordos de crédito da carteira"
+            - "linhas de crédito ativas registradas"
+            - "mostrar cada acordo de crédito"
+            - "catálogo para consultar todos os acordos de crédito existentes"
+          ja:
+            - "与信契約の一覧"
+            - "ポートフォリオ全体の与信契約"
+            - "有効な与信枠を表示"
+          nb:
+            - "oversikt over kredittavtaler"
+            - "alle kredittavtaler i porteføljen"
+            - "aktive kredittfasiliteter"
+          ms:
+            - "senarai perjanjian kredit"
+            - "semua perjanjian kredit dalam portfolio"
+            - "kemudahan kredit aktif"
       - label: "credit_arrangements/create"
         description: "Create credit arrangement"
         operationId: "create"
@@ -837,6 +1406,18 @@ apis:
           es:
             - "endpoint de acción para registrar un nuevo acuerdo de crédito de cliente"
             - "crear un nuevo registro de acuerdo de crédito en los libros"
+          pt-BR:
+            - "endpoint de ação para registrar um novo acordo de crédito de cliente"
+            - "criar um novo registro de acordo de crédito nos livros"
+          ja:
+            - "新しい与信契約を登録する"
+            - "顧客向けに与信契約を作成"
+          nb:
+            - "registrer en ny kredittavtale for en kunde"
+            - "opprett en ny kredittavtaleoppføring"
+          ms:
+            - "daftar perjanjian kredit baharu untuk pelanggan"
+            - "cipta rekod perjanjian kredit baharu"
       - label: "credit_arrangements/delete"
         description: "Delete credit arrangement"
         operationId: "delete"
@@ -852,6 +1433,18 @@ apis:
           es:
             - "consulta de un acuerdo de crédito específico por su identificador único"
             - "obtener un acuerdo de crédito particular por ID"
+          pt-BR:
+            - "consulta de um acordo de crédito específico pelo seu identificador único"
+            - "obter um acordo de crédito específico por ID"
+          ja:
+            - "IDで特定の与信契約を照会"
+            - "1件の与信契約レコードを取得"
+          nb:
+            - "slå opp en bestemt kredittavtale etter ID"
+            - "hent én kredittavtaleoppføring"
+          ms:
+            - "cari satu perjanjian kredit tertentu mengikut ID"
+            - "dapatkan satu rekod perjanjian kredit"
       - label: "credit_arrangements/patch"
         description: "Partially update credit arrangement"
         operationId: "patch"
@@ -989,32 +1582,75 @@ apis:
         description: "Get custom field definitions by custom field set"
         operationId: "getAllBySetId"
         type: "READ"
-# Disabled: admin migration tooling.
-#  - id: "data_import"
-#    specLocation: "json/data_import_v2_swagger.json"
-#    headers:
-#      apiKey: "${MAMBU_AUTH_API_KEY}"
-#      Accept: "application/vnd.mambu.v2+json"
-#    operations:
-#      - label: "data_import/data_import"
-#        description: "Allows you to import data"
-#        operationId: "dataImport"
-#      - label: "data_import/action"
-#        description: "Allows you to approve or reject a data import event"
-#        operationId: "action"
-#      - label: "data_import/get_import"
-#        description: "Allows you to retrieve a data import response"
-#        operationId: "getImport"
-#        prompts:
-#          en:
-#            - "status of a bulk data import job"
-#            - "check whether the nightly import finished"
-#            - "import job result and error count"
-#            - "show me the status of this particular bulk data import job"
-#          es:
-#            - "estado del proceso de importación de datos"
-#            - "verificar si la importación nocturna terminó"
-#            - "resultado del trabajo de importación y errores"
+  # Admin migration tooling. Present in the catalog so it is INDEXED and
+  # search-quality eval/tuning can measure it, but DENIED AT RUNTIME via the
+  # "data_import/*" entry in the access exclude above — live agents never see
+  # it. (Re-enable per deployment by overriding ACCESS_INCLUDE/EXCLUDE.)
+  - id: "data_import"
+    name: "Data Import"
+    specLocation: "json/data_import_v2_swagger.json"
+    headers:
+      apiKey: "${MAMBU_AUTH_API_KEY}"
+      Accept: "application/vnd.mambu.v2+json"
+    operations:
+      - label: "data_import/data_import"
+        description: "Allows you to import data"
+        operationId: "dataImport"
+        type: "CREATE"
+        prompts:
+          en:
+            - "upload a bulk data import file"
+            - "start a batch data import job"
+          es:
+            - "cargar un archivo de importación por lotes"
+            - "iniciar un trabajo de importación de datos"
+          pt-BR:
+            - "carregar um arquivo de importação em lote"
+            - "iniciar um trabalho de importação de dados"
+          ja:
+            - "一括データインポートファイルをアップロード"
+            - "バッチのデータ取り込みを開始"
+            - "データ一括登録を実行"
+          nb:
+            - "last opp en fil for masseimport av data"
+            - "start en jobb for masseimport"
+          ms:
+            - "muat naik fail import data secara pukal"
+            - "mulakan kerja import data berkelompok"
+      - label: "data_import/action"
+        description: "Allows you to approve or reject a data import event"
+        operationId: "action"
+        type: "UPDATE"
+      - label: "data_import/get_import"
+        description: "Allows you to retrieve a data import response"
+        operationId: "getImport"
+        type: "READ"
+        prompts:
+          en:
+            - "status of a bulk data import job"
+            - "check whether the nightly import finished"
+            - "import job result and error count"
+            - "show me the status of this particular bulk data import job"
+          es:
+            - "estado del proceso de importación de datos"
+            - "verificar si la importación nocturna terminó"
+            - "resultado del trabajo de importación y errores"
+          pt-BR:
+            - "status do processo de importação de dados"
+            - "verificar se a importação noturna terminou"
+            - "resultado do trabalho de importação e erros"
+          ja:
+            - "一括データインポートの状況"
+            - "夜間インポートが完了したか確認"
+            - "インポートの結果とエラー件数"
+          nb:
+            - "status for en masseimportjobb"
+            - "sjekk om den nattlige importen ble fullført"
+            - "resultat og feilantall for importjobb"
+          ms:
+            - "status kerja import data pukal"
+            - "semak sama ada import waktu malam selesai"
+            - "keputusan dan bilangan ralat kerja import"
 
 # Disabled: DB backup trigger/download. Also in top-level exclude — commenting out removes from the index.
 #  - id: "database_backup"
@@ -1076,6 +1712,31 @@ apis:
         description: "Search deposit account balance summary"
         operationId: "search"
         type: "READ"
+        prompts:
+          en:
+            - "search deposit account balance summaries"
+            - "find balance summary totals across deposits"
+            - "query aggregated deposit balances by criteria"
+          es:
+            - "buscar resúmenes de saldo de cuentas de depósito"
+            - "encontrar totales de resumen de saldos de depósitos"
+            - "consultar saldos agregados de depósitos por criterios"
+          pt-BR:
+            - "buscar resumos de saldo de contas de depósito"
+            - "encontrar totais de resumo de saldos de depósitos"
+            - "consultar saldos agregados de depósitos por critérios"
+          ja:
+            - "預金口座の残高サマリーを検索する"
+            - "預金の残高サマリーの合計を探す"
+            - "条件で預金の集計残高を照会する"
+          nb:
+            - "søk i saldooversikter for innskuddskontoer"
+            - "finn totaler for innskuddssaldoer"
+            - "spør etter aggregerte innskuddssaldoer"
+          ms:
+            - "cari ringkasan baki akaun deposit"
+            - "cari jumlah ringkasan baki deposit"
+            - "tanya baki deposit teragregat mengikut kriteria"
       - label: "deposits_balance_summary/list"
         description: "Get balance summary for the deposit account"
         operationId: "getAll"
@@ -1090,6 +1751,22 @@ apis:
             - "resumen de saldo de una cuenta de depósito"
             - "totales y promedios de saldo de la cuenta de depósito"
             - "vista agregada del saldo del depósito"
+          pt-BR:
+            - "resumo de saldo de uma conta de depósito"
+            - "totais e médias de saldo da conta de depósito"
+            - "visão agregada do saldo do depósito"
+          ja:
+            - "預金口座の残高サマリー"
+            - "預金残高の合計と平均"
+            - "口座残高の集計ビュー"
+          nb:
+            - "saldooversikt for en innskuddskonto"
+            - "totaler og gjennomsnitt for innskuddssaldo"
+            - "aggregert saldovisning"
+          ms:
+            - "ringkasan baki untuk akaun deposit"
+            - "jumlah dan purata baki akaun deposit"
+            - "paparan baki teragregat deposit"
   - id: "deposits_download"
     name: "Deposits – Download"
     specLocation: "json/deposits_download_v2_swagger.json"
@@ -1150,6 +1827,28 @@ apis:
             - "últimos movimientos de la cuenta"
             - "historial de transacciones del depósito"
             - "buscar depósitos y retiros recientes"
+          pt-BR:
+            - "buscar transações de depósito"
+            - "saques de hoje"
+            - "depósitos recentes"
+            - "últimos movimentos da conta"
+            - "histórico de transações do depósito"
+            - "buscar depósitos e saques recentes"
+          ja:
+            - "預金取引を検索"
+            - "口座の入出金を表示"
+            - "預金の取引履歴を照会"
+            - "最近の入出金を検索"
+          nb:
+            - "finn nylige innskuddstransaksjoner"
+            - "vis innskudd og uttak på en konto"
+            - "innskuddstransaksjonshistorikk"
+            - "uttak i dag"
+          ms:
+            - "papar deposit dan pengeluaran pada akaun"
+            - "sejarah transaksi deposit"
+            - "cari transaksi deposit terkini"
+            - "pengeluaran hari ini"
       - label: "deposits_transactions/make_deposit"
         description: "Create deposit transaction"
         operationId: "makeDeposit"
@@ -1176,6 +1875,22 @@ apis:
             - "listar movimientos de la cuenta"
             - "actividad reciente de depósitos y retiros"
             - "todos los movimientos del depósito"
+          pt-BR:
+            - "listar movimentos da conta"
+            - "atividade recente de depósitos e saques"
+            - "todos os movimentos do depósito"
+          ja:
+            - "預金取引の一覧"
+            - "すべての入出金"
+            - "最近の口座活動"
+          nb:
+            - "list innskuddstransaksjoner"
+            - "alle innskudd og uttak"
+            - "nylig kontoaktivitet"
+          ms:
+            - "senarai transaksi deposit"
+            - "semua deposit dan pengeluaran"
+            - "aktiviti akaun terkini"
       - label: "deposits_transactions/make_deposit_async"
         description: "Create deposit transaction"
         operationId: "makeDepositAsync"
@@ -1243,6 +1958,21 @@ apis:
           es:
             - "detalles de la cuenta de depósito"
             - "información de la cuenta de ahorros"
+          pt-BR:
+            - "detalhes da conta de depósito"
+            - "informações da conta poupança"
+          ja:
+            - "預金口座の詳細"
+            - "普通預金口座の情報"
+            - "現在の預金残高の詳細"
+          nb:
+            - "detaljer om innskuddskonto"
+            - "informasjon om sparekonto"
+            - "gjeldende sparekontosaldo"
+          ms:
+            - "butiran akaun deposit"
+            - "maklumat akaun simpanan"
+            - "butiran baki akaun simpanan semasa"
       - label: "deposits/patch"
         description: "Partially update deposit account"
         operationId: "patch"
@@ -1271,6 +2001,24 @@ apis:
             - "retenciones de autorización pendientes en la cuenta de depósito"
             - "registros de bloqueo aplicados a la cuenta"
             - "fondos actualmente retenidos en la cuenta"
+          pt-BR:
+            - "retenções de autorização"
+            - "registros de retenção"
+            - "retenções de autorização pendentes na conta de depósito"
+            - "registros de bloqueio aplicados à conta"
+            - "fundos atualmente retidos na conta"
+          ja:
+            - "預金口座のオーソリ保留"
+            - "保留記録の一覧"
+            - "口座にかかっている保留資金"
+          nb:
+            - "ventende autorisasjonssperrer på en innskuddskonto"
+            - "sperreoppføringer på kontoen"
+            - "midler som holdes på kontoen"
+          ms:
+            - "tahanan kebenaran tertunggak pada akaun deposit"
+            - "rekod tahanan pada akaun"
+            - "dana yang ditahan pada akaun"
       - label: "deposits/create_authorization_hold"
         description: "Create an authorization hold corresponding to a given account"
         operationId: "createAuthorizationHold"
@@ -1287,14 +2035,89 @@ apis:
         description: "Get all block funds for a deposit account"
         operationId: "getAllBlocks"
         type: "READ"
+        prompts:
+          en:
+            - "fund blocks on a savings account"
+            - "list blocked funds on a deposit"
+            - "active fund holds blocking the balance"
+          es:
+            - "fondos bloqueados en una cuenta de depósito"
+            - "listar los bloqueos de fondos de la cuenta"
+            - "retenciones de fondos activas en el ahorro"
+          pt-BR:
+            - "fundos bloqueados em uma conta de depósito"
+            - "listar os bloqueios de fundos da conta"
+            - "retenções de fundos ativas na poupança"
+          ja:
+            - "普通預金の資金ブロック一覧"
+            - "預金のブロック資金を表示"
+            - "残高を拘束している資金ブロック"
+          nb:
+            - "middelblokkeringer på en sparekonto"
+            - "list blokkerte midler på et innskudd"
+            - "aktive blokkeringer som binder saldoen"
+          ms:
+            - "sekatan dana pada akaun simpanan"
+            - "senarai dana yang disekat pada deposit"
+            - "sekatan aktif yang mengikat baki"
       - label: "deposits/create_block_fund"
         description: "Create a block fund for the account"
         operationId: "createBlockFund"
         type: "CREATE"
+        prompts:
+          en:
+            - "block funds on a deposit account"
+            - "freeze a portion of the account balance"
+            - "place a fund block on a savings account"
+          es:
+            - "bloquear fondos en una cuenta de depósito"
+            - "congelar parte del saldo de la cuenta"
+            - "poner un bloqueo de fondos en la cuenta de ahorro"
+          pt-BR:
+            - "bloquear fundos em uma conta de depósito"
+            - "congelar parte do saldo da conta"
+            - "colocar um bloqueio de fundos na poupança"
+          ja:
+            - "預金口座の資金をブロックする"
+            - "口座残高の一部を凍結する"
+            - "普通預金に資金ブロックをかける"
+          nb:
+            - "blokker midler på en innskuddskonto"
+            - "frys en del av kontosaldoen"
+            - "legg en middelblokkering på sparekontoen"
+          ms:
+            - "sekat dana pada akaun deposit"
+            - "bekukan sebahagian baki akaun"
+            - "letak sekatan dana pada akaun simpanan"
       - label: "deposits/unblock_fund"
         description: "Unblock a previously blocked fund for a deposit account"
         operationId: "unblockFund"
         type: "UPDATE"
+        prompts:
+          en:
+            - "unblock previously blocked funds on a deposit account"
+            - "release a fund block"
+            - "lift a hold on frozen account funds"
+          es:
+            - "desbloquear fondos previamente bloqueados en una cuenta de depósito"
+            - "liberar un bloqueo de fondos"
+            - "quitar el bloqueo de fondos de la cuenta"
+          pt-BR:
+            - "desbloquear fundos previamente bloqueados em uma conta de depósito"
+            - "liberar um bloqueio de fundos"
+            - "remover o bloqueio de fundos da conta"
+          ja:
+            - "預金口座のブロックされた資金を解除する"
+            - "口座の資金ブロックを解除する"
+            - "凍結した口座資金を開放する"
+          nb:
+            - "frigi tidligere blokkerte midler på en innskuddskonto"
+            - "opphev en middelblokkering"
+            - "løs opp blokkerte kontomidler"
+          ms:
+            - "nyahsekat dana yang disekat sebelum ini"
+            - "lepaskan sekatan dana pada akaun deposit"
+            - "buka semula dana akaun yang dibekukan"
       - label: "deposits/patch_block_fund"
         description: "Updates the amount of an existing blocked fund on a deposit account. If the new amount equals the seized amount the block fund will transition to a seized state."
         operationId: "patchBlockFund"
@@ -1365,6 +2188,22 @@ apis:
             - "historial de retención de impuestos de una cuenta de depósito"
             - "registros de retención fiscal aplicados al depósito"
             - "retenciones fiscales históricas de la cuenta de depósito"
+          pt-BR:
+            - "histórico de retenção de impostos de uma conta de depósito"
+            - "registros de retenção fiscal aplicados ao depósito"
+            - "retenções fiscais históricas da conta de depósito"
+          ja:
+            - "預金口座の源泉徴収税の履歴"
+            - "預金に適用された税の控除記録"
+            - "口座の税源泉徴収の履歴"
+          nb:
+            - "historikk for kildeskatt på en innskuddskonto"
+            - "registreringer av skatt trukket på innskudd"
+            - "kontoens historiske skattetrekk"
+          ms:
+            - "sejarah cukai pegangan pada akaun deposit"
+            - "rekod cukai yang dipotong pada deposit"
+            - "sejarah potongan cukai akaun"
       - label: "deposits/apply_interest"
         description: "Represents information to apply accrued interest."
         operationId: "applyInterest"
@@ -1373,6 +2212,31 @@ apis:
         description: "Change deposit account interest rate"
         operationId: "changeInterestRate"
         type: "UPDATE"
+        prompts:
+          en:
+            - "change the interest rate on a deposit account"
+            - "update the savings account rate"
+            - "adjust the deposit interest rate"
+          es:
+            - "cambiar la tasa de interés de una cuenta de depósito"
+            - "actualizar la tasa de la cuenta de ahorro"
+            - "modificar el interés del depósito"
+          pt-BR:
+            - "alterar a taxa de juros de uma conta de depósito"
+            - "atualizar a taxa da conta poupança"
+            - "modificar os juros do depósito"
+          ja:
+            - "預金口座の金利を変更する"
+            - "普通預金の利率を更新する"
+            - "預金の金利を調整する"
+          nb:
+            - "endre rentesatsen på en innskuddskonto"
+            - "oppdater renten på sparekontoen"
+            - "juster innskuddsrenten"
+          ms:
+            - "tukar kadar faedah pada akaun deposit"
+            - "kemas kini kadar akaun simpanan"
+            - "laraskan kadar faedah deposit"
       - label: "deposits/change_state"
         description: "Represents the information to post an action, such as approving a deposit account."
         operationId: "changeState"
@@ -1411,6 +2275,22 @@ apis:
             - "consultar saldo de la cuenta"
             - "cuánto dinero tiene la cuenta"
             - "saldo disponible del depósito"
+          pt-BR:
+            - "consultar saldo da conta"
+            - "quanto dinheiro a conta tem"
+            - "saldo disponível do depósito"
+          ja:
+            - "口座残高を確認"
+            - "口座にいくらあるか"
+            - "現在の預金残高を表示"
+          nb:
+            - "sjekk kontosaldo"
+            - "hvor mye penger står på kontoen"
+            - "gjeldende innskuddssaldo"
+          ms:
+            - "semak baki akaun"
+            - "berapa banyak wang dalam akaun"
+            - "baki deposit semasa"
       - label: "deposits/search"
         description: "Search deposit accounts"
         operationId: "search"
@@ -1441,6 +2321,22 @@ apis:
             - "documentos del cliente"
             - "documentos adjuntos al cliente"
             - "PDF firmado del contrato de préstamo"
+          pt-BR:
+            - "documentos do cliente"
+            - "documentos anexados ao cliente"
+            - "PDF assinado do contrato de empréstimo"
+          ja:
+            - "このエンティティに添付された書類"
+            - "ローンに紐づく書類の一覧"
+            - "エンティティの書類を検索"
+          nb:
+            - "list dokumenter knyttet til dette lånet"
+            - "dokumenter vedlagt denne kunden"
+            - "finn dokumenter for denne enheten"
+          ms:
+            - "senarai dokumen yang dilampirkan pada pinjaman ini"
+            - "dokumen yang dilampirkan pada pelanggan ini"
+            - "cari dokumen untuk entiti ini"
       - label: "documents/delete_document_by_id"
         description: "Delete document"
         operationId: "deleteDocumentById"
@@ -1464,6 +2360,24 @@ apis:
             - "obtener el archivo binario de un documento almacenado"
             - "descargar el PDF adjunto de este registro"
             - "obtener un archivo de documento por su identificador"
+          pt-BR:
+            - "baixar documento"
+            - "baixar o PDF assinado do contrato de empréstimo"
+            - "obter o arquivo binário de um documento armazenado"
+            - "baixar o PDF anexado deste registro"
+            - "obter um arquivo de documento pelo seu identificador"
+          ja:
+            - "保存された書類のファイルを取得"
+            - "IDでドキュメントファイルを取得"
+            - "ドキュメントをダウンロードして保存"
+          nb:
+            - "hent binærfilen til et lagret dokument"
+            - "last ned PDF-vedlegget for denne oppføringen"
+            - "hent en dokumentfil etter ID"
+          ms:
+            - "dapatkan fail binari dokumen tersimpan"
+            - "muat turun lampiran PDF untuk rekod ini"
+            - "dapatkan fail dokumen mengikut ID"
   - id: "extension_points"
     name: "Extension Points"
     specLocation: "json/extensionpoints_v2_swagger.json"
@@ -1475,6 +2389,31 @@ apis:
         description: "Get all extension points"
         operationId: "getAll"
         type: "READ"
+        prompts:
+          en:
+            - "list available extension points"
+            - "show configured extension points"
+            - "view the system's extension points"
+          es:
+            - "listar los puntos de extensión disponibles"
+            - "mostrar los puntos de extensión configurados"
+            - "ver los puntos de extensión del sistema"
+          pt-BR:
+            - "listar os pontos de extensão disponíveis"
+            - "mostrar os pontos de extensão configurados"
+            - "ver os pontos de extensão do sistema"
+          ja:
+            - "利用可能な拡張ポイントの一覧"
+            - "設定済みの拡張ポイントを表示"
+            - "システムの拡張ポイントを見る"
+          nb:
+            - "list tilgjengelige utvidelsespunkter"
+            - "vis konfigurerte utvidelsespunkter"
+            - "se systemets utvidelsespunkter"
+          ms:
+            - "senarai titik sambungan yang tersedia"
+            - "papar titik sambungan yang dikonfigurasi"
+            - "lihat titik sambungan sistem"
       - label: "extension_points/get_process_definitions"
         description: "Get process definitions for extension point phases"
         operationId: "getProcessDefinitions"
@@ -1521,6 +2460,26 @@ apis:
             - "mostrar todas las cuentas contables que llevamos"
             - "nómina del plan de cuentas contable"
             - "catálogo completo de cuentas contables, todas las cuentas en una lista"
+          pt-BR:
+            - "contas contábeis"
+            - "listar contas contábeis"
+            - "listar contas do razão no plano de contas"
+            - "mostrar todas as contas contábeis que mantemos"
+            - "lista do plano de contas contábil"
+            - "catálogo completo de contas contábeis, todas as contas em uma lista"
+          ja:
+            - "勘定科目の一覧"
+            - "総勘定元帳の勘定科目"
+            - "勘定科目表を表示"
+            - "種類別に勘定科目を表示"
+          nb:
+            - "hovedbokskontoer"
+            - "kontoplanen i regnskapet"
+            - "vis alle kontoene vi fører"
+          ms:
+            - "akaun lejar am"
+            - "carta akaun dalam perakaunan"
+            - "papar semua akaun lejar"
       - label: "gl_accounts/create"
         description: "Create general ledger account"
         operationId: "create"
@@ -1532,6 +2491,18 @@ apis:
           es:
             - "agregar un nuevo registro contable"
             - "registrar un nuevo código contable"
+          pt-BR:
+            - "adicionar um novo registro contábil"
+            - "registrar um novo código contábil"
+          ja:
+            - "新しい勘定科目を登録する"
+            - "新規の会計コードを追加"
+          nb:
+            - "legg til en ny hovedbokskonto"
+            - "registrer en ny regnskapskode"
+          ms:
+            - "tambah rekod lejar baharu"
+            - "daftar kod perakaunan baharu"
       - label: "gl_accounts/get_by_id"
         description: "Get general ledger account"
         operationId: "getById"
@@ -1544,6 +2515,21 @@ apis:
           es:
             - "buscar por identificador"
             - "detalles de un registro por su id único"
+          pt-BR:
+            - "buscar por identificador"
+            - "detalhes de um registro pelo seu id único"
+          ja:
+            - "IDで勘定科目を照会"
+            - "特定の勘定科目の詳細"
+            - "1件の勘定科目レコードを取得"
+          nb:
+            - "slå opp etter identifikator"
+            - "detaljer om en bestemt konto etter id"
+            - "hent én konto etter id"
+          ms:
+            - "cari mengikut pengecam"
+            - "butiran rekod tertentu mengikut id"
+            - "dapatkan satu akaun mengikut id"
       - label: "gl_accounts/patch"
         description: "Partially update an existing general ledger account"
         operationId: "patch"
@@ -1572,6 +2558,25 @@ apis:
             - "listar asientos contables"
             - "todos los asientos del libro mayor"
             - "explorar asientos contables"
+          pt-BR:
+            - "lançamentos contábeis"
+            - "lançamentos do razão"
+            - "listar lançamentos contábeis"
+            - "todos os lançamentos do razão"
+            - "explorar lançamentos contábeis"
+          ja:
+            - "会計仕訳の一覧"
+            - "総勘定元帳の仕訳"
+            - "仕訳をすべて表示"
+            - "記帳済みの仕訳を閲覧"
+          nb:
+            - "bilag i hovedboken"
+            - "alle posteringer i regnskapet"
+            - "bla gjennom regnskapsbilag"
+          ms:
+            - "catatan jurnal lejar am"
+            - "semua catatan dalam lejar"
+            - "lihat catatan jurnal yang dipos"
       - label: "gl_journal_entries/create"
         description: "Create general ledger journal entries."
         operationId: "create"
@@ -1598,6 +2603,27 @@ apis:
             - "buscar asientos contables del libro mayor por criterios"
             - "encontrar asientos de contabilidad de un periodo"
             - "asientos del libro contable filtrados por fecha o cuenta"
+          pt-BR:
+            - "buscar lançamentos contábeis"
+            - "lançamentos contábeis filtrados por data"
+            - "lançamentos contábeis de uma conta específica"
+            - "buscar lançamentos do razão por critérios"
+            - "encontrar lançamentos de contabilidade de um período"
+            - "lançamentos do livro contábil filtrados por data ou conta"
+          ja:
+            - "会計仕訳を検索"
+            - "勘定科目に記帳された仕訳"
+            - "日付範囲で仕訳を絞り込む"
+            - "総勘定元帳の仕訳を条件で照会"
+          nb:
+            - "søk i regnskapsbilag"
+            - "posteringer bokført på en konto"
+            - "finn posteringer etter datointervall"
+            - "finn bilag filtrert på konto"
+          ms:
+            - "cari catatan jurnal perakaunan"
+            - "catatan yang dipos ke akaun lejar"
+            - "cari catatan mengikut julat tarikh"
   - id: "groups"
     name: "Groups"
     specLocation: "json/groups_v2_swagger.json"
@@ -1619,6 +2645,22 @@ apis:
             - "listar todos los grupos de clientes registrados"
             - "listados de grupos de crédito"
             - "explorar membresías de grupo"
+          pt-BR:
+            - "listar todos os grupos de clientes cadastrados"
+            - "listagens de grupos de crédito"
+            - "explorar associações de grupo"
+          ja:
+            - "顧客グループの一覧"
+            - "グループ貸付の名簿"
+            - "登録済みのグループを表示"
+          nb:
+            - "list alle kundegrupper"
+            - "oversikt over grupper for gruppelån"
+            - "vis alle registrerte grupper"
+          ms:
+            - "senarai semua kumpulan pelanggan"
+            - "daftar pinjaman kumpulan"
+            - "papar semua kumpulan berdaftar"
       - label: "groups/create"
         description: "Create group"
         operationId: "create"
@@ -1664,6 +2706,25 @@ apis:
             - "buscar un grupo de préstamo o afiliación por criterios"
             - "consultar el registro de grupos de clientes"
             - "localizar un grupo de clientes que cumpla un filtro"
+          pt-BR:
+            - "buscar grupos"
+            - "a qual grupo este cliente pertence"
+            - "quais grupos o cliente tem"
+            - "buscar um grupo de empréstimo ou afiliação por critérios"
+            - "consultar o cadastro de grupos de clientes"
+            - "localizar um grupo de clientes que atenda a um filtro"
+          ja:
+            - "顧客が属するグループを探す"
+            - "条件でグループを照会"
+            - "貸付グループを検索"
+          nb:
+            - "finn hvilken gruppe en kunde tilhører"
+            - "søk i gruppeoversikten"
+            - "finn en gruppe etter kriterier"
+          ms:
+            - "cari kumpulan mana pelanggan tergolong"
+            - "cari dalam pendaftaran kumpulan"
+            - "cari kumpulan mengikut kriteria"
   - id: "index_rate_sources"
     name: "Index Rate Sources"
     specLocation: "json/indexratesources_v2_swagger.json"
@@ -1671,10 +2732,35 @@ apis:
       apiKey: "${MAMBU_AUTH_API_KEY}"
       Accept: "application/vnd.mambu.v2+json"
     operations:
-      - label: "index_rate_sources/list_index_rate_sources"
+      - label: "index_rate_sources/list"
         description: "Get index rate sources"
         operationId: "getAllIndexRateSources"
         type: "READ"
+        prompts:
+          en:
+            - "configured interest rate sources"
+            - "reference rate sources we pull from"
+            - "list available index rate sources"
+          es:
+            - "orígenes de tasas de interés configurados"
+            - "fuentes de tasas de referencia disponibles"
+            - "listar las fuentes de índices de tasa"
+          pt-BR:
+            - "origens de taxas de juros configuradas"
+            - "fontes de taxas de referência disponíveis"
+            - "listar as fontes de índices de taxa"
+          ja:
+            - "金利ソースの設定一覧"
+            - "参照する基準金利のソース"
+            - "利用可能な指標金利ソースの一覧"
+          nb:
+            - "referanserentekilder vi henter fra"
+            - "tilgjengelige indeksrentekilder"
+            - "oppsatte kilder for rentesatser"
+          ms:
+            - "sumber kadar faedah yang ditetapkan"
+            - "sumber kadar rujukan yang digunakan"
+            - "senarai sumber kadar indeks tersedia"
       # Disabled: write op (admin-only rate-source CRUD).
       #- label: "index_rate_sources/create_index_rate_source"
       #  description: "Create index rate source"
@@ -1683,7 +2769,7 @@ apis:
       #- label: "index_rate_sources/delete_index_rate_source"
       #  description: "Delete index rate source"
       #  operationId: "deleteIndexRateSource"
-      - label: "index_rate_sources/get_index_rate_source_by_id"
+      - label: "index_rate_sources/get_by_id"
         description: "Get index rate sources"
         operationId: "getIndexRateSourceById"
         type: "READ"
@@ -1777,6 +2863,22 @@ apis:
             - "simular cronograma de pagos de préstamo antes de crear"
             - "previsualizar plan de cuotas de un préstamo hipotético"
             - "cálculo de amortización simulada"
+          pt-BR:
+            - "simular cronograma de pagamentos do empréstimo antes de criar"
+            - "pré-visualizar plano de parcelas de um empréstimo hipotético"
+            - "cálculo de amortização simulada"
+          ja:
+            - "契約前に返済スケジュールをシミュレート"
+            - "仮のローンの分割返済プランをプレビュー"
+            - "返済予定の試算"
+          nb:
+            - "simuler en nedbetalingsplan før booking"
+            - "forhåndsvis avdragsplan for et hypotetisk lån"
+            - "hva-hvis-beregning av amortisering"
+          ms:
+            - "simulasi jadual bayaran balik sebelum tempahan"
+            - "pratonton pelan ansuran untuk pinjaman andaian"
+            - "kiraan jadual amortisasi bagaimana-jika"
       - label: "loans_schedule/get_schedule_for_loan_account"
         description: "Get loan account schedule"
         operationId: "getScheduleForLoanAccount"
@@ -1796,6 +2898,24 @@ apis:
             - "cronograma de pagos del préstamo"
             - "cuotas pendientes del préstamo"
             - "fechas de pago del préstamo"
+          pt-BR:
+            - "cronograma"
+            - "cronograma do empréstimo"
+            - "cronograma de pagamentos do empréstimo"
+            - "parcelas pendentes do empréstimo"
+            - "datas de pagamento do empréstimo"
+          ja:
+            - "ローンの返済予定表"
+            - "毎月の返済予定を表示"
+            - "次回以降の返済予定を確認"
+          nb:
+            - "lånets avdragsplan"
+            - "kommende avdrag på lånet"
+            - "når forfaller lånebetalingene"
+          ms:
+            - "jadual bayaran balik pinjaman"
+            - "ansuran pinjaman akan datang"
+            - "bila bayaran pinjaman perlu dijelaskan"
       - label: "loans_schedule/edit_schedule"
         description: "Update loan account schedule"
         operationId: "editSchedule"
@@ -1807,6 +2927,18 @@ apis:
           es:
             - "modificar un plan de cuotas existente"
             - "reescribir un plan ya creado"
+          pt-BR:
+            - "modificar um plano de parcelas existente"
+            - "reescrever um plano já criado"
+          ja:
+            - "既存の分割返済プランを変更"
+            - "確定済みの返済予定を修正"
+          nb:
+            - "endre en eksisterende avdragsplan"
+            - "skriv om den bookede planen"
+          ms:
+            - "ubah pelan ansuran sedia ada"
+            - "tulis semula pelan yang ditempah"
       - label: "loans_schedule/preview_process_pmt_transactionally"
         description: "Preview loan account schedule using transactional processing for PMT."
         operationId: "previewProcessPMTTransactionally"
@@ -1850,6 +2982,22 @@ apis:
             - "exportación masiva de transacciones de préstamo como archivo binario"
             - "descargar registros de transacciones de préstamo en flujo octet-stream"
             - "endpoint de exportación en archivo para datos de transacciones de préstamo"
+          pt-BR:
+            - "exportação em massa de transações de empréstimo como arquivo binário"
+            - "baixar registros de transações de empréstimo em fluxo octet-stream"
+            - "endpoint de exportação em arquivo para dados de transações de empréstimo"
+          ja:
+            - "ローン取引をファイルで一括エクスポート"
+            - "オフライン処理用にローン取引をバイナリで取得"
+            - "ローン取引データのファイル出力"
+          nb:
+            - "bulk-fileksport av lånetransaksjoner som binærstrøm"
+            - "last ned lånetransaksjoner som octet-stream"
+            - "fileksport av lånetransaksjonsdata"
+          ms:
+            - "eksport fail pukal transaksi pinjaman sebagai strim binari"
+            - "muat turun rekod transaksi pinjaman sebagai octet-stream"
+            - "eksport data transaksi pinjaman berasaskan fail"
   - id: "loans_transactions"
     name: "Loan Transactions"
     specLocation: "json/loans_transactions_v2_swagger.json"
@@ -1868,6 +3016,18 @@ apis:
           es:
             - "consulta de una transacción de préstamo específica por su identificador"
             - "obtener una transacción de préstamo particular por ID"
+          pt-BR:
+            - "consulta de uma transação de empréstimo específica pelo seu identificador"
+            - "obter uma transação de empréstimo específica por ID"
+          ja:
+            - "IDで特定のローン取引を照会"
+            - "1件のローン取引明細を取得"
+          nb:
+            - "slå opp en bestemt lånetransaksjon etter id"
+            - "hent én lånetransaksjonsoppføring"
+          ms:
+            - "cari satu transaksi pinjaman tertentu mengikut id"
+            - "dapatkan satu catatan transaksi pinjaman"
       - label: "loans_transactions/adjust"
         description: "Adjust loan transaction"
         operationId: "adjust"
@@ -1895,6 +3055,28 @@ apis:
             - "buscar pagos y desembolsos en un préstamo"
             - "auditar movimientos del préstamo en un rango de fechas"
             - "consultar cuotas específicas del préstamo con filtros"
+          pt-BR:
+            - "buscar transações do empréstimo"
+            - "histórico de estornos"
+            - "filtrar transações do empréstimo por intervalo de datas"
+            - "buscar pagamentos e desembolsos em um empréstimo"
+            - "auditar movimentos do empréstimo em um intervalo de datas"
+            - "consultar parcelas específicas do empréstimo com filtros"
+          ja:
+            - "ローン取引を検索"
+            - "ローン取引の取消履歴"
+            - "日付範囲でローン取引を絞り込む"
+            - "ローンの返済・実行履歴を照会"
+          nb:
+            - "historikk for tilbakeførte lånetransaksjoner"
+            - "filtrer lånetransaksjoner på datointervall"
+            - "finn transaksjoner for dette lånet siste 90 dager"
+            - "revider låneposteringer over et tidsrom"
+          ms:
+            - "sejarah pembalikan transaksi pinjaman"
+            - "tapis transaksi pinjaman mengikut julat tarikh"
+            - "cari transaksi untuk pinjaman ini dalam 90 hari"
+            - "audit catatan pinjaman sepanjang tempoh"
       - label: "loans_transactions/make_disbursement"
         description: "Make a disbursement on a loan"
         operationId: "makeDisbursement"
@@ -1915,6 +3097,31 @@ apis:
         description: "Make non-scheduled principal overpayment transaction on loan account"
         operationId: "makePrincipalOverpayment"
         type: "CREATE"
+        prompts:
+          en:
+            - "make an extra payment toward loan principal"
+            - "apply a principal overpayment"
+            - "pay down the loan principal early"
+          es:
+            - "aplicar un abono anticipado a capital"
+            - "amortizar capital del préstamo por adelantado"
+            - "pago adicional al capital del préstamo"
+          pt-BR:
+            - "aplicar uma amortização antecipada ao principal"
+            - "abater o principal do empréstimo adiantado"
+            - "pagamento adicional ao principal do empréstimo"
+          ja:
+            - "ローン元本に追加で支払う"
+            - "元本の繰上返済を行う"
+            - "ローンの元本を早期に返済"
+          nb:
+            - "betal ned ekstra på hovedstolen"
+            - "innbetaling utenom avdragsplanen på hovedstol"
+            - "nedbetal lånets hovedstol tidlig"
+          ms:
+            - "bayar lebih ke atas pokok pinjaman"
+            - "kenakan bayaran lebih pokok"
+            - "kurangkan pokok pinjaman lebih awal"
       - label: "loans_transactions/make_redraw_repayment"
         description: "Make a redraw repayment transaction on a loan"
         operationId: "makeRedrawRepayment"
@@ -1927,6 +3134,31 @@ apis:
         description: "Make repayment transaction on loan account"
         operationId: "makeRepayment"
         type: "CREATE"
+        prompts:
+          en:
+            - "record a loan repayment"
+            - "post a payment on a loan"
+            - "apply an installment payment"
+          es:
+            - "registrar un pago de préstamo"
+            - "aplicar un pago de cuota"
+            - "abonar a un préstamo"
+          pt-BR:
+            - "registrar um pagamento de empréstimo"
+            - "aplicar um pagamento de parcela"
+            - "quitar uma parcela do empréstimo"
+          ja:
+            - "ローンの返済を記録する"
+            - "ローンに返済を計上"
+            - "分割返済を適用"
+          nb:
+            - "registrer en låneinnbetaling"
+            - "bokfør en betaling på et lån"
+            - "før et avdrag på lånet"
+          ms:
+            - "rekod bayaran balik pinjaman"
+            - "catat bayaran pada pinjaman"
+            - "kenakan bayaran ansuran"
       - label: "loans_transactions/list"
         description: "Get loan transactions"
         operationId: "getAll"
@@ -1950,6 +3182,26 @@ apis:
             - "listar todas las transacciones de préstamo de la cartera"
             - "cada transacción en las cuentas de préstamo"
             - "explorar historial de movimientos de préstamos"
+          pt-BR:
+            - "transações do empréstimo"
+            - "transações de empréstimo"
+            - "listar transações de empréstimo"
+            - "histórico de transações do empréstimo"
+            - "listar todas as transações de empréstimo da carteira"
+            - "cada transação nas contas de empréstimo"
+            - "explorar histórico de movimentos de empréstimos"
+          ja:
+            - "ローン取引の一覧"
+            - "ローンの取引履歴"
+            - "ポートフォリオ全体のローン取引"
+          nb:
+            - "lånets transaksjonshistorikk"
+            - "alle transaksjoner på et lån"
+            - "bla gjennom lånebevegelser"
+          ms:
+            - "sejarah transaksi pinjaman"
+            - "semua transaksi pada pinjaman"
+            - "lihat pergerakan pinjaman"
       - label: "loans_transactions/get_transactions_for_all_versions"
         description: "Get loan transactions for all loan account versions"
         operationId: "getTransactionsForAllVersions"
@@ -1988,6 +3240,23 @@ apis:
             - "todos los préstamos de un cliente"
             - "cartera de préstamos del cliente"
             - "cartera institucional completa de préstamos abiertos para revisión o auditoría regulatoria"
+          pt-BR:
+            - "listar empréstimos do cliente"
+            - "todos os empréstimos de um cliente"
+            - "carteira de empréstimos do cliente"
+            - "carteira institucional completa de empréstimos abertos para revisão ou auditoria regulatória"
+          ja:
+            - "すべてのローンを一覧"
+            - "顧客が保有するローン"
+            - "ローン口座の一覧"
+          nb:
+            - "list alle lån"
+            - "lån som en kunde har"
+            - "en låntakers lånekontoer"
+          ms:
+            - "senarai semua pinjaman"
+            - "pinjaman yang dipegang pelanggan"
+            - "akaun pinjaman peminjam"
       - label: "loans/create"
         description: "Create loan account"
         operationId: "create"
@@ -2004,6 +3273,31 @@ apis:
         description: "Get loan account"
         operationId: "getById"
         type: "READ"
+        prompts:
+          en:
+            - "get a loan account by its identifier"
+            - "retrieve a single loan account by ID"
+            - "look up one specific loan account"
+          es:
+            - "obtener una cuenta de préstamo por su identificador"
+            - "recuperar una cuenta de préstamo por ID"
+            - "buscar una cuenta de préstamo específica"
+          pt-BR:
+            - "obter uma conta de empréstimo pelo identificador"
+            - "recuperar uma conta de empréstimo por ID"
+            - "buscar uma conta de empréstimo específica"
+          ja:
+            - "IDでローン口座を取得する"
+            - "IDで単一のローン口座を照会する"
+            - "特定のローン口座を取得する"
+          nb:
+            - "hent en lånekonto etter id"
+            - "hent én lånekonto etter ID"
+            - "slå opp en bestemt lånekonto"
+          ms:
+            - "dapatkan akaun pinjaman mengikut pengecam"
+            - "dapatkan satu akaun pinjaman mengikut ID"
+            - "cari satu akaun pinjaman tertentu"
       - label: "loans/patch"
         description: "Partially update loan account"
         operationId: "patch"
@@ -2024,6 +3318,21 @@ apis:
           es:
             - "retenciones de autorización del préstamo"
             - "registros de retención en el préstamo"
+          pt-BR:
+            - "retenções de autorização do empréstimo"
+            - "registros de retenção no empréstimo"
+          ja:
+            - "ローンのオーソリ保留"
+            - "ローン口座の保留記録"
+            - "ローンの保留一覧"
+          nb:
+            - "autorisasjonssperrer på et lån"
+            - "sperreoppføringer på en lånekonto"
+            - "list lånets autorisasjonssperrer"
+          ms:
+            - "tahanan kebenaran pada pinjaman"
+            - "rekod tahanan pada akaun pinjaman"
+            - "senarai tahanan kebenaran pinjaman"
       - label: "loans/get_balances_by_loan_account_id"
         description: "Get loan account balances"
         operationId: "getBalancesByLoanAccountId"
@@ -2042,6 +3351,25 @@ apis:
             - "cuánto debe el cliente en su préstamo"
             - "saldo completo del préstamo del deudor"
             - "deuda actual del préstamo"
+          pt-BR:
+            - "saldo do empréstimo"
+            - "saldo devedor do empréstimo"
+            - "quanto o cliente deve no empréstimo"
+            - "quanto o cliente deve no empréstimo dele"
+            - "saldo completo do empréstimo do devedor"
+            - "dívida atual do empréstimo"
+          ja:
+            - "ローンの未返済残高"
+            - "ローンであといくら残っているか確認"
+            - "ローンの現在の借入残高"
+          nb:
+            - "utestående lånesaldo"
+            - "hvor mye skyldes på lånet"
+            - "lånets restgjeld"
+          ms:
+            - "baki tertunggak pinjaman"
+            - "berapa yang masih terhutang pada pinjaman"
+            - "baki pinjaman semasa"
       - label: "loans/apply_balance_interest"
         description: "Apply interest on a loan account balance"
         operationId: "applyBalanceInterest"
@@ -2066,6 +3394,31 @@ apis:
         description: "Create funding sources for a loan account"
         operationId: "createLoanAccountFundingSources"
         type: "CREATE"
+        prompts:
+          en:
+            - "add a funding source to a loan account"
+            - "register where a loan is funded from"
+            - "attach a funding source to a loan"
+          es:
+            - "agregar una fuente de fondeo a una cuenta de préstamo"
+            - "registrar de dónde se fondea un préstamo"
+            - "asociar una fuente de financiación al préstamo"
+          pt-BR:
+            - "adicionar uma fonte de recursos a uma conta de empréstimo"
+            - "registrar de onde o empréstimo é financiado"
+            - "associar uma fonte de financiamento ao empréstimo"
+          ja:
+            - "ローン口座に資金源を追加する"
+            - "ローンの資金調達元を登録する"
+            - "融資の資金源を紐づける"
+          nb:
+            - "legg til en finansieringskilde på en lånekonto"
+            - "registrer hvor et lån finansieres fra"
+            - "knytt en finansieringskilde til lånet"
+          ms:
+            - "tambah sumber dana ke akaun pinjaman"
+            - "daftar dari mana pinjaman dibiayai"
+            - "kaitkan sumber pembiayaan dengan pinjaman"
       - label: "loans/update_loan_account_funding_sources"
         description: "Update loan account funding sources"
         operationId: "updateLoanAccountFundingSources"
@@ -2099,6 +3452,25 @@ apis:
             - "comisiones planificadas de una cuenta de préstamo"
             - "cargos de comisión próximos de un préstamo"
             - "listar comisiones preprogramadas del préstamo"
+          pt-BR:
+            - "comissões planejadas"
+            - "listar comissões planejadas"
+            - "tarifas futuras"
+            - "comissões planejadas de uma conta de empréstimo"
+            - "cobranças de tarifa futuras de um empréstimo"
+            - "listar tarifas pré-programadas do empréstimo"
+          ja:
+            - "計上予定の手数料"
+            - "ローンに予定された手数料の一覧"
+            - "今後の手数料請求"
+          nb:
+            - "kommende gebyrer på en lånekonto"
+            - "forhåndsplanlagte lånegebyrer"
+            - "gebyrer satt opp på lånet"
+          ms:
+            - "yuran akan datang pada akaun pinjaman"
+            - "yuran pinjaman yang dipra-jadual"
+            - "caj yuran beratur pada pinjaman"
       - label: "loans/create_planned_fees"
         description: "Create planned fees"
         operationId: "createPlannedFees"
@@ -2110,6 +3482,18 @@ apis:
           es:
             - "agregar nuevas comisiones"
             - "registrar una nueva comisión en un préstamo"
+          pt-BR:
+            - "adicionar novas tarifas"
+            - "registrar uma nova tarifa em um empréstimo"
+          ja:
+            - "新しい予定手数料を追加"
+            - "ローンに手数料を登録"
+          nb:
+            - "legg til nye planlagte gebyrer"
+            - "registrer et nytt gebyr på et lån"
+          ms:
+            - "tambah catatan yuran dirancang baharu"
+            - "daftar yuran baharu pada pinjaman"
       - label: "loans/update_planned_fees"
         description: "Update planned fees"
         operationId: "updatePlannedFees"
@@ -2121,6 +3505,18 @@ apis:
           es:
             - "modificar montos o fechas existentes"
             - "cambiar los valores configurados"
+          pt-BR:
+            - "modificar valores ou datas existentes"
+            - "alterar os valores configurados"
+          ja:
+            - "既存の手数料の金額や日付を変更"
+            - "設定済みの手数料の値を修正"
+          nb:
+            - "endre beløp eller datoer på et eksisterende gebyr"
+            - "endre konfigurerte gebyrverdier"
+          ms:
+            - "ubah amaun atau tarikh yuran sedia ada"
+            - "tukar nilai yuran yang dikonfigurasi"
       - label: "loans/delete_planned_fees"
         description: "Delete planned fee"
         operationId: "deletePlannedFees"
@@ -2132,6 +3528,18 @@ apis:
           es:
             - "eliminar un registro existente"
             - "borrar una configuración"
+          pt-BR:
+            - "excluir um registro existente"
+            - "apagar uma configuração"
+          ja:
+            - "既存の手数料レコードを削除"
+            - "設定済みの手数料を削除"
+          nb:
+            - "fjern en eksisterende gebyroppføring"
+            - "slett et konfigurert gebyr"
+          ms:
+            - "buang rekod yuran sedia ada"
+            - "padam yuran yang dikonfigurasi"
       - label: "loans/apply_planned_fees"
         description: "ApplY planned fees from the past installments, as backdated or from future installments, on the first pending installment"
         operationId: "applyPlannedFees"
@@ -2154,6 +3562,22 @@ apis:
             - "descargar estado de cuenta del préstamo en PDF"
             - "generar documento contractual del préstamo en PDF"
             - "obtener el PDF del expediente del préstamo"
+          pt-BR:
+            - "baixar extrato do empréstimo em PDF"
+            - "gerar documento contratual do empréstimo em PDF"
+            - "obter o PDF do processo do empréstimo"
+          ja:
+            - "ローン口座の明細をPDFでダウンロード"
+            - "ローン契約書のPDFを生成"
+            - "ローン書類をPDFで取得"
+          nb:
+            - "last ned lånekontoutskriften som PDF"
+            - "generer låneavtale som PDF-dokument"
+            - "hent lånepapirer som PDF"
+          ms:
+            - "muat turun penyata akaun pinjaman dalam PDF"
+            - "jana dokumen kontrak pinjaman PDF"
+            - "dapatkan kertas kerja pinjaman sebagai PDF"
       - label: "loans/apply_interest"
         description: "Apply accrued interest"
         operationId: "applyInterest"
@@ -2208,10 +3632,51 @@ apis:
             - "cuánto debo pagar para cancelar el préstamo"
             - "monto total para saldar el préstamo"
             - "pago anticipado del préstamo"
+          pt-BR:
+            - "quanto devo pagar para quitar o empréstimo"
+            - "valor total para liquidar o empréstimo"
+            - "pagamento antecipado do empréstimo"
+          ja:
+            - "ローンを早期完済する金額"
+            - "ローンの完済額"
+            - "ローンを清算するための総額"
+          nb:
+            - "hvor mye for å innfri lånet tidlig"
+            - "lånets innfrielsesbeløp"
+            - "totalt skyldig for å gjøre opp lånet"
+          ms:
+            - "berapa untuk menyelesaikan pinjaman lebih awal"
+            - "amaun penyelesaian pinjaman"
+            - "jumlah perlu dibayar untuk menutup pinjaman"
       - label: "loans/refinance"
         description: "Refinance loan account"
         operationId: "refinance"
         type: "UPDATE"
+        prompts:
+          en:
+            - "refinance a loan account"
+            - "restructure a borrower's credit terms"
+            - "rework an existing loan's terms"
+          es:
+            - "refinanciar una cuenta de préstamo"
+            - "reestructurar las condiciones de crédito de un cliente"
+            - "rehacer las condiciones de un préstamo existente"
+          pt-BR:
+            - "refinanciar uma conta de empréstimo"
+            - "reestruturar as condições de crédito de um cliente"
+            - "refazer as condições de um empréstimo existente"
+          ja:
+            - "ローン口座を借り換える"
+            - "顧客の与信条件を再構築"
+            - "既存ローンの条件を組み替える"
+          nb:
+            - "refinansier en lånekonto"
+            - "restrukturer en låntakers kredittvilkår"
+            - "endre vilkårene på et eksisterende lån"
+          ms:
+            - "biaya semula akaun pinjaman"
+            - "struktur semula terma kredit peminjam"
+            - "ubah terma pinjaman sedia ada"
       - label: "loans/get_loan_account_rsv"
         description: "Get versioning records (RSV) for a loan"
         operationId: "getLoanAccountRSV"
@@ -2223,14 +3688,76 @@ apis:
           es:
             - "historial de versiones del préstamo"
             - "revisiones anteriores del registro del préstamo"
+          pt-BR:
+            - "histórico de versões do empréstimo"
+            - "revisões anteriores do registro do empréstimo"
+          ja:
+            - "ローンのバージョン管理レコード"
+            - "ローン設定の過去の改訂履歴"
+          nb:
+            - "versjonshistorikk for et lån"
+            - "tidligere revisjoner av låneoppsettet"
+          ms:
+            - "rekod versi untuk pinjaman"
+            - "semakan terdahulu persediaan pinjaman"
       - label: "loans/reschedule"
         description: "Reschedule loan account"
         operationId: "reschedule"
         type: "UPDATE"
+        prompts:
+          en:
+            - "reschedule a loan repayment plan"
+            - "restructure a delinquent loan's schedule"
+            - "rework the installment plan of a loan"
+          es:
+            - "reprogramar el plan de pagos de un préstamo"
+            - "reestructurar el cronograma de un préstamo en mora"
+            - "rehacer el plan de cuotas de un préstamo"
+          pt-BR:
+            - "reprogramar o plano de pagamentos de um empréstimo"
+            - "reestruturar o cronograma de um empréstimo em atraso"
+            - "refazer o plano de parcelas de um empréstimo"
+          ja:
+            - "ローンの返済計画をリスケジュール"
+            - "延滞ローンの返済予定を再編"
+            - "ローンの分割計画を組み替える"
+          nb:
+            - "legg om lånets nedbetalingsplan"
+            - "restrukturer avdragsplanen for et misligholdt lån"
+            - "endre avdragsplanen på et lån"
+          ms:
+            - "jadual semula pelan bayaran balik pinjaman"
+            - "struktur semula jadual pinjaman tertunggak"
+            - "ubah pelan ansuran pinjaman"
       - label: "loans/terminate_loan_account"
         description: "Terminate loan account"
         operationId: "terminateLoanAccount"
         type: "UPDATE"
+        prompts:
+          en:
+            - "terminate a loan account permanently"
+            - "permanently close out a loan account"
+            - "shut down a loan account for good"
+          es:
+            - "terminar una cuenta de préstamo de forma permanente"
+            - "cerrar definitivamente una cuenta de préstamo"
+            - "dar por finalizada una cuenta de préstamo"
+          pt-BR:
+            - "encerrar uma conta de empréstimo de forma permanente"
+            - "finalizar definitivamente uma conta de empréstimo"
+            - "terminar uma conta de empréstimo em definitivo"
+          ja:
+            - "ローン口座を恒久的に解約する"
+            - "ローン口座を完全に終了する"
+            - "融資口座を最終的に閉鎖する"
+          nb:
+            - "lukk en lånekonto permanent"
+            - "steng en lånekonto for godt"
+            - "terminer en lånekonto endelig"
+          ms:
+            - "tamatkan akaun pinjaman secara tetap"
+            - "tutup akaun pinjaman buat selamanya"
+            - "henti akaun pinjaman sepenuhnya"
       - label: "loans/undo_refinance"
         description: "Undo loan account refinance action"
         operationId: "undoRefinance"
@@ -2239,6 +3766,31 @@ apis:
         description: "Undo loan account reschedule action"
         operationId: "undoReschedule"
         type: "UPDATE"
+        prompts:
+          en:
+            - "undo a loan reschedule"
+            - "reverse a reschedule action"
+            - "roll back a rescheduling"
+          es:
+            - "deshacer una reprogramación de préstamo"
+            - "revertir una reprogramación"
+            - "anular un reagendamiento"
+          pt-BR:
+            - "desfazer uma reprogramação de empréstimo"
+            - "reverter uma reprogramação"
+            - "anular um reagendamento"
+          ja:
+            - "ローンのリスケジュールを取り消す"
+            - "リスケジュール操作を元に戻す"
+            - "リスケを撤回する"
+          nb:
+            - "angre en omlegging av lånet"
+            - "tilbakestill en reschedule-handling"
+            - "rull tilbake en omstrukturering"
+          ms:
+            - "buat asal penjadualan semula pinjaman"
+            - "balikkan tindakan penjadualan semula"
+            - "patah balik penstrukturan semula"
       - label: "loans/undo_write_off"
         description: "Undo write off for loan account"
         operationId: "undoWriteOff"
@@ -2251,6 +3803,31 @@ apis:
         description: "Write off loan account"
         operationId: "writeOff"
         type: "UPDATE"
+        prompts:
+          en:
+            - "write off a defaulted loan"
+            - "charge off an uncollectible loan"
+            - "record a loan loss"
+          es:
+            - "dar de baja un préstamo incobrable"
+            - "castigar un crédito moroso"
+            - "registrar la pérdida de un préstamo"
+          pt-BR:
+            - "dar baixa em um empréstimo incobrável"
+            - "baixar um crédito não recuperável"
+            - "registrar a perda de um empréstimo"
+          ja:
+            - "回収不能のローンを償却する"
+            - "貸倒れのローンを償却"
+            - "ローン損失を計上"
+          nb:
+            - "avskriv et misligholdt lån"
+            - "før et lånetap"
+            - "nedskriv et uerholdelig lån"
+          ms:
+            - "hapus kira pinjaman ingkar bayar"
+            - "hapus kira pinjaman tak terkutip"
+            - "rekod kerugian pinjaman"
       - label: "loans/get_preview_loan_account_schedule"
         description: "Preview loan account schedule for non-existent loan account"
         operationId: "getPreviewLoanAccountSchedule"
@@ -2274,6 +3851,24 @@ apis:
             - "buscar cuentas de préstamo"
             - "filtrar préstamos por cliente"
             - "encontrar préstamos de este prestatario"
+          pt-BR:
+            - "buscar contas de empréstimo"
+            - "filtrar empréstimos por cliente"
+            - "encontrar empréstimos deste tomador"
+          ja:
+            - "ローン口座を検索"
+            - "条件でローンを絞り込む"
+            - "顧客でローンを検索"
+          nb:
+            - "søk i lånekontoer"
+            - "finn lånekontoer etter filter"
+            - "finn alle lån for denne låntakeren"
+            - "søk lån etter kunde"
+          ms:
+            - "cari akaun pinjaman"
+            - "cari akaun pinjaman mengikut tapisan"
+            - "cari semua pinjaman peminjam ini"
+            - "cari pinjaman mengikut pelanggan"
   - id: "notification_settings_webhook"
     name: "Notification Settings"
     specLocation: "json/notificationsettings_webhook_v2_swagger.json"
@@ -2570,26 +4165,167 @@ apis:
             - "listar tareas de flujo de trabajo asignadas al personal"
             - "mostrar pendientes encolados para seguimiento"
             - "bandeja de tareas por completar"
+          pt-BR:
+            - "listar tarefas de fluxo de trabalho atribuídas à equipe"
+            - "mostrar pendências enfileiradas para acompanhamento"
+            - "caixa de tarefas a concluir"
+          ja:
+            - "担当者に割り当てられた未処理のタスク一覧"
+            - "キューに入った作業項目を表示"
+            - "フォローアップ用のタスク受信箱"
+          nb:
+            - "list utestående arbeidsoppgaver tildelt ansatte"
+            - "vis oppgaver i køen"
+            - "oppgaveinnboks for oppfølging"
+          ms:
+            - "senarai tugas aliran kerja tertunggak yang ditugaskan"
+            - "papar item tindakan dalam barisan"
+            - "peti masuk tugas untuk susulan"
       - label: "tasks/create"
         description: "Create task"
         operationId: "create"
         type: "CREATE"
+        prompts:
+          en:
+            - "create a new task"
+            - "assign a task to a colleague"
+            - "add a to-do item for follow-up"
+          es:
+            - "crear una nueva tarea"
+            - "asignar una tarea a un colega"
+            - "agregar un pendiente de seguimiento"
+          pt-BR:
+            - "criar uma nova tarefa"
+            - "atribuir uma tarefa a um colega"
+            - "adicionar uma pendência de acompanhamento"
+          ja:
+            - "新しいタスクを作成"
+            - "同僚にタスクを割り当てる"
+            - "フォローアップのToDoを追加"
+          nb:
+            - "opprett en ny oppgave"
+            - "tildel en oppgave til en kollega"
+            - "legg til et gjøremål for oppfølging"
+          ms:
+            - "cipta tugas baharu"
+            - "tugaskan tugas kepada rakan sekerja"
+            - "tambah item tindakan untuk susulan"
       - label: "tasks/delete"
         description: "Delete task"
         operationId: "delete"
         type: "DELETE"
+        prompts:
+          en:
+            - "delete a task"
+            - "remove a pending to-do"
+            - "discard a workflow task"
+          es:
+            - "eliminar una tarea"
+            - "quitar un pendiente"
+            - "descartar una tarea de flujo de trabajo"
+          pt-BR:
+            - "excluir uma tarefa"
+            - "remover uma pendência"
+            - "descartar uma tarefa de fluxo de trabalho"
+          ja:
+            - "タスクを削除"
+            - "保留中のToDoを削除"
+            - "ワークフロータスクを破棄"
+          nb:
+            - "slett en oppgave"
+            - "fjern et ventende gjøremål"
+            - "kast en arbeidsoppgave"
+          ms:
+            - "padam satu tugas"
+            - "buang tugas tertunggak"
+            - "lupus tugas aliran kerja"
       - label: "tasks/get_by_id"
         description: "Get task"
         operationId: "getById"
         type: "READ"
+        prompts:
+          en:
+            - "get a single task by its identifier"
+            - "retrieve one task by ID"
+            - "look up a specific task"
+          es:
+            - "obtener una tarea por su identificador"
+            - "recuperar una tarea por ID"
+            - "buscar una tarea específica"
+          pt-BR:
+            - "obter uma tarefa pelo identificador"
+            - "recuperar uma tarefa por ID"
+            - "buscar uma tarefa específica"
+          ja:
+            - "IDで単一のタスクを取得する"
+            - "IDでタスクを照会する"
+            - "特定のタスクを取得する"
+          nb:
+            - "hent en enkelt oppgave etter id"
+            - "hent én oppgave etter ID"
+            - "slå opp en bestemt oppgave"
+          ms:
+            - "dapatkan satu tugas mengikut pengecam"
+            - "dapatkan satu tugas mengikut ID"
+            - "cari tugas tertentu"
       - label: "tasks/patch"
         description: "Partially update task"
         operationId: "patch"
         type: "UPDATE"
+        prompts:
+          en:
+            - "mark a task as done"
+            - "update a task's status"
+            - "complete a workflow task"
+          es:
+            - "marcar una tarea como hecha"
+            - "actualizar el estado de una tarea"
+            - "completar una tarea de flujo de trabajo"
+          pt-BR:
+            - "marcar uma tarefa como feita"
+            - "atualizar o status de uma tarefa"
+            - "concluir uma tarefa de fluxo de trabalho"
+          ja:
+            - "タスクを完了にする"
+            - "タスクのステータスを更新"
+            - "ワークフロータスクを完了"
+          nb:
+            - "merk en oppgave som ferdig"
+            - "oppdater statusen på en oppgave"
+            - "fullfør en arbeidsoppgave"
+          ms:
+            - "tanda tugas sebagai siap"
+            - "kemas kini status tugas"
+            - "selesaikan tugas aliran kerja"
       - label: "tasks/update"
         description: "Update task"
         operationId: "update"
         type: "UPDATE"
+        prompts:
+          en:
+            - "update a task"
+            - "modify a workflow task"
+            - "change task details"
+          es:
+            - "actualizar una tarea"
+            - "modificar una tarea de flujo de trabajo"
+            - "cambiar los detalles de una tarea"
+          pt-BR:
+            - "atualizar uma tarefa"
+            - "modificar uma tarefa de fluxo de trabalho"
+            - "alterar os detalhes de uma tarefa"
+          ja:
+            - "タスクを更新"
+            - "ワークフロータスクを変更"
+            - "タスクの詳細を変更"
+          nb:
+            - "oppdater en oppgave"
+            - "endre en arbeidsoppgave"
+            - "endre oppgavedetaljer"
+          ms:
+            - "kemas kini tugas"
+            - "ubah tugas aliran kerja"
+            - "tukar butiran tugas"
   - id: "templates"
     name: "Templates"
     specLocation: "json/templates_v2_swagger.json"
@@ -2605,7 +4341,7 @@ apis:
       #- label: "templates/delete"
       #  description: "Delete an existing template"
       #  operationId: "delete"
-      - label: "templates/get_by_template_id"
+      - label: "templates/get_by_id"
         description: "Get template by id"
         operationId: "getByTemplateId"
         type: "READ"
@@ -2634,6 +4370,22 @@ apis:
             - "listar roles de permisos asignables a cuentas de personal"
             - "definiciones de rol de usuario disponibles"
             - "catálogo de niveles de acceso del personal"
+          pt-BR:
+            - "listar papéis de permissão atribuíveis a contas da equipe"
+            - "definições de papel de usuário disponíveis"
+            - "catálogo de níveis de acesso da equipe"
+          ja:
+            - "職員アカウントに割り当て可能な権限ロールの一覧"
+            - "利用可能なユーザー役割の定義"
+            - "スタッフのアクセスレベル一覧"
+          nb:
+            - "list tilgangsroller som kan tildeles ansatte"
+            - "tilgjengelige brukerrolledefinisjoner"
+            - "katalog over tilgangsnivåer"
+          ms:
+            - "senarai peranan kebenaran untuk akaun kakitangan"
+            - "definisi peranan pengguna tersedia"
+            - "katalog tahap akses kakitangan"
       # Disabled: write op (IAM role CRUD is admin-only).
       #- label: "user_roles/create"
       #  description: "Create user role"
@@ -2646,6 +4398,31 @@ apis:
         description: "Get user role"
         operationId: "getById"
         type: "READ"
+        prompts:
+          en:
+            - "get a user role by its identifier"
+            - "retrieve a single user role by ID"
+            - "look up one specific permission role"
+          es:
+            - "obtener un rol de usuario por su identificador"
+            - "recuperar un rol de usuario por ID"
+            - "buscar un rol de permisos específico"
+          pt-BR:
+            - "obter um papel de usuário pelo identificador"
+            - "recuperar um papel de usuário por ID"
+            - "buscar um papel de permissão específico"
+          ja:
+            - "IDでユーザーの役割を取得する"
+            - "IDで単一のユーザーロールを照会する"
+            - "特定の権限ロールを取得する"
+          nb:
+            - "hent en brukerrolle etter id"
+            - "hent én brukerrolle etter ID"
+            - "slå opp en bestemt tilgangsrolle"
+          ms:
+            - "dapatkan satu peranan pengguna mengikut pengecam"
+            - "dapatkan satu peranan pengguna mengikut ID"
+            - "cari satu peranan kebenaran tertentu"
       # Disabled: write op (IAM role CRUD is admin-only).
       #- label: "user_roles/patch"
       #  description: "Partially update user role"
@@ -2675,10 +4452,54 @@ apis:
             - "listar cuentas de usuarios internos del personal"
             - "empleados con acceso a la plataforma"
             - "nómina de usuarios del personal del sistema"
-      # Disabled: write op (staff account CRUD is admin-only).
-      #- label: "users/create"
-      #  description: "Create user"
-      #  operationId: "create"
+          pt-BR:
+            - "listar contas de usuários internos da equipe"
+            - "funcionários com acesso à plataforma"
+            - "lista de usuários da equipe do sistema"
+          ja:
+            - "システムの内部職員ユーザーアカウントの一覧"
+            - "プラットフォームにアクセスできる職員"
+            - "スタッフユーザーの名簿"
+          nb:
+            - "list interne ansattbrukere i systemet"
+            - "ansatte med tilgang til plattformen"
+            - "oversikt over Mambu-ansatte"
+          ms:
+            - "senarai akaun pengguna kakitangan dalaman"
+            - "kakitangan yang mempunyai akses ke platform"
+            - "senarai pengguna kakitangan Mambu"
+      # Indexed so search-quality eval can measure it, but hidden at runtime by
+      # the read-only default access policy (write ops aren't in the include
+      # allow-list). A deployment exposes it via ACCESS_DEFAULT=allow.
+      - label: "users/create"
+        description: "Create user"
+        operationId: "create"
+        type: "CREATE"
+        prompts:
+          en:
+            - "register a new staff user account"
+            - "provision an internal employee login"
+            - "set up a new system user"
+          es:
+            - "registrar una nueva cuenta de usuario de personal"
+            - "provisionar un acceso de empleado interno"
+            - "crear un nuevo usuario del sistema"
+          pt-BR:
+            - "registrar uma nova conta de usuário da equipe"
+            - "provisionar um acesso de funcionário interno"
+            - "criar um novo usuário do sistema"
+          ja:
+            - "新しい職員ユーザーアカウントを登録"
+            - "内部従業員のログインを発行"
+            - "新規システムユーザーを設定"
+          nb:
+            - "registrer en ny ansattbruker"
+            - "opprett en intern medarbeiderpålogging"
+            - "sett opp en ny systembruker"
+          ms:
+            - "daftar akaun pengguna kakitangan baharu"
+            - "sediakan log masuk pekerja dalaman"
+            - "wujudkan pengguna sistem baharu"
       # Disabled: write op (staff account CRUD is admin-only).
       #- label: "users/delete"
       #  description: "Delete user"
@@ -2687,6 +4508,31 @@ apis:
         description: "Get user"
         operationId: "getById"
         type: "READ"
+        prompts:
+          en:
+            - "look up a single staff member by id"
+            - "profile of one specific employee"
+            - "details of an individual user account"
+          es:
+            - "consultar un empleado específico por identificador"
+            - "perfil de un solo usuario del personal"
+            - "detalles de una cuenta de usuario individual"
+          pt-BR:
+            - "consultar um funcionário específico por identificador"
+            - "perfil de um único usuário da equipe"
+            - "detalhes de uma conta de usuário individual"
+          ja:
+            - "IDで職員を照会"
+            - "特定の従業員のプロフィール"
+            - "個別のユーザーアカウントの詳細"
+          nb:
+            - "slå opp én ansatt etter id"
+            - "profil for én bestemt medarbeider"
+            - "detaljer om en enkelt brukerkonto"
+          ms:
+            - "cari seorang kakitangan mengikut id"
+            - "profil seorang pekerja tertentu"
+            - "butiran satu akaun pengguna"
       # Disabled: write op (staff account CRUD is admin-only).
       #- label: "users/patch"
       #  description: "Partially update user"
